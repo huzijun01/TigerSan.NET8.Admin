@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using TigerSan.NET8.WebApi.Attributes;
-using TigerSan.NET8.WebApi.Share.Dtos;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
 
@@ -20,7 +20,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("CoordCount")]
         /// <summary>获取“坐标”总数</summary>
-        public async Task<MyActionResult<int>> GetC‌oordCount(
+        public async Task<ApiResult<int>> GetC‌oordCount(
             long station,
             DateTime? start = null,
             DateTime? end = null,
@@ -33,7 +33,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("Path")]
         /// <summary>获取“路径”</summary>
-        public async Task<MyActionResult<List<StationRecordEntity>>> GetPath(
+        public async Task<ApiResult<List<StationRecordEntity>>> GetPath(
             long station,
             int? pageSize = null,
             int? pageNumber = 1,

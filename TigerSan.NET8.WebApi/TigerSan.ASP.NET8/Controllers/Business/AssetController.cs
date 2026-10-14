@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using TigerSan.NET8.WebApi.Attributes;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Dtos;
-using TigerSan.NET8.WebApi.Share.Helpers;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
 
@@ -21,7 +21,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("Full")]
         /// <summary>根据“id”或“assetId”或“rfid”获取“单条完整数据”</summary>
-        public async Task<MyActionResult<AssetDto>> GetFull(
+        public async Task<ApiResult<AssetDto>> GetFull(
             long? id = null,
             string? assetId = null,
             string? rfid = null)
@@ -33,7 +33,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("ByRFID/{rfid}")]
         /// <summary>根据“RFID”获取“单条数据”</summary>
-        public async Task<MyActionResult<AssetEntity>> GetByRFID(string rfid)
+        public async Task<ApiResult<AssetEntity>> GetByRFID(string rfid)
         {
             return await _service.GetByRFID(rfid);
         }
@@ -41,7 +41,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("FullList")]
         /// <summary>获取“完整数据”集合</summary>
-        public async Task<MyActionResult<List<AssetDto>>> GetFullList(
+        public async Task<ApiResult<List<AssetDto>>> GetFullList(
             int? pageSize = null,
             int? pageNumber = null,
             string? sort = null,
@@ -54,7 +54,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("IdAssetIdList")]
         /// <summary>获取“ID资产ID对”集合</summary>
-        public async Task<MyActionResult<List<IdValue<string>>>> GetIdAssetIdList(bool? isDistinct = null, [FromBody] FilterDto? filter = null)
+        public async Task<ApiResult<List<IdValue<string>>>> GetIdAssetIdList(bool? isDistinct = null, [FromBody] FilterDto? filter = null)
         {
             return await _service.SelectIdValue(i => i.AssetId, isDistinct, filter);
         }
@@ -62,7 +62,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("Position/{asset}")]
         /// <summary>获取“位置”</summary>
-        public async Task<MyActionResult<PositionDto>> GetPosition(long asset)
+        public async Task<ApiResult<PositionDto>> GetPosition(long asset)
         {
             return await _service.GetPosition(asset);
         }
@@ -70,7 +70,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("PositionList")]
         /// <summary>获取“位置”集合</summary>
-        public async Task<MyActionResult<List<PositionDto>>> GetPositionList(
+        public async Task<ApiResult<List<PositionDto>>> GetPositionList(
             string? rfid = null,
             int? pageSize = null,
             int? pageNumber = null,
@@ -84,7 +84,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("TravelCounts")]
         /// <summary>获取“流转”时长分布</summary>
-        public async Task<MyActionResult<AssetCountDto>> GetTravelCounts([FromBody] List<long> companies)
+        public async Task<ApiResult<AssetCountDto>> GetTravelCounts([FromBody] List<long> companies)
         {
             return await _service.GetTravelCounts(companies);
         }
@@ -92,7 +92,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("StayCounts")]
         /// <summary>获取“停留”时长分布</summary>
-        public async Task<MyActionResult<AssetCountDto>> GetStayCounts([FromBody] List<long> companies)
+        public async Task<ApiResult<AssetCountDto>> GetStayCounts([FromBody] List<long> companies)
         {
             return await _service.GetStayCounts(companies);
         }
@@ -142,7 +142,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPut]
         [Route("Inbound")]
         /// <summary>入库</summary>
-        public async Task<MyActionResult<object>> Inbound([FromBody] List<long> ids)
+        public async Task<ApiResult<object>> Inbound([FromBody] List<long> ids)
         {
             return await _service.Inbound(ids);
         }
@@ -150,7 +150,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPut]
         [Route("Outbound/{site}")]
         /// <summary>出库</summary>
-        public async Task<MyActionResult<object>> Outbound(long site, [FromBody] List<long> ids)
+        public async Task<ApiResult<object>> Outbound(long site, [FromBody] List<long> ids)
         {
             return await _service.Outbound(site, ids);
         }

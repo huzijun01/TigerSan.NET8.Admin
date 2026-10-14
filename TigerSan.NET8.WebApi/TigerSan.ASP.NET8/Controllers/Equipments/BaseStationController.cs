@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using TigerSan.NET8.WebApi.Attributes;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Dtos;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
@@ -20,7 +21,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("ByMacAddr/{macAddr}")]
         /// <summary>根据“MAC地址”获取“单条数据”</summary>
-        public async Task<MyActionResult<BaseStationEntity>> GetByMacAddr(string macAddr)
+        public async Task<ApiResult<BaseStationEntity>> GetByMacAddr(string macAddr)
         {
             return await _service.GetByMacAddr(macAddr);
         }
@@ -28,7 +29,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("Full")]
         /// <summary>根据“ID”或“MAC地址”获取“单条完整数据”</summary>
-        public async Task<MyActionResult<BaseStationDto>> GetFull(long? id = null, string? macAddr = null)
+        public async Task<ApiResult<BaseStationDto>> GetFull(long? id = null, string? macAddr = null)
         {
             if (AccessibleCompanyIds == null) return MyResults<BaseStationDto>.AccessibleCompaniesCannotBeNull;
             return await _service.GetFull(AccessibleCompanyIds, id, macAddr);
@@ -37,7 +38,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("FullList")]
         /// <summary>获取“完整数据”集合</summary>
-        public async Task<MyActionResult<List<BaseStationDto>>> GetFullList(
+        public async Task<ApiResult<List<BaseStationDto>>> GetFullList(
             int? pageSize = null,
             int? pageNumber = null,
             string? sort = null,
@@ -50,7 +51,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("BelongCompanyList")]
         /// <summary>获取“所属公司”集合</summary>
-        public async Task<MyActionResult<List<IdName>>> GetBelongCompanyList()
+        public async Task<ApiResult<List<IdName>>> GetBelongCompanyList()
         {
             return await _service.GetBelongCompanyList(AccessibleCompanies);
         }
@@ -58,7 +59,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("BelongSiteList")]
         /// <summary>获取“所属场地”集合</summary>
-        public async Task<MyActionResult<List<IdName>>> BelongSiteList(long? company = null)
+        public async Task<ApiResult<List<IdName>>> BelongSiteList(long? company = null)
         {
             return await _service.GetBelongSiteList(company);
         }
@@ -66,7 +67,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("BelongStationTypeList")]
         /// <summary>获取“所属场地”集合</summary>
-        public async Task<MyActionResult<List<IdName>>> BelongStationTypeList(long? company = null, long? site = null)
+        public async Task<ApiResult<List<IdName>>> BelongStationTypeList(long? company = null, long? site = null)
         {
             return await _service.GetBelongStationTypeList(company, site);
         }
@@ -74,7 +75,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("Position/{station}")]
         /// <summary>获取“位置”</summary>
-        public async Task<MyActionResult<PositionDto>> GetPosition(long station)
+        public async Task<ApiResult<PositionDto>> GetPosition(long station)
         {
             return await _service.GetPosition(station);
         }
@@ -82,7 +83,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("PositionList")]
         /// <summary>获取“位置”集合</summary>
-        public async Task<MyActionResult<List<PositionDto>>> GetPositionList(
+        public async Task<ApiResult<List<PositionDto>>> GetPositionList(
             int? pageSize = null,
             int? pageNumber = null,
             string? sort = null,

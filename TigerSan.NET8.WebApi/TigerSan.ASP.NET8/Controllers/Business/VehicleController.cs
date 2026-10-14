@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using TigerSan.NET8.WebApi.Attributes;
-using TigerSan.NET8.WebApi.Share.Dtos;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
 
@@ -19,7 +19,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("SelectIdPlate")]
         /// <summary>获取“ID名称对”集合</summary>
-        public virtual async Task<MyActionResult<List<IdName>>> SelectIdName([FromBody] FilterDto? filter = null)
+        public virtual async Task<ApiResult<List<IdName>>> SelectIdName([FromBody] FilterDto? filter = null)
         {
             return await _service.SelectIdPlate(filter);
         }

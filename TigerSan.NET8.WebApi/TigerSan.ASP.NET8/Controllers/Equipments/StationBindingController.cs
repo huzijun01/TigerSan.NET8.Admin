@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Dtos;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
@@ -18,7 +20,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("Last")]
         /// <summary>获取“完整数据”集合</summary>
-        public async Task<MyActionResult<StationBindingEntity>> GetLast(long? station = null, long? tag = null)
+        public async Task<ApiResult<StationBindingEntity>> GetLast(long? station = null, long? tag = null)
         {
             return await _service.GetLast(station, tag);
         }
@@ -26,7 +28,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("FullList")]
         /// <summary>获取“完整数据”集合</summary>
-        public async Task<MyActionResult<List<StationBindingDto>>> GetFullList(
+        public async Task<ApiResult<List<StationBindingDto>>> GetFullList(
             int? pageSize = null,
             int? pageNumber = null,
             string? sort = null,

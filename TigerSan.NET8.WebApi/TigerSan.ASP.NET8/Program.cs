@@ -1,3 +1,4 @@
+using TigerSan.WebApi.Base;
 using TigerSan.NET8.WebApi.Helpers;
 using TigerSan.NET8.WebApi.Extensions;
 using TigerSan.NET8.WebApi.Interfaces.Models;

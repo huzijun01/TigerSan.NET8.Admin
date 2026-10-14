@@ -1,8 +1,10 @@
-﻿using TigerSan.NET8.WebApi.Share;
-using TigerSan.NET8.WebApi.Filters;
+﻿using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
+using TigerSan.NET8.WebApi.Share;
 using TigerSan.NET8.WebApi.Helpers;
 using TigerSan.NET8.WebApi.Services.Models;
 using TigerSan.NET8.WebApi.Interfaces.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TigerSan.NET8.WebApi.Extensions
 {
@@ -11,9 +13,7 @@ namespace TigerSan.NET8.WebApi.Extensions
         #region 添加“过滤器”
         public static void AddFilters(this WebApplicationBuilder builder)
         {
-            var services = builder.Services;
-
-            services.AddControllersWithViews(option =>
+            builder.Services.AddControllersWithViews(option =>
             {
                 option.Filters.Add<ApiAuthorizeFilter>();
                 option.Filters.Add<CompanyFilter>();
@@ -60,16 +60,28 @@ namespace TigerSan.NET8.WebApi.Extensions
         #region 注册“服务”
         public static void RegisterServices(this IServiceCollection services)
         {
-            // BaseSettings:
-            services.AddTransient<IAdminService, AdminService>();
-            services.AddTransient<IAuthorityService, AuthorityService>();
-            services.AddTransient<ICompanyService, CompanyService>();
+            // Base:
+            services.AddTransient<IAdminService, AdminService<AppDbContext>>();
+            services.AddTransient<IAuthorityService, AuthorityService<AppDbContext>>();
+            services.AddTransient<ICompanyService, CompanyService<AppDbContext>>();
+            services.AddTransient<IDepartmentService, DepartmentService<AppDbContext>>();
+            services.AddTransient<IPersonService, PersonService<AppDbContext>>();
+            services.AddTransient<IRoleService, RoleService<AppDbContext>>();
+            services.AddTransient<IUserService, UserService<AppDbContext>>();
             services.AddTransient<IFileService, FileService>();
-            services.AddTransient<IDepartmentService, DepartmentService>();
-            services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IRoleService, RoleService>();
+            CompanyService<AppDbContext>._beforeDelete = async (db, id) =>
+            {
+                await db.AssetStateRecords.Where(i => i.Company == id).ExecuteDeleteAsync();
+                return ApiResults<object>.OperationSuccess;
+            };
+            CompanyService<AppDbContext>._beforeRangeDelete = async (db, ids) =>
+            {
+                await db.AssetStateRecords.Where(i => ids.Contains(i.Company)).ExecuteDeleteAsync();
+                return ApiResults<object>.OperationSuccess;
+            };
+
+            // BaseSettings:
             services.AddTransient<ISiteService, SiteService>();
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBatchService, BatchService>();
             // Business:
             services.AddTransient<IAssetService, AssetService>();

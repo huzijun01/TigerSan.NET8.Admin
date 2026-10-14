@@ -1,13 +1,7 @@
-﻿namespace TigerSan.NET8.WebApi.Share.Dtos
-{
-    public class MqttConnection
-    {
-        public string ServerUrl { get; set; } = string.Empty;
-        public string ClientId { get; set; } = string.Empty;
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
+﻿using TigerSan.WebApi.Base;
 
+namespace TigerSan.NET8.WebApi.Share.Dtos
+{
     public class AppSettings
     {
         public string ListenUrl { get; set; } = string.Empty;

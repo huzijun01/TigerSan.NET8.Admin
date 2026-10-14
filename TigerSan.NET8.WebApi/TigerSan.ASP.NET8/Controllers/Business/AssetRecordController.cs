@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TigerSan.CsvLog;
+using TigerSan.WebApi.Base;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share;
 using TigerSan.NET8.WebApi.Helpers;
-using TigerSan.NET8.WebApi.Attributes;
 using TigerSan.NET8.WebApi.Share.Dtos;
-using TigerSan.NET8.WebApi.Share.Helpers;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Share.Packages;
 using TigerSan.NET8.WebApi.Interfaces.Models;
@@ -38,7 +38,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("Last")]
         /// <summary>获取“最新数据”</summary>
-        public async Task<MyActionResult<AssetRecordEntity>> GetLast(long asset)
+        public async Task<ApiResult<AssetRecordEntity>> GetLast(long asset)
         {
             return await _service.GetLast(asset);
         }
@@ -46,7 +46,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("FullLast")]
         /// <summary>获取“最新完整数据”</summary>
-        public async Task<MyActionResult<AssetRecordDto>> GetFullLast(long asset)
+        public async Task<ApiResult<AssetRecordDto>> GetFullLast(long asset)
         {
             return await _service.GetFullLast(asset);
         }
@@ -54,7 +54,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("FullList")]
         /// <summary>获取“完整数据”集合</summary>
-        public async Task<MyActionResult<List<AssetRecordDto>>> GetFullList(
+        public async Task<ApiResult<List<AssetRecordDto>>> GetFullList(
             int? pageSize = null,
             int? pageNumber = null,
             string? sort = null,
@@ -68,7 +68,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("CoordCount")]
         /// <summary>获取“坐标”总数</summary>
-        public async Task<MyActionResult<int>> GetCoordCount(
+        public async Task<ApiResult<int>> GetCoordCount(
             long asset,
             DateTime? start = null,
             DateTime? end = null,
@@ -81,7 +81,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpPost]
         [Route("Path")]
         /// <summary>获取“路径”</summary>
-        public async Task<MyActionResult<List<LocationRecord>>> GetPath(
+        public async Task<ApiResult<List<LocationRecord>>> GetPath(
             long asset,
             int? pageSize = GlobalSettings.MaxCoordCount,
             int? pageNumber = 1,
@@ -97,7 +97,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         #region [增]
         [HttpPost("ByPackage")]
         /// <summary>添加“单条数据”</summary>
-        public async Task<MyActionResult<object>> AddByPackage([FromBody] AssetRecordEntity entity)
+        public async Task<ApiResult<object>> AddByPackage([FromBody] AssetRecordEntity entity)
         {
             var asset = (await _assetService.Get(entity.Asset)).Data;
             if (asset == null)

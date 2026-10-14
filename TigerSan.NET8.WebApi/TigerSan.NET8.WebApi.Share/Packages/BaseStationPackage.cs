@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using TigerSan.CsvLog;
-using TigerSan.NET8.WebApi.Share.Extensions;
+using TigerSan.WebApi.Base;
 
 namespace TigerSan.NET8.WebApi.Share.Packages
 {

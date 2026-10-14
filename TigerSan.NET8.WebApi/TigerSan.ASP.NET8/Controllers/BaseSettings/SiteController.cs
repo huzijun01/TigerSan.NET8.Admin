@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using TigerSan.NET8.WebApi.Attributes;
-using TigerSan.NET8.WebApi.Share.Dtos;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
+using TigerSan.WebApi.Base;
 
 namespace TigerSan.NET8.WebApi.Controllers
 {
@@ -20,7 +20,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("BelongCompanyList")]
         /// <summary>获取“所属公司”集合</summary>
-        public async Task<MyActionResult<List<IdName>>> GetBelongCompanyList()
+        public async Task<ApiResult<List<IdName>>> GetBelongCompanyList()
         {
             return await _service.GetBelongCompanyList(AccessibleCompanies);
         }
@@ -28,7 +28,7 @@ namespace TigerSan.NET8.WebApi.Controllers
         [HttpGet]
         [Route("BelongSiteTypeList")]
         /// <summary>获取“所属公司”集合</summary>
-        public async Task<MyActionResult<List<IdName>>> GetBelongSiteTypeList(long? company = null)
+        public async Task<ApiResult<List<IdName>>> GetBelongSiteTypeList(long? company = null)
         {
             return await _service.GetBelongSiteTypeList(company);
         }

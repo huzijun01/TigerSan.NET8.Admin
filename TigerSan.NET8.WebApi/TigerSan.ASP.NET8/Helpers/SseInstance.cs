@@ -1,9 +1,8 @@
 ﻿using TigerSan.CsvLog;
+using TigerSan.WebApi.Base;
 using TigerSan.NET8.WebApi.Share;
 using TigerSan.NET8.WebApi.Share.Dtos;
-using TigerSan.NET8.WebApi.Share.Helpers;
 using TigerSan.NET8.WebApi.Share.Packages;
-using TigerSan.NET8.WebApi.Share.Extensions;
 
 namespace TigerSan.NET8.WebApi.Helpers
 {
@@ -96,14 +95,14 @@ namespace TigerSan.NET8.WebApi.Helpers
         {
             _watchDog.FeedDog();
             _lastReportTime = DateTimeHelper.GetUtcNow();
-            await _packageChannel.Publish(data);
+            await _packageChannel.PublishAsync(data);
         }
         #endregion
 
         #region [DB]
         #region 修改“基站”和“标签”（蓝牙）
         /// <summary>修改“基站”和“标签”（蓝牙）</summary>
-        public static async Task<MyActionResult<object>> EditBaseStationAndTagAsync(BaseStationPackage package)
+        public static async Task<ApiResult<object>> EditBaseStationAndTagAsync(BaseStationPackage package)
         {
             if (_instance == null)
             {

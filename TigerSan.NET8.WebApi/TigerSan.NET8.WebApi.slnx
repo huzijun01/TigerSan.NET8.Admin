@@ -1,6 +1,8 @@
 <Solution>
   <Project Path="TigerSan.ASP.NET8/TigerSan.NET8.WebApi.csproj" />
+  <Project Path="TigerSan.NET8.EFCore.Base/TigerSan.NET8.EFCore.Base.csproj" Id="b14e6216-81c1-4578-928d-505d1a4e10a9" />
   <Project Path="TigerSan.NET8.WebApi.Interfaces/TigerSan.NET8.WebApi.Interfaces.csproj" Id="6f102734-8f75-40c5-9ac9-8095bf7065f6" />
   <Project Path="TigerSan.NET8.WebApi.Services/TigerSan.NET8.WebApi.Services.csproj" Id="8e2c55e7-d827-4024-bff3-8c8271a60029" />
   <Project Path="TigerSan.NET8.WebApi.Share/TigerSan.NET8.WebApi.Share.csproj" Id="a33d7282-35d7-4b26-9244-f866dcedd666" />
+  <Project Path="TigerSan.WebApi.Base/TigerSan.WebApi.Base.csproj" Id="11b17f05-18f3-47e1-9825-1fe136d45613" />
 </Solution>

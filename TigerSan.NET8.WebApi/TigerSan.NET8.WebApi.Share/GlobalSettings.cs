@@ -4,16 +4,6 @@
     {
         /// <summary>最大“坐标”页大小</summary>
         public const int MaxCoordCount = 200;
-        /// <summary>最大“文件”大小（MB）</summary>
-        public const long MaxFileSize = 200;
-        /// <summary>最大“图片”大小（MB）</summary>
-        public const long MaxImageSize = 2;
-        /// <summary>“文件”文件夹</summary>
-        public static readonly string DirFiles = Path.Combine(AppContext.BaseDirectory, "Files");
-        /// <summary>“图片”文件夹名称</summary>
-        public static readonly string DirImagesName = "Images";
-        /// <summary>“图片”文件夹</summary>
-        public static readonly string DirImages = Path.Combine(DirFiles, DirImagesName);
         /// <summary>“资产记录”保存天数</summary>
         public static double AssetRecordKeepDays = 60;
         /// <summary>“基站记录”保存天数</summary>
@@ -34,13 +24,7 @@
         public static double CalculationIntervalSeconds = 600;
         /// <summary>“在线状态”更新间隔（秒）</summary>
         public static double OnlineStateUpdater_IntervalSeconds = 60;
-        /// <summary>“Token”密钥</summary>
-        public static string SecretKey = TokenGenerator.GetSecretKey();
         /// <summary>“地图”秘钥</summary>
         public static string AMapKey = "10f335d7f69a5534a4b19a30282d896e";
-        /// <summary>“Token”有效期</summary>
-        public static TimeSpan TokenValidityPeriod = TimeSpan.FromDays(7);
-        /// <summary>“验证码”有效期</summary>
-        public static TimeSpan CaptchaValidityPeriod = TimeSpan.FromMinutes(3);
     }
 }

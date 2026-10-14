@@ -1,24 +1,18 @@
 ﻿using System.Globalization;
-using System.Threading.Channels;
 using TigerSan.CsvLog;
+using TigerSan.WebApi.Base;
 using TigerSan.TimerHelper;
 using TigerSan.NET8.WebApi.Share;
 using TigerSan.NET8.WebApi.Share.Dtos;
-using TigerSan.NET8.WebApi.Share.Helpers;
 using TigerSan.NET8.WebApi.Share.Packages;
 using TigerSan.NET8.WebApi.Share.Entities;
-using TigerSan.NET8.WebApi.Share.Extensions;
 using TigerSan.NET8.WebApi.Interfaces.Models;
 
 namespace TigerSan.NET8.WebApi.Helpers
 {
-    public class PackageChannel
+    public class PackageChannel : ChannelBase<string>
     {
         #region 【Fields】
-        /// <summary>管道</summary>
-        private readonly Channel<string> _channel;
-        /// <summary>批量阈值</summary>
-        private const int BatchSize = 1000;
         /// <summary>服务提供者</summary>
         private IServiceProvider _serviceProvider;
         /// <summary>“在线状态”更新定时器</summary>
@@ -43,16 +37,7 @@ namespace TigerSan.NET8.WebApi.Helpers
         {
             _serviceProvider = serviceProvider;
             _onlineStateUpdater._action = UpdateOnlineState;
-
-            // 配置单消费者模式，极致压榨无锁性能 
-            _channel = Channel.CreateBounded<string>(new BoundedChannelOptions(50000)
-            {
-                SingleReader = true,
-                FullMode = BoundedChannelFullMode.DropOldest
-            }, droppedItem =>
-            {
-                LogHelper.Instance.Warning($"Channel is full. Dropping oldest item: {droppedItem}");
-            });
+            _processAsync = buffer => SaveToDbAsync(buffer);
         }
         #endregion 【Ctor】
 
@@ -161,34 +146,6 @@ namespace TigerSan.NET8.WebApi.Helpers
         #endregion
         #endregion [Private]
 
-        #region [管道]
-        #region 生产
-        /// <summary>生产</summary>
-        public async ValueTask Publish(string data) => await _channel.Writer.WriteAsync(data);
-        #endregion
-
-        #region 消费
-        /// <summary>消费</summary>
-        public async Task StartProcessingAsync(CancellationToken ct)
-        {
-            var buffer = new List<string>(BatchSize);
-            while (await _channel.Reader.WaitToReadAsync(ct))
-            {
-                while (buffer.Count < BatchSize && _channel.Reader.TryRead(out var item))
-                {
-                    buffer.Add(item);
-                }
-
-                if (buffer.Any())
-                {
-                    await SaveToDbAsync(buffer);
-                    buffer.Clear();
-                }
-            }
-        }
-        #endregion
-        #endregion [管道]
-
         #region [DB]
         #region 保存到DB
         /// <summary>保存到DB</summary>
@@ -238,7 +195,7 @@ namespace TigerSan.NET8.WebApi.Helpers
 
         #region 修改“基站”和“蓝牙标签”
         /// <summary>修改“基站”和“蓝牙标签”</summary>
-        public async Task<MyActionResult<object>> EditBaseStationAndTagAsync(BaseStationPackage package)
+        public async Task<ApiResult<object>> EditBaseStationAndTagAsync(BaseStationPackage package)
         {
             var tagService = TagService;
             var baseStationService = BaseStationService;
@@ -341,7 +298,7 @@ namespace TigerSan.NET8.WebApi.Helpers
 
         #region 修改“4G定位器”
         /// <summary>修改“4G定位器”</summary>
-        public async Task<MyActionResult<object>> EditLocator4gAsync(Locator4gPackage package)
+        public async Task<ApiResult<object>> EditLocator4gAsync(Locator4gPackage package)
         {
             var tagService = TagService;
 

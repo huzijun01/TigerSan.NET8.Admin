@@ -1,8 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using TigerSan.CsvLog;
+using TigerSan.WebApi.Base;
 using TigerSan.NET8.WebApi.Share.Dtos;
-using TigerSan.NET8.WebApi.Share.Helpers;
-using TigerSan.NET8.WebApi.Share.Extensions;
 
 namespace TigerSan.NET8.WebApi.Share
 {
@@ -42,7 +41,7 @@ namespace TigerSan.NET8.WebApi.Share
 
         #region 【Functions】
         #region 推送“标签数据”
-        public static async Task<MyActionResult<object>> PushTagDtoAsync(TagDto tag)
+        public static async Task<ApiResult<object>> PushTagDtoAsync(TagDto tag)
         {
             try
             {

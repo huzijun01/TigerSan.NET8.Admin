@@ -1,4 +1,4 @@
-using TigerSan.NET8.WebApi.Attributes;
+using TigerSan.NET8.EFCore.Base;
 using TigerSan.NET8.WebApi.Share.Entities;
 using TigerSan.NET8.WebApi.Interfaces.Models;
 
