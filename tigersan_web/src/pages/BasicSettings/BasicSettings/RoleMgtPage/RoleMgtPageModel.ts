@@ -4,7 +4,7 @@ import { useUserInfo } from '@/stores'
 import { roleMgtTable } from './RoleMgtTable'
 import { companyHelper, roleHelper, departmentHelper, RoleAuthorityEntity } from '@/models'
 
-export class RoleMgtForm {
+export class RoleMgtPageModel {
     //#region 【Fields】
     /** “权限助手”实例 */
     readonly authorityHelperForm = new AuthorityHelper()
@@ -70,7 +70,7 @@ export class RoleMgtForm {
     readonly AddGetSource = () => new RoleAuthorityEntity()
 
     /** “角色”表单配置 */
-    readonly configRoleMgtForm: FormConfig<RoleAuthorityEntity> = {
+    readonly configRoleMgtPageModel: FormConfig<RoleAuthorityEntity> = {
         _itemConfigs: [
             this.configCompany,
             this.configDepartment,
@@ -119,7 +119,7 @@ export class RoleMgtForm {
     }
 
     /** “角色”表单模型 */
-    readonly roleForm = new FormModel(this.configRoleMgtForm)
+    readonly roleForm = new FormModel(this.configRoleMgtPageModel)
     //#endregion 【Fields】
 
     //#region 【Ctor】

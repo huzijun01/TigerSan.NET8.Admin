@@ -27,11 +27,11 @@ namespace TigerSan.NET8.EFCore.Base
         public TIIdService _service;
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         public UserInfo? UserInfo { get; set; }
         public List<CompanyEntity>? AccessibleCompanies { get; set; }
         public List<long>? AccessibleCompanyIds { get => AccessibleCompanies?.Select(i => i.Id).ToList(); }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public IdControllerBase(TIIdService service)

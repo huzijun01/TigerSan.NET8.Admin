@@ -22,10 +22,10 @@ namespace TigerSan.NET8.EFCore.Base
         protected readonly static DbSetConfig _dbSetConfig = new DbSetConfig(typeof(TEntity), DbContextBase<TDbContext>.GetDbSetName(typeof(DbSet<TEntity>)));
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         /// <summary>“当前表”配置</summary>
         public DbSetConfig DbSetConfig { get => _dbSetConfig; }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public IdServiceBase(TDbContext db, DbSet<TEntity> dbSet)

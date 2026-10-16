@@ -15,7 +15,7 @@ namespace TigerSan.WebApi.Base
     #region 结果
     public class ApiResult<TData>
     {
-        #region 【Properties】
+        #region 【Props】
         #region [引用]
         public bool IsSuccess { get => Code == ApiResultCode.Success; }
         public bool IsWarning { get => Code == ApiResultCode.Warning; }
@@ -28,7 +28,7 @@ namespace TigerSan.WebApi.Base
         public string Message { get; set; } = string.Empty;
         /// <summary>数据</summary>
         public TData? Data { get; set; } = default!;
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public ApiResult()

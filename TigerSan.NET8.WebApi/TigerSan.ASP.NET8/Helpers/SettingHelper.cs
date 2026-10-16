@@ -10,9 +10,9 @@ namespace TigerSan.NET8.WebApi.Helpers
         private static AppSettings _appSettings = new AppSettings();
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         public static AppSettings AppSettings { get => Get(); }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Functions】
         #region [private]

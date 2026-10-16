@@ -15,14 +15,14 @@ namespace TigerSan.NET8.EFCore.Base
         public static readonly Dictionary<string, PropertyInfo> _dbSetProps = GetDbSetProps();
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         public DbSet<AdminEntity> Admins { get; set; }
         public DbSet<AuthorityEntity> Authorities { get; set; }
         public DbSet<CompanyEntity> Companies { get; set; }
         public DbSet<DepartmentEntity> Departments { get; set; }
         public DbSet<PersonEntity> Persons { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public DbContextBase(string connectionString, Version? version = null)

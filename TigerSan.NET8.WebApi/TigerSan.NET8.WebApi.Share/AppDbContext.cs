@@ -7,7 +7,7 @@ namespace TigerSan.NET8.WebApi.Share
 {
     public class AppDbContext : DbContextBase<AppDbContext>
     {
-        #region 【Properties】
+        #region 【Props】
         // BaseSettings:
         public DbSet<SiteEntity> Sites { get; set; }
         public DbSet<BatchEntity> Batches { get; set; }
@@ -30,7 +30,7 @@ namespace TigerSan.NET8.WebApi.Share
         public DbSet<StationBindingEntity> StationBindings { get; set; }
         public DbSet<StationRecordEntity> StationRecords { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public AppDbContext(AppSettings appSettings) : base(appSettings.ConnectionString)

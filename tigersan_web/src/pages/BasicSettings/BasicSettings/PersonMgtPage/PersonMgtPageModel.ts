@@ -3,7 +3,7 @@ import { Colors, DialogHelper, Verify, ObjectHelper, DialogMode, DialogState, Fo
 import { personMgtTable } from './PersonMgtTable'
 import { companyHelper, personHelper, departmentHelper, roleHelper, PersonEntity } from '@/models'
 
-export class PersonMgtForm {
+export class PersonMgtPageModel {
     //#region 【Fields】
     // 选择框:
     /** 筛选 */

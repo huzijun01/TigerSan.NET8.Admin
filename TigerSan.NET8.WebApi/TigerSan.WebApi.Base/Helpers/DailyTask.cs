@@ -19,9 +19,9 @@ namespace TigerSan.WebApi.Base
         public readonly AsyncAction? _actionAsync;
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         public bool IsStarted => _timer != null && !_isDisposed;
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public DailyTask(Action? action, AsyncAction? actionAsync)

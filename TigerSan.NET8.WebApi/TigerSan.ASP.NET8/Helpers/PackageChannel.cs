@@ -19,7 +19,7 @@ namespace TigerSan.NET8.WebApi.Helpers
         public ActionTimer _onlineStateUpdater = new ActionTimer(GlobalSettings.OnlineStateUpdater_IntervalSeconds * 1000, true);
         #endregion 【Fields】
 
-        #region 【Properties】
+        #region 【Props】
         /// <summary>“标签”服务</summary>
         private ITagService TagService { get => _serviceProvider.CreateScope().ServiceProvider.GetRequiredService<ITagService>(); }
         /// <summary>“场地”服务</summary>
@@ -30,7 +30,7 @@ namespace TigerSan.NET8.WebApi.Helpers
         private IAssetRecordService AssetRecordService { get => _serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IAssetRecordService>(); }
         /// <summary>“基站记录”服务</summary>
         private IStationRecordService StationRecordService { get => _serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStationRecordService>(); }
-        #endregion 【Properties】
+        #endregion 【Props】
 
         #region 【Ctor】
         public PackageChannel(IServiceProvider serviceProvider)

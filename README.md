@@ -1,297 +1,381 @@
 # Description:
 
-A Vue 3 UI library.
+A full-stack admin system built with Vue3 and .NET 8 WebApi, featuring 4-level permission control, data isolation, and file management.
 
-Supports theme switching and language switching.
+![preview1](https://github.com/huzijun01/TigerSan.NET8.Admin/blob/main/preview1.webp?raw=true)
 
-![preview](https://github.com/huzijun01/TigerSan.Web.UI/blob/main/preview.webp?raw=true)
+![preview2](https://github.com/huzijun01/TigerSan.NET8.Admin/blob/main/preview2.webp?raw=true)
 
 # About:
 
-## Personal Homepage:
+### Personal Homepage:
 
 bilibili: https://space.bilibili.com/34323512
 
-## GitHub:
-
-https://github.com/huzijun01/TigerSan.Web.UI
+# TigerSan.NET8.EFCore.Base:
 
-## NPM:
+## **Attributes**:
 
-https://www.npmjs.com/package/tigersan-ui
+### ApiAttributes:
 
-# How To Use:
+#### NotIdControllerAttribute:
 
-1\. Import CSS in the `main.ts`:
+The marked Controller will not add the company filter.
 
-```typescript
-import 'tigersan-ui/dist/tigersan-ui.css'
-```
+#### NeedAuthorizeAttribute:
 
-2\. Create `theme.css` in the `public` folder:
+Unmarked Controllers and Actions will default to authorization verification.
 
-```css
-/* 【主题】 */
-:root {
-  /* [主色] */
-  --theme-brand: var(--color-brand);
-  /* [前景] */
-  --theme-color: rgba(0, 0, 0, 0.85);
-  --theme-color-disabled: var(--color-disabled-text);
-  --theme-color-placeholder: var(--color-placeholder-text);
-  --theme-button-color-disabled: var(--color-foreground-disabled);
-  /* [背景] */
-  --theme-card-background: white;
-  --theme-panel-background: #f0f2f5;
-  --theme-input-background: white;
-  --theme-input-background-disabled: var(--color-black-10);
-  /* [边框] */
-  --theme-border: #d9d9d9;
-  --theme-border-hover: var(--theme-brand);
-  --theme-border-active: var(--theme-brand);
-  --theme-border-disabled: var(--color-dark-border);
-  --theme-border-divider: #E5E5E5;
-  /* [遮罩] */
-  --theme-mask-hover: var(--color-black-10);
-  --theme-mask-active: var(--color-black-50);
-  /* [链接] */
-  --theme-link-color: #34a1ff;
-  /* [按钮] */
-  --theme-button-color: var(--color-primary-text);
-  /* [导航] */
-  --theme-nav-color: var(--theme-color);
-  --theme-nav-color-hover: var(--theme-brand);
-  --theme-nav-color-selected: var(--theme-brand);
-  --theme-nav-background: var(--color-brand-25);
-  --theme-nav-item-background-hover: var(--color-black-25);
-  --theme-nav-item-background-selected: var(--color-brand-25);
-  --theme-nav-line-background: var(--color-black-25);
-  --theme-nav-logo-border-padding: 5px;
-  --theme-nav-logo-border-background: white;
-  --theme-nav-logo-border-radius: 0 30px 30px 0;
-  /* [表格] */
-  --theme-table-line-background: var(--color-black-25);
-  --theme-table-header-background: #fafafc;
-  --theme-table-row-background-selected: var(--color-brand-10);
-  /* [树] */
-  --theme-tree-node-background-active: var(--color-brand-25);
-  /* [弹窗] */
-  --theme-dialog-title-color: var(--color-primary-text);
-}
-```
+Marked Controllers and Actions, even if they contain the NoNeedAuthorizeAttribute attribute, will still undergo authorization verification.
 
-# Components:
+#### NoNeedAuthorizeAttribute:
 
-## Button:
+The marked Controller and Action do not perform authorization verification and do not add company filters.
 
-### IconButton
+#### FilterByCompanyAttribute:
 
-## Charts:
+The marked Controller will add the company filter.
 
-### EChart
+### SnakeColumnAttribute:
 
-### Pie
+A ColumnAttribute that can convert prop name into snake-case formatted string as column name.
 
-## Content:
+## **Controllers**:
 
-### Lottie
+### Admin:
 
-## Dashboard:
+#### AdminController:
 
-### CountCard
+#### AuthorityController:
 
-## Dialog:
+#### CompanyController:
 
-### Dialog
+#### DepartmentController:
 
-### Drawer
+#### PersonController:
 
-### ImagePreview
+#### RoleController:
 
-### Loading
+#### UserController:
 
-### Pop
+##### **Fields**:
 
-### PopWindow
+\_service
 
-### Toast
+##### **Functions**:
 
-### Toasts
+EditPassword
 
-## Drawer:
+Login
 
-### DrawerBox
+LoginByToken
 
-## Form:
+Logout
 
-### Form
+GetCaptcha
 
-### FormItem
+### Base:
 
-### FormRow
+#### IdControllerBase:
 
-### PopForm
+##### **Fields**:
 
-## Inputs:
+\_service
 
-### Upload
+##### **Props**:
 
-### Checkbox
+UserInfo
 
-### CheckboxGroup
+AccessibleCompanies
 
-### DatePicker
+AccessibleCompanyIds
 
-### Password
+##### **Functions**:
 
-### Search
+Get
 
-### Select
+GetCount
 
-### SelectMenu
+GetList
 
-### Switch
+Add
 
-### TextBox
+AddRange
 
-## Map:
+Edit
 
-### ClusterMarker
+EditRange
 
-### Map
+Remove
 
-### Marker
+RemoveRange
 
-## NavBar:
+#### IdNameControllerBase:
 
-### NavBar
+SelectIdName
 
-### NavButton
+#### IdNameRepeatableControllerBase:
 
-### NavFolder
+SelectIdName
 
-## Other:
+### File:
 
-### Beian
+#### FileController:
 
-## PageView:
+##### **Fields**:
 
-### DefaultPage
+\_service
 
-### PageButton
+##### **Functions**:
 
-### PageCard
+GetFileList
 
-### PageContent
+GetDirList
 
-### PageView
+GetPathList
 
-### RouterPage
+DownloadFile
 
-### TabView
+CreatDir
 
-## Pagination:
+UploadFile
 
-### KeyValue
+Delete
 
-### Pagination
+#### ImageController:
 
-### PaginationButton
+##### **Fields**:
 
-## Table:
+\_fileService
 
-### RowData
+##### **Functions**:
 
-### Table
+GetList
 
-### TableHeader
+Get
 
-### TableItem
+Upload
 
-## Tree:
+Delete
 
-### Arrow
+## **Dtos**:
 
-### Tree
+### DepartmentInfo:
 
-### TreeNode
+### FilterDto:
 
-# Helpers:
+### MyFileInfo:
 
-## AxiosHelper:
+### PasswordEdit:
 
-### AxiosBase
+### UserInfo:
 
-### AxiosHelper
+## **Entities**:
 
-## Behaviors:
+### Base:
 
-### CheckboxBehavior
+#### IdEntityBase:
 
-### ClickOutsideBehavior
+#### IdName:
 
-### ContentBehavior
+#### IdNameCompany:
 
-### ContentSizeBehavior
+### Others:
 
-### FolderBehavior
+#### AdminEntity:
 
-### LanguageBehavior
+#### AuthorityEntity:
 
-### SizeBehavior
+#### CompanyEntity:
 
-### WatchBehavior
+#### DepartmentEntity:
 
-## Other:
+#### PersonEntity:
 
-### ArrayHelper
+#### PersonFullEntity:
 
-### BigintHelper
+#### RoleAuthorityEntity:
 
-### ClassObserver
+#### RoleEntity:
 
-### ComponentHelper
+## **Extensions**:
 
-### ConfigBase
+### IdEntityBaseExtendion:
 
-### ConfigHelper
+#### UpdateId:
 
-### DomHelper
+### IQueryableExtendion:
 
-### MathHelper
+#### False:
 
-### ObjectHelper
+#### GetPage:
 
-### ParamHelper
+#### Sort:
 
-### PathHelper
+#### GetFilter:
 
-### RectHelper
+#### GetOnlyFilter:
 
-### StringHelper
+#### GetFilters:
 
-### ThemeHelper
+#### GetParentFilter:
 
-### TimerHelper
+#### GetParentIds:
 
-### TokenHelper
+## **Filters**:
 
-### Verify
+### ApiAuthorizeFilter:
 
-# Base:
+### CompanyFilter:
 
-## types:
+### LogFilterAttribute:
 
-### Int
+## **Filters**:
 
-## colors:
+### ApiAuthorizeFilter:
 
-### Theme
+### CompanyFilter:
 
-### Colors
+### LogFilterAttribute:
 
-## icon:
+## **Interfaces**:
 
-### Icons
+### Base:
 
-# Texts
+#### IIdNameCompanyServiceBase:
+
+#### IIdNameServiceBase:
+
+#### IIdServiceBase:
+
+#### IDbSetConfig:
+
+### Others:
+
+IAdminService, IAuthorityService, ICompanyService, IDepartmentService, IFileService, IPersonService, IRoleService, IUserService
+
+## **Interfaces**:
+
+### Services:
+
+#### Delegates:
+
+DbIdDelegate, DbIdsDelegate
+
+#### IdNameCompanyServiceBase:
+
+#### IdNameRepeatableServiceBase:
+
+#### IdNameServiceBase:
+
+#### IdServiceBase:
+
+### Others:
+
+AdminService, AuthorityService, CompanyService, DepartmentService, FileService, PersonService, RoleService, UserService
+
+## **Others**:
+
+### DbContextBase:
+
+#### Fields:
+
+\_version:
+
+\_connectionString:
+
+\_dbSetProps:
+
+#### Props:
+
+Admins:
+
+Authorities:
+
+Companies:
+
+Departments:
+
+Persons:
+
+Roles:
+
+#### Functions:
+
+GetDbSetName:
+
+GetDbSet:
+
+### DbResults:
+
+# TigerSan.WebApi.Base:
+
+## **Extensions**:
+
+### ActionContextExtension:
+
+### ExceptionExtension:
+
+### ObjectExtention:
+
+### StringExtension:
+
+## **Helpers**:
+
+### CaptchaCache:
+
+### ChannelBase:
+
+### ConnectInfo:
+
+### DailyTask:
+
+### DateTimeHelper:
+
+### FileHelper:
+
+### HttpHelper:
+
+### MapHelper:
+
+### MathHelper:
+
+### MemoryCacheHelper:
+
+### ObjectHelper:
+
+### SseHelper:
+
+### TreeHelper:
+
+### Uuid7Generator:
+
+### Verify:
+
+### WatchDog:
+
+## **Others**:
+
+### ApiResult:
+
+#### ApiResultCode:
+
+#### ApiResult:
+
+#### ApiResults:
+
+### GlobalBaseSettings:
+
+TokenValidityPeriod:
+
+CaptchaValidityPeriod:
+
+MaxFileSize:
+
+DirFiles:
+
+DirImagesName:
+
+DirImages:
+
+# END

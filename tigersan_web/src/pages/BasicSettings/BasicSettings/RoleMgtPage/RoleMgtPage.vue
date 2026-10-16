@@ -5,19 +5,19 @@
             <div class="top-panel flex-between">
                 <div class="filter-panel">
                     <div class="row-panel">
-                        <Select :model="form.selectCompany" />
-                        <Select :model="form.selectDepartment" />
+                        <Select :model="model.selectCompany" />
+                        <Select :model="model.selectDepartment" />
                     </div>
                 </div>
                 <div class="button-panel">
                     <div class="row-panel">
-                        <button class="bg-success" @click="form.Refresh">{{ Texts.Refresh.value }}</button>
-                        <button v-if="!Authorities.RoleMgtPage.IsReadonly.value" @click="form.Add">
+                        <button class="bg-success" @click="model.Refresh">{{ Texts.Refresh.value }}</button>
+                        <button v-if="!Authorities.RoleMgtPage.IsReadonly.value" @click="model.Add">
                             {{ Texts.Add.value }}</button>
                         <button v-if="!Authorities.RoleMgtPage.IsReadonly.value" class="bg-warning"
-                            :disabled="!IsAllowEdit" @click="form.Edit">{{ Texts.Edit.value }}</button>
+                            :disabled="!IsAllowEdit" @click="model.Edit">{{ Texts.Edit.value }}</button>
                         <button v-if="!Authorities.RoleMgtPage.IsReadonly.value" class="bg-danger"
-                            :disabled="!IsAllowEdit" @click="form.Delete">{{ Texts.Delete.value }}</button>
+                            :disabled="!IsAllowEdit" @click="model.Delete">{{ Texts.Delete.value }}</button>
                     </div>
                 </div>
             </div>
@@ -27,37 +27,37 @@
 
             <!-- 底部: -->
             <div class="bottom-panel flex-center ">
-                <Pagination :model="form.pagination" :selectedRowCount="roleMgtTable.SelectedRowCount.value" />
+                <Pagination :model="model.pagination" :selectedRowCount="roleMgtTable.SelectedRowCount.value" />
             </div>
         </div>
     </PageCard>
 
     <!-- 表单: -->
-    <PopForm :model="form.roleForm">
+    <PopForm :model="model.roleForm">
         <FormRow>
-            <FormItem :model="form.configCompany.ItemModel">
-                <Select :model="form.selectCompanyForm" />
+            <FormItem :model="model.configCompany.ItemModel">
+                <Select :model="model.selectCompanyForm" />
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configDepartment.ItemModel">
-                <Select :model="form.selectDepartmentForm" />
+            <FormItem :model="model.configDepartment.ItemModel">
+                <Select :model="model.selectDepartmentForm" />
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configName.ItemModel">
-                <input type="text" v-model="form.configName.Target.value">
+            <FormItem :model="model.configName.ItemModel">
+                <input type="text" v-model="model.configName.Target.value">
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configAuthorities.ItemModel">
-                <div class="readonly-panel flex-left" v-show="form.isShowIsReadonly.value">
+            <FormItem :model="model.configAuthorities.ItemModel">
+                <div class="readonly-panel flex-left" v-show="model.isShowIsReadonly.value">
                     <span class="text">{{ Texts.IsReadonly.value }}</span>
-                    <input type="checkbox" v-model="form.authorityHelperForm.IsReadonly.value"
-                        @change="form.authorityHelperForm.UpdateIsReadonlyRange">
+                    <input type="checkbox" v-model="model.authorityHelperForm.IsReadonly.value"
+                        @change="model.authorityHelperForm.UpdateIsReadonlyRange">
                 </div>
                 <div class="tree-box">
-                    <Tree :model="form.authorityHelperForm._tree" />
+                    <Tree :model="model.authorityHelperForm._tree" />
                 </div>
             </FormItem>
         </FormRow>
@@ -69,11 +69,11 @@ import { computed, onMounted } from 'vue'
 import { useUserInfo } from '@/stores'
 import { roleMgtTable } from './RoleMgtTable'
 import { Authorities } from '@/navs/Authorities'
-import { RoleMgtForm } from './RoleMgtForm'
+import { RoleMgtPageModel } from './RoleMgtPageModel'
 import { Select, Table, PageCard, Pagination, PopForm, FormRow, FormItem, Tree, Texts, BigintHelper } from '@/0_tigersan_ui/tigerui'
 
 // 【字段】:
-const form = new RoleMgtForm()
+const model = new RoleMgtPageModel()
 const { IsOnlySelected } = roleMgtTable
 const userInfo = useUserInfo()
 const IsAllowEdit = computed(() => IsOnlySelected.value
@@ -81,7 +81,7 @@ const IsAllowEdit = computed(() => IsOnlySelected.value
 
 // 【过程】:
 onMounted(() => {
-    form.Refresh()
+    model.Refresh()
 })
 
 // 【方法】:

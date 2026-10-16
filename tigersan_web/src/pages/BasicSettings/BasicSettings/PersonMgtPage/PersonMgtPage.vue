@@ -5,21 +5,21 @@
             <div class="top-panel flex-between">
                 <div class="filter-panel">
                     <div class="row-panel">
-                        <Select :model="form.selectCompany" />
-                        <Select :model="form.selectDepartment" />
-                        <Select :model="form.selectRole" />
-                        <Search :model="form.searchName" />
+                        <Select :model="model.selectCompany" />
+                        <Select :model="model.selectDepartment" />
+                        <Select :model="model.selectRole" />
+                        <Search :model="model.searchName" />
                     </div>
                 </div>
                 <div class="button-panel">
                     <div class="row-panel">
-                        <button class="bg-success" @click="form.Refresh">{{ Texts.Refresh.value }}</button>
-                        <button v-if="!Authorities.PersonMgtPage.IsReadonly.value" @click="form.Add">
+                        <button class="bg-success" @click="model.Refresh">{{ Texts.Refresh.value }}</button>
+                        <button v-if="!Authorities.PersonMgtPage.IsReadonly.value" @click="model.Add">
                             {{ Texts.Add.value }}</button>
                         <button v-if="!Authorities.PersonMgtPage.IsReadonly.value" class="bg-warning"
-                            :disabled="!IsOnlySelected" @click="form.Edit">{{ Texts.Edit.value }}</button>
+                            :disabled="!IsOnlySelected" @click="model.Edit">{{ Texts.Edit.value }}</button>
                         <button v-if="!Authorities.PersonMgtPage.IsReadonly.value" class="bg-danger"
-                            :disabled="!IsOnlySelected" @click="form.Delete">{{ Texts.Delete.value }}</button>
+                            :disabled="!IsOnlySelected" @click="model.Delete">{{ Texts.Delete.value }}</button>
                     </div>
                 </div>
             </div>
@@ -29,51 +29,51 @@
 
             <!-- 底部: -->
             <div class="bottom-panel flex-center ">
-                <Pagination :model="form.pagination" :selectedRowCount="personMgtTable.SelectedRowCount.value" />
+                <Pagination :model="model.pagination" :selectedRowCount="personMgtTable.SelectedRowCount.value" />
             </div>
         </div>
     </PageCard>
 
     <!-- 表单: -->
-    <PopForm :model="form.personForm">
+    <PopForm :model="model.personForm">
         <FormRow>
-            <FormItem :model="form.configCompany.ItemModel">
-                <Select :model="form.selectCompanyForm" />
+            <FormItem :model="model.configCompany.ItemModel">
+                <Select :model="model.selectCompanyForm" />
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configDepartment.ItemModel">
-                <Select :model="form.selectDepartmentForm" />
+            <FormItem :model="model.configDepartment.ItemModel">
+                <Select :model="model.selectDepartmentForm" />
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configRole.ItemModel">
-                <Select :model="form.selectRoleForm" />
+            <FormItem :model="model.configRole.ItemModel">
+                <Select :model="model.selectRoleForm" />
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configUsername.ItemModel">
-                <input type="text" v-model="form.configUsername.Target.value">
+            <FormItem :model="model.configUsername.ItemModel">
+                <input type="text" v-model="model.configUsername.Target.value">
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configTagId.ItemModel">
-                <input type="text" v-model="form.configTagId.Target.value">
+            <FormItem :model="model.configTagId.ItemModel">
+                <input type="text" v-model="model.configTagId.Target.value">
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configPassword.ItemModel">
-                <Password :model="form.password"></Password>
+            <FormItem :model="model.configPassword.ItemModel">
+                <Password :model="model.password"></Password>
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configPhone.ItemModel">
-                <input type="text" v-model="form.configPhone.Target.value">
+            <FormItem :model="model.configPhone.ItemModel">
+                <input type="text" v-model="model.configPhone.Target.value">
             </FormItem>
         </FormRow>
         <FormRow>
-            <FormItem :model="form.configMail.ItemModel">
-                <input type="text" v-model="form.configMail.Target.value">
+            <FormItem :model="model.configMail.ItemModel">
+                <input type="text" v-model="model.configMail.Target.value">
             </FormItem>
         </FormRow>
     </PopForm>
@@ -82,17 +82,17 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import { Authorities } from '@/navs/Authorities'
-import { PersonMgtForm } from './PersonMgtForm'
+import { PersonMgtPageModel } from './PersonMgtPageModel'
 import { personMgtTable } from './PersonMgtTable'
 import { Select, Search, Table, PageCard, Pagination, PopForm, FormRow, FormItem, Password, Texts } from '@/0_tigersan_ui/tigerui'
 
 // 【字段】:
-const form = new PersonMgtForm()
+const model = new PersonMgtPageModel()
 const { IsOnlySelected } = personMgtTable
 
 // 【过程】:
 onMounted(() => {
-    form.Refresh()
+    model.Refresh()
 })
 
 // 【方法】:

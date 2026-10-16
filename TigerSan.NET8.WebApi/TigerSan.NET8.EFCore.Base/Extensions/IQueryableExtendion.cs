@@ -24,6 +24,7 @@ namespace TigerSan.NET8.EFCore.Base
 
     public static class IQueryableExtendion
     {
+        // private:
         #region 【Contains】
         private static readonly Lazy<MethodInfo?> StringContainsMethod
             = new Lazy<MethodInfo?>(() => typeof(string).GetMethod("Contains", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string) }, null), true);
@@ -173,6 +174,7 @@ namespace TigerSan.NET8.EFCore.Base
         #endregion
         #endregion 【Others】
 
+        // public:
         #region 不选择
         /// <summary>不选择</summary>
         public static IQueryable<TEntity> False<TEntity>(this IQueryable<TEntity> queryable)

@@ -24,7 +24,7 @@ namespace TigerSan.NET8.EFCore.Base
         #region 执行时
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            // 是否无需验证:
+            // 是否“无需添加公司过滤器”:
             if (context.HasAttribute<NotIdControllerAttribute>()
                 || context.HasAttribute<NoNeedAuthorizeAttribute>())
             {

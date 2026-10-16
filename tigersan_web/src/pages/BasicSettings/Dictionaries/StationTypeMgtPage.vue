@@ -1,12 +1,12 @@
 <template>
-    <DictionaryPage :model="dictionaryModel"></DictionaryPage>
+    <DictionaryPage :model="model"></DictionaryPage>
 </template>
 
 <script lang="ts" setup>
 import DictionaryPage from '../DictionaryPage.vue'
 import { DictionaryModel, stationTypeHelper } from '@/models'
 
-const dictionaryModel = new DictionaryModel('基站类型', stationTypeHelper)
+const model = new DictionaryModel('基站类型', stationTypeHelper)
 </script>
 
 <style lang="less" scoped></style>

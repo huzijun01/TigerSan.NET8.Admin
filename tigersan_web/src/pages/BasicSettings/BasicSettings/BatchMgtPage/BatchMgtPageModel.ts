@@ -3,7 +3,7 @@ import { Colors, DialogHelper, Verify, ObjectHelper, DialogMode, DialogState, Fo
 import { batchMgtTable } from './BatchMgtTable'
 import { companyHelper, scenarioHelper, BatchEntity, batchHelper } from '@/models'
 
-export class BatchMgtForm {
+export class BatchMgtPageModel {
     //#region 【Fields】
     /** 密码是否改变 */
     isPasswordChanged = false

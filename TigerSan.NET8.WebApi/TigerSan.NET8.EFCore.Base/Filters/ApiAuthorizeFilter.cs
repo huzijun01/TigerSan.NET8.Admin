@@ -13,7 +13,9 @@ namespace TigerSan.NET8.EFCore.Base
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (context.HasAttribute<NoNeedAuthorizeAttribute>()) return;
+            // 是否“无需验证”:
+            if (context.HasAttribute<NoNeedAuthorizeAttribute>()
+                && !context.HasAttribute<NeedAuthorizeAttribute>()) return;
 
             // 是否包含“Authorization头”:
             var authorize = context.GetAuthorization();

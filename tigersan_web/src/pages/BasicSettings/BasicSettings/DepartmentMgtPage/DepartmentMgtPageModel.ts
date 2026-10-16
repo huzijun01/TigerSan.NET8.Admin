@@ -3,7 +3,7 @@ import { Colors, DialogHelper, Verify, ObjectHelper, DialogMode, DialogState, Fo
 import { departmentMgtTable } from './DepartmentMgtTable'
 import { companyHelper, departmentHelper, DepartmentEntity } from '@/models'
 
-export class DepartmentMgtForm {
+export class DepartmentMgtPageModel {
     //#region 【Fields】
     /** “公司”选择（筛选） */
     readonly selectCompany = companyHelper.GetIdNameSelectModel()
@@ -39,7 +39,7 @@ export class DepartmentMgtForm {
     readonly AddGetSource = () => new DepartmentEntity()
 
     /** “部门”表单配置 */
-    readonly configDepartmentMgtForm: FormConfig<DepartmentEntity> = {
+    readonly configDepartmentMgtPageModel: FormConfig<DepartmentEntity> = {
         _getSource: this.AddGetSource,
         _beforeInitAsync: async isEdit => {
             await companyHelper.UpdateIdNames()
@@ -52,7 +52,7 @@ export class DepartmentMgtForm {
     }
 
     /** “部门”表单模型 */
-    readonly departmentForm = new FormModel(this.configDepartmentMgtForm)
+    readonly departmentForm = new FormModel(this.configDepartmentMgtPageModel)
     //#endregion 【Fields】
 
     //#region 【Ctor】

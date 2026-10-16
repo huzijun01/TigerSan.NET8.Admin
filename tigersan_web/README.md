@@ -1,42 +1,381 @@
-# tigersan_web
+# Description:
 
-This template should help get you started developing with Vue 3 in Vite.
+A full-stack admin system built with Vue3 and .NET 8 WebApi, featuring 4-level permission control, data isolation, and file management.
 
-## Recommended IDE Setup
+![preview1](https://github.com/huzijun01/TigerSan.NET8.Admin/blob/main/preview1.webp?raw=true)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![preview2](https://github.com/huzijun01/TigerSan.NET8.Admin/blob/main/preview2.webp?raw=true)
 
-## Recommended Browser Setup
+# About:
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Personal Homepage:
 
-## Type Support for `.vue` Imports in TS
+bilibili: https://space.bilibili.com/34323512
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+# TigerSan.NET8.EFCore.Base:
 
-## Customize configuration
+## **Attributes**:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### ApiAttributes:
 
-## Project Setup
+#### NotIdControllerAttribute:
 
-```sh
-npm install
-```
+The marked Controller will not add the company filter.
 
-### Compile and Hot-Reload for Development
+#### NeedAuthorizeAttribute:
 
-```sh
-npm run dev
-```
+Unmarked Controllers and Actions will default to authorization verification.
 
-### Type-Check, Compile and Minify for Production
+Marked Controllers and Actions, even if they contain the NoNeedAuthorizeAttribute attribute, will still undergo authorization verification.
 
-```sh
-npm run build
-```
+#### NoNeedAuthorizeAttribute:
+
+The marked Controller and Action do not perform authorization verification and do not add company filters.
+
+#### FilterByCompanyAttribute:
+
+The marked Controller will add the company filter.
+
+### SnakeColumnAttribute:
+
+A ColumnAttribute that can convert prop name into snake-case formatted string as column name.
+
+## **Controllers**:
+
+### Admin:
+
+#### AdminController:
+
+#### AuthorityController:
+
+#### CompanyController:
+
+#### DepartmentController:
+
+#### PersonController:
+
+#### RoleController:
+
+#### UserController:
+
+##### **Fields**:
+
+\_service
+
+##### **Functions**:
+
+EditPassword
+
+Login
+
+LoginByToken
+
+Logout
+
+GetCaptcha
+
+### Base:
+
+#### IdControllerBase:
+
+##### **Fields**:
+
+\_service
+
+##### **Props**:
+
+UserInfo
+
+AccessibleCompanies
+
+AccessibleCompanyIds
+
+##### **Functions**:
+
+Get
+
+GetCount
+
+GetList
+
+Add
+
+AddRange
+
+Edit
+
+EditRange
+
+Remove
+
+RemoveRange
+
+#### IdNameControllerBase:
+
+SelectIdName
+
+#### IdNameRepeatableControllerBase:
+
+SelectIdName
+
+### File:
+
+#### FileController:
+
+##### **Fields**:
+
+\_service
+
+##### **Functions**:
+
+GetFileList
+
+GetDirList
+
+GetPathList
+
+DownloadFile
+
+CreatDir
+
+UploadFile
+
+Delete
+
+#### ImageController:
+
+##### **Fields**:
+
+\_fileService
+
+##### **Functions**:
+
+GetList
+
+Get
+
+Upload
+
+Delete
+
+## **Dtos**:
+
+### DepartmentInfo:
+
+### FilterDto:
+
+### MyFileInfo:
+
+### PasswordEdit:
+
+### UserInfo:
+
+## **Entities**:
+
+### Base:
+
+#### IdEntityBase:
+
+#### IdName:
+
+#### IdNameCompany:
+
+### Others:
+
+#### AdminEntity:
+
+#### AuthorityEntity:
+
+#### CompanyEntity:
+
+#### DepartmentEntity:
+
+#### PersonEntity:
+
+#### PersonFullEntity:
+
+#### RoleAuthorityEntity:
+
+#### RoleEntity:
+
+## **Extensions**:
+
+### IdEntityBaseExtendion:
+
+#### UpdateId:
+
+### IQueryableExtendion:
+
+#### False:
+
+#### GetPage:
+
+#### Sort:
+
+#### GetFilter:
+
+#### GetOnlyFilter:
+
+#### GetFilters:
+
+#### GetParentFilter:
+
+#### GetParentIds:
+
+## **Filters**:
+
+### ApiAuthorizeFilter:
+
+### CompanyFilter:
+
+### LogFilterAttribute:
+
+## **Filters**:
+
+### ApiAuthorizeFilter:
+
+### CompanyFilter:
+
+### LogFilterAttribute:
+
+## **Interfaces**:
+
+### Base:
+
+#### IIdNameCompanyServiceBase:
+
+#### IIdNameServiceBase:
+
+#### IIdServiceBase:
+
+#### IDbSetConfig:
+
+### Others:
+
+IAdminService, IAuthorityService, ICompanyService, IDepartmentService, IFileService, IPersonService, IRoleService, IUserService
+
+## **Interfaces**:
+
+### Services:
+
+#### Delegates:
+
+DbIdDelegate, DbIdsDelegate
+
+#### IdNameCompanyServiceBase:
+
+#### IdNameRepeatableServiceBase:
+
+#### IdNameServiceBase:
+
+#### IdServiceBase:
+
+### Others:
+
+AdminService, AuthorityService, CompanyService, DepartmentService, FileService, PersonService, RoleService, UserService
+
+## **Others**:
+
+### DbContextBase:
+
+#### Fields:
+
+\_version:
+
+\_connectionString:
+
+\_dbSetProps:
+
+#### Props:
+
+Admins:
+
+Authorities:
+
+Companies:
+
+Departments:
+
+Persons:
+
+Roles:
+
+#### Functions:
+
+GetDbSetName:
+
+GetDbSet:
+
+### DbResults:
+
+# TigerSan.WebApi.Base:
+
+## **Extensions**:
+
+### ActionContextExtension:
+
+### ExceptionExtension:
+
+### ObjectExtention:
+
+### StringExtension:
+
+## **Helpers**:
+
+### CaptchaCache:
+
+### ChannelBase:
+
+### ConnectInfo:
+
+### DailyTask:
+
+### DateTimeHelper:
+
+### FileHelper:
+
+### HttpHelper:
+
+### MapHelper:
+
+### MathHelper:
+
+### MemoryCacheHelper:
+
+### ObjectHelper:
+
+### SseHelper:
+
+### TreeHelper:
+
+### Uuid7Generator:
+
+### Verify:
+
+### WatchDog:
+
+## **Others**:
+
+### ApiResult:
+
+#### ApiResultCode:
+
+#### ApiResult:
+
+#### ApiResults:
+
+### GlobalBaseSettings:
+
+TokenValidityPeriod:
+
+CaptchaValidityPeriod:
+
+MaxFileSize:
+
+DirFiles:
+
+DirImagesName:
+
+DirImages:
+
+# END
