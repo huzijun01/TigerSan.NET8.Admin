@@ -1,0 +1,115 @@
+/* 简约清新: */
+.minimalist {
+  /* Firefox宽度: */
+  scrollbar-width: 4px;
+  /* Firefox颜色: */
+  scrollbar-color: #ccc #f5f5f5;
+  /* WebKit容器: */
+  /* 轨道: */
+  /* 滑块: */
+}
+.minimalist::-webkit-scrollbar {
+  width: 4px;
+}
+.minimalist::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+.minimalist::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #ccc;
+}
+.minimalist::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+/* 暗黑模式: */
+.dark-mode {
+  /* Firefox宽度: */
+  scrollbar-width: thin;
+  /* Firefox颜色: */
+  scrollbar-color: #4e4e4e #1e1e1e;
+  /* WebKit容器: */
+  /* 轨道: */
+  /* 滑块: */
+}
+.dark-mode::-webkit-scrollbar {
+  width: 4px;
+}
+.dark-mode::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: #1e1e1e;
+}
+.dark-mode::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: linear-gradient(180deg, #444, #222);
+}
+.dark-mode::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #666, #333);
+}
+/* 精致细条: */
+.slim {
+  /* Firefox宽度: */
+  scrollbar-width: thin;
+  /* Firefox颜色: */
+  scrollbar-color: #dcdcdc transparent;
+  /* WebKit容器: */
+  /* 轨道: */
+  /* 滑块: */
+}
+.slim::-webkit-scrollbar {
+  width: 4px;
+}
+.slim::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: transparent;
+}
+.slim::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #dcdcdc;
+}
+.slim::-webkit-scrollbar-thumb:hover {
+  background: #b8b8b8;
+}
+/* 多彩活力: */
+.colorful {
+  /* Firefox宽度: */
+  scrollbar-width: thin;
+  /* Firefox颜色: */
+  scrollbar-color: #4285f4 transparent;
+  /* WebKit容器: */
+  /* 轨道: */
+  /* 滑块: */
+}
+.colorful::-webkit-scrollbar {
+  width: 4px;
+}
+.colorful::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: transparent;
+}
+.colorful::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #4285f4;
+  border: 2px solid #fff;
+}
+.colorful::-webkit-scrollbar-thumb:hover {
+  background: #3367d6;
+}
+/* 深色模式适配: */
+@media (prefers-color-scheme: dark) {
+  .minimalist {
+    /* Firefox颜色: */
+    scrollbar-color: #666 #333;
+    /* 轨道: */
+    /* 滑块: */
+  }
+  .minimalist::-webkit-scrollbar-track {
+    background: #333;
+  }
+  .minimalist::-webkit-scrollbar-thumb {
+    background: #666;
+  }
+  .minimalist::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+}

@@ -1,0 +1,74 @@
+@import '../base/root.css';
+
+button {
+    /* 尺寸 */
+    border: 0px;
+    border-radius: 4px;
+    padding: 8px 15px;
+    /* 颜色 */
+    color: var(--theme-button-color);
+    background-color: var(--theme-brand);
+    /* 文本 */
+    font-weight: bold;
+    /* 其它 */
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+
+    &:active {
+        filter: brightness(1.1);
+    }
+
+    &:disabled {
+        color: var(--theme-button-color-disabled);
+        filter: brightness(0.8);
+        cursor: not-allowed;
+    }
+}
+
+.square-button {
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: 'iconfont';
+}
+
+.circle-button {
+    // 变量:
+    @CornerRadius: 16px;
+    // 样式:
+    .btn_clear();
+    width: @CornerRadius;
+    height: @CornerRadius;
+    border-radius: @CornerRadius;
+    font-size: 12px !important;
+    background: transparent;
+
+    &:hover {
+        background: var(--theme-mask-hover);
+    }
+
+    &:active {
+        background: var(--theme-mask-active);
+    }
+}
+
+.btn_clear {
+    /* 尺寸 */
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    /* 颜色 */
+    background: none;
+    box-shadow: none;
+    /* 样式 */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /* 其它 */
+    cursor: pointer;
+}

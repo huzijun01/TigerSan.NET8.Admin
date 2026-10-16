@@ -1,0 +1,276 @@
+.display-none {
+  display: none !important;
+}
+.full-view {
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-column > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-center > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-stretch {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+.flex-stretch > * {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.flex-between {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-between > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-left > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-right {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.flex-right > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.drawer {
+  overflow: hidden;
+  transition: var(--Global-Transition);
+}
+.drawer .size-panel {
+  overflow: auto;
+}
+.pop-mask {
+  /* 位置 */
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  /* 显示 */
+  display: flex;
+  /* 对齐 */
+  align-items: center;
+  justify-content: center;
+  /* 尺寸 */
+  width: 100vw;
+  height: 100vh;
+  /* 颜色 */
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.5px);
+  /* 置顶 */
+  z-index: 999;
+}
+a {
+  cursor: pointer;
+  user-select: text;
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--theme-brand) !important;
+}
+.ellipsis {
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+.input-border {
+  /* 尺寸: */
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 5px 10px;
+  /* 颜色: */
+  color: var(--theme-color);
+  background: var(--theme-input-background);
+  border-color: var(--theme-border);
+  /* 过渡: */
+  transition: var(--Global-Transition);
+  /* 文本: */
+  line-height: 1.5;
+}
+.input-border:hover {
+  border-color: var(--theme-border-hover);
+}
+.input-border:focus {
+  border-color: var(--theme-border-active);
+}
+.input-border:disabled {
+  color: var(--theme-color-disabled);
+  border-color: var(--theme-border-disabled);
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+textarea {
+  width: 208px;
+  /* 尺寸: */
+  /* 尺寸: */
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 5px 10px;
+  /* 颜色: */
+  color: var(--theme-color);
+  background: var(--theme-input-background);
+  border-color: var(--theme-border);
+  /* 过渡: */
+  transition: var(--Global-Transition);
+  /* 文本: */
+  line-height: 1.5;
+}
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="search"]:hover,
+textarea:hover {
+  border-color: var(--theme-border-hover);
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  border-color: var(--theme-border-active);
+}
+input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="email"]:disabled,
+input[type="number"]:disabled,
+input[type="search"]:disabled,
+textarea:disabled {
+  color: var(--theme-color-disabled);
+  border-color: var(--theme-border-disabled);
+}
+input[type="checkbox"] {
+  /* 显示: */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 尺寸: */
+  width: 18px;
+  height: 18px;
+  border: 2px solid;
+  border-radius: 4px;
+  /* 颜色: */
+  color: white;
+  border-color: var(--theme-border);
+  /* 过渡: */
+  transition: var(--Global-Transition);
+  /* 其它: */
+  cursor: pointer;
+}
+input[type="checkbox"] > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+input[type="checkbox"]::before {
+  content: "" !important;
+  display: none !important;
+}
+input[type="checkbox"]::after {
+  /* 文本: */
+  content: "✔";
+  font-size: 14px;
+  /* 透明度: */
+  opacity: 0;
+}
+input[type="checkbox"]:checked {
+  /* 颜色: */
+  border-color: var(--theme-brand);
+  background: var(--theme-brand);
+}
+input[type="checkbox"]:checked::after {
+  /* 透明度: */
+  opacity: 1;
+}
+input[type="checkbox"]:disabled {
+  /* 颜色: */
+  color: var(--theme-color-disabled);
+  border-color: var(--theme-border-disabled);
+  background: var(--theme-mask-hover);
+  /* 其它: */
+  cursor: not-allowed;
+}
+input[type="checkbox"]:indeterminate {
+  /* 颜色: */
+  border-color: var(--theme-brand);
+  background: var(--theme-brand);
+}
+input[type="checkbox"]:indeterminate::after {
+  content: "";
+  /* 尺寸: */
+  width: 14px;
+  height: 2.2px;
+  border-radius: 1px;
+  /* 透明度: */
+  opacity: 1;
+  /* 颜色: */
+  background: white;
+}
+input[type="radio"] {
+  /* 显示: */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 尺寸: */
+  width: 18px;
+  height: 18px;
+  border: 2px solid;
+  border-radius: 18px;
+  /* 颜色: */
+  border-color: var(--theme-border);
+  /* 过渡: */
+  transition: var(--Global-Transition);
+  /* 其它: */
+  cursor: pointer;
+}
+input[type="radio"]:disabled {
+  cursor: not-allowed;
+}
+input[type="radio"]::after {
+  content: ' ';
+  /* 尺寸: */
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+input[type="radio"]:checked {
+  border-color: var(--theme-brand);
+}
+input[type="radio"]:checked::after {
+  background: var(--theme-brand);
+}
+.link {
+  cursor: pointer;
+  color: var(--theme-link-color);
+}

@@ -1,0 +1,61 @@
+@import '../styles/scrollbar.less';
+
+* {
+    /* 滚动条 */
+    .minimalist();
+    /* 文本 */
+    font-size: 15px;
+}
+
+.dark * {
+    /* 滚动条 */
+    .dark-mode();
+}
+
+/* 【主题】 */
+:root {
+    /* [主色] */
+    --theme-brand: var(--color-brand);
+    /* [前景] */
+    --theme-color: var(--color-primary-text);
+    --theme-color-disabled: var(--color-disabled-text);
+    --theme-color-placeholder: var(--color-placeholder-text);
+    --theme-button-color-disabled: var(--color-foreground-disabled);
+    /* [背景] */
+    --theme-card-background: var(--color-light-fill);
+    --theme-panel-background: var(--color-base-fill);
+    --theme-input-background: var(--color-dark-fill);
+    --theme-input-background-disabled: var(--color-white-10);
+    /* [边框] */
+    --theme-border: var(--color-dark-border);
+    --theme-border-hover: var(--theme-brand);
+    --theme-border-active: var(--theme-brand);
+    --theme-border-disabled: var(--color-dark-border);
+    --theme-border-divider: #474747;
+    /* [遮罩] */
+    --theme-mask-hover: var(--color-white-10);
+    --theme-mask-active: var(--color-white-50);
+    /* [链接] */
+    --theme-link-color: #34a1ff;
+    /* [按钮] */
+    --theme-button-color: var(--color-primary-text);
+    /* [导航] */
+    --theme-nav-color: var(--color-primary-text);
+    --theme-nav-color-hover: var(--theme-brand);
+    --theme-nav-color-selected: var(--theme-brand);
+    --theme-nav-background: var(--theme-card-background);
+    --theme-nav-item-background-hover: var(--color-white-10);
+    --theme-nav-item-background-selected: var(--color-brand-25);
+    --theme-nav-line-background: var(--color-white-25);
+    --theme-nav-logo-border-padding: 5px;
+    --theme-nav-logo-border-background: transparent;
+    --theme-nav-logo-border-radius: 0;
+    /* [表格] */
+    --theme-table-line-background: var(--color-basic-white);
+    --theme-table-header-background: var(--theme-card-background);
+    --theme-table-row-background-selected: var(--color-brand-10);
+    /* [树] */
+    --theme-tree-node-background-active: var(--color-brand-25);
+    /* [弹窗] */
+    --theme-dialog-title-color: var(--theme-color);
+}

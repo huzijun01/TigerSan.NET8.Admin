@@ -1,0 +1,1140 @@
+<style>
+body { padding: 15px }
+table { width: 100%; font-size: 11px; color: #1e3a5f; font-family: 'Arial'; border-color: #d0d8e3; shading: #f8fafc }
+body { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+p { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+h1 { font-size: 24px; color: #0d2137; font-family: 'Arial'; font-weight: bold }
+h2 { font-size: 20px; color: #1a3a5c; font-family: 'Arial'; font-weight: bold }
+h3 { font-size: 16px; color: #1a3a5c; font-family: 'Arial'; font-weight: bold }
+h4 { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+h5 { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+h6 { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+strong { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+em { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+a { font-size: 11px; color: #1565c0; font-family: 'Arial'; text-decoration: underline }
+code { font-size: 10px; color: #c7254e; font-family: 'Consolas' }
+pre { font-size: 9px; color: #1e3a5f; font-family: 'Consolas'; background-color: #f0f4f8 }
+blockquote { font-size: 11px; color: #78909c; font-family: 'Arial'; font-style: italic }
+ul, ol { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+li { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+thead th { font-size: 11px; color: #1e3a5f; font-family: 'Arial'; background-color: #e3edf7; font-weight: bold }
+tbody td { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+hr { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+img { font-size: 11px; color: #1e3a5f; font-family: 'Arial' }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --color-primary: #6366f1;
+    --color-primary-dark: #4f46e5;
+    --color-primary-light: #eef2ff;
+    --color-text: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-bg: #f8fafc;
+    --color-border: #e2e8f0;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-mono: "SF Mono", "Fira Code", "Consolas", monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.7;
+    padding: 32px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.3; margin-top: 1.5em; margin-bottom: 0.5em; }
+h1 { font-size: 1.75rem; } h2 { font-size: 1.45rem; } h3 { font-size: 1.2rem; }
+h4 { font-size: 1.05rem; } h5 { font-size: 0.95rem; } h6 { font-size: 0.88rem; }
+h1:first-child { margin-top: 0; }
+
+p { margin-bottom: 1em; line-height: 1.7; }
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: var(--font-mono); font-size: 0.85em; background: var(--color-primary-light); color: var(--color-primary-dark); padding: 2px 6px; border-radius: var(--radius-sm); }
+pre { font-family: var(--font-mono); font-size: 0.82rem; background: #1e293b; color: #e2e8f0; padding: 16px 20px; border-radius: var(--radius-md); overflow-x: auto; line-height: 1.5; margin-bottom: 1em; }
+pre code { background: none; color: inherit; padding: 0; font-size: inherit; border-radius: 0; }
+blockquote { border-left: 4px solid var(--color-primary); padding: 8px 16px; margin: 0 0 1em 0; background: var(--color-primary-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--color-text-secondary); }
+blockquote p { margin-bottom: 0; }
+ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
+li { margin-bottom: 0.35em; line-height: 1.6; }
+ul > li { list-style: disc; } ol > li { list-style: decimal; }
+hr { border: none; border-top: 1px solid var(--color-border); margin: 1.5em 0; }
+table { border-collapse: collapse; font-size: 0.88rem; margin-bottom: 1em; width: 100%; }
+table th { background: var(--color-bg); text-align: left; padding: 12px 14px; font-weight: 600; border-bottom: 1px solid var(--color-border); }
+table td { padding: 10px 14px; border-bottom: 1px solid var(--color-border); }
+table tbody tr:hover { background: var(--color-bg); }
+img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
+
+</style>
+<h1>RESTful接口规范</h1>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>[controller]/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>[controller]/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;TEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>[controller]/List</td>
+  <td>Post</td>
+  <td><em>集合查询参数</em></td>
+  <td>MyActionResult&lt;List&lt;TEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>[controller]</td>
+  <td>Post</td>
+  <td>[FromBody] TEntity entity</td>
+  <td>MyActionResult&lt;TEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>[controller]/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;TEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>[controller]</td>
+  <td>Put</td>
+  <td>[FromBody] TEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>[controller]/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;TEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>[controller]/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>[controller]/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;TEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>集合查询参数</h3>
+<pre><code class="language-cs">[FromQuery] int? pageSize, // 页大小
+[FromQuery] int? pageNumber, // 页号
+[FromQuery] string? sort, // 排序属性名
+[FromQuery] bool? ascending, // 是否正序
+[FromBody] FilterDto? filter // 筛选器对象
+</code></pre>
+<h1>Model</h1>
+<h2>MyActionResult - 统一返回结果</h2>
+<pre><code class="language-typescript">export enum ActionResultCode {
+    Success = 0,
+    Warning = 1,
+    Error = 2,
+    InvalidToken = 3,
+    InvalidCaptcha = 4,
+}
+
+export class MyActionResult&lt;TData&gt; {
+    code: ActionResultCode
+    message = ''
+    data?: TData
+}
+</code></pre>
+<h2>FilterDto - 筛选器对象</h2>
+<pre><code class="language-typescript">/** “过滤器”对象 */
+export class FilterDto {
+    /** 父表 */
+    parent?: ParentFilter
+    /** “过滤器”集合 */
+    filters?: PropFilter[]
+}
+
+/** “属性”过滤器 */
+export class PropFilter {
+    /** 属性名 */
+    propName = ''
+    /** 是否“模糊查询” */
+    isFuzzy?: boolean
+    /** 值 */
+    value?: unknown
+    /** 值集合 */
+    values?: unknown[] = []
+}
+
+/** “父表”过滤器 */
+export class ParentFilter {
+    /** ID */
+    id?: bigint
+    /** ID集合 */
+    ids?: bigint[] = []
+    /** 父表 */
+    parent?: ParentFilter
+}
+</code></pre>
+<h2>IdName - ID名称对</h2>
+<pre><code class="language-typescript">/** ID名称对 */
+export class IdName {
+    id: bigint = 0n
+    name = ''
+}
+</code></pre>
+<h1>API</h1>
+<h2>用户</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>修改密码</td>
+  <td>User/Password</td>
+  <td>Put</td>
+  <td>PasswordEdit edit</td>
+  <td>MyActionResult</td>
+</tr>
+<tr>
+  <td>登录</td>
+  <td>User/Login</td>
+  <td>Get</td>
+  <td>string id, string captcha, string search, string password</td>
+  <td>MyActionResult&lt;UserInfo&gt;</td>
+</tr>
+<tr>
+  <td>Token登录</td>
+  <td>User/LoginByToken</td>
+  <td>Get</td>
+  <td>string token</td>
+  <td>MyActionResult&lt;UserInfo&gt;</td>
+</tr>
+<tr>
+  <td>登出</td>
+  <td>User/Logout</td>
+  <td>Get</td>
+  <td>string username</td>
+  <td>MyActionResult</td>
+</tr>
+<tr>
+  <td>获取验证码</td>
+  <td>User/Captcha</td>
+  <td>Post</td>
+  <td></td>
+  <td>MyActionResult&lt;CaptchaData&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>除了“Login、LoginByToken、Captcha”外，访问其它接口时，均需携带Authorization头，其值为登录时得到的token。</p>
+<h3>Model</h3>
+<pre><code class="language-typescript">
+/** &quot;人员&quot;实体 */
+export class PersonEntity {
+    id: bigint = 0n
+    company: bigint = 0n
+    department: bigint = 0n
+    role: bigint = 0n
+    isAdmin = false
+    username = ''
+    nickname = ''
+    password = ''
+    avatar?: string
+    phone?: string
+    mail?: string
+}
+
+/** 用户信息 */
+export class UserInfo extends PersonEntity {
+    isRoot = false
+    captcha = ''
+    companyIdName = new IdNameModel()
+    departmentIdName = new IdNameModel()
+    roleIdName = new IdNameModel()
+    authorities: AuthorityModel[] = []
+    token?: string
+}
+
+/** 验证码数据 */
+export class CaptchaData {
+    id = ''
+    captcha = ''
+}
+</code></pre>
+<h2>首页</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>场地数量</td>
+  <td>Site/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>基站数量</td>
+  <td>BaseStation/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>标签数量</td>
+  <td>Tag/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>资产数量</td>
+  <td>Asset/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2>标签</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>Tag/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>Tag/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;TagEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>Tag/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;TagEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>Tag</td>
+  <td>Post</td>
+  <td>[FromBody] TagEntity entity</td>
+  <td>MyActionResult&lt;TagEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>Tag/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;TagEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>Tag</td>
+  <td>Put</td>
+  <td>[FromBody] TagEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>Tag/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;TagEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>Tag/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>Tag/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;TagEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>完整数据</td>
+  <td>Tag/Full</td>
+  <td>Get</td>
+  <td>string? tagId, string? rfid</td>
+  <td>MyActionResult&lt;TagDto&gt;</td>
+</tr>
+<tr>
+  <td>完整集合</td>
+  <td>Tag/FullList</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;TagDto&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>Model</h3>
+<pre><code class="language-typescript">/** 设备类型 */
+export enum EqpTypes {
+    /** 标签 */
+    Tag = 0,
+    /** 定位器 */
+    Locator = 1,
+}
+
+/** “标签”实体 */
+export class TagEntity {
+    id: bigint = 0n
+    batch: bigint = 0n
+    type: bigint = 0n
+    station?: bigint
+    isFall?: boolean
+    isEnable = false
+    eqpType = EqpTypes.Tag
+    onlineState = OnlineStates.Offline
+    locationMode?: LocationModes
+    tagId = ''
+    assetId? = ''
+    rfid? = ''
+    imei? = ''
+    iccid? = ''
+    battery?: number
+    signal?: number
+    temperature?: number
+    longitude?: number
+    latitude?: number
+    comment?: string
+    reportTime?: Date
+    image?: string
+}
+
+/** “标签”对象 */
+export class TagDto extends TagEntity {
+    batchId = ''
+    typeName = ''
+    stationName = ''
+    company?: bigint
+    companyName?: string
+    site?: bigint
+    siteName?: string
+    address?: string
+}
+</code></pre>
+<h2>标签类型</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>TagType/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>TagType/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;IdName&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>TagType/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;IdName&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>TagType</td>
+  <td>Post</td>
+  <td>[FromBody] IdName entity</td>
+  <td>MyActionResult&lt;IdName&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>TagType/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;IdName&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>TagType</td>
+  <td>Put</td>
+  <td>[FromBody] IdName entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>TagType/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;IdName&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>TagType/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>TagType/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;IdName&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2>资产</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>Asset/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>Asset/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;AssetEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>Asset/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>Asset</td>
+  <td>Post</td>
+  <td>[FromBody] AssetEntity entity</td>
+  <td>MyActionResult&lt;AssetEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>Asset/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;AssetEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>Asset</td>
+  <td>Put</td>
+  <td>[FromBody] AssetEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>Asset/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;AssetEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>Asset/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>Asset/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;AssetEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>完整数据</td>
+  <td>Asset/Full</td>
+  <td>Get</td>
+  <td>long? id, string? rfid</td>
+  <td>MyActionResult&lt;AssetDto&gt;</td>
+</tr>
+<tr>
+  <td>完整集合</td>
+  <td>Asset/FullList</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetDto&gt;&gt;</td>
+</tr>
+<tr>
+  <td>位置</td>
+  <td>Asset/Position/{asset}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;AssetPosition&gt;</td>
+</tr>
+<tr>
+  <td>“位置”集合</td>
+  <td>Asset/PositionList</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetPosition&gt;&gt;</td>
+</tr>
+<tr>
+  <td>入库</td>
+  <td>Asset/Inbound</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;long&gt; ids</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>出库</td>
+  <td>Asset/Outbound/{site}</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;long&gt; ids</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>Model</h3>
+<pre><code class="language-typescript">/** 资产状态 */
+export enum AssetStates {
+    /** 无记录 */
+    NoRecord = 0,
+    /** 入库 */
+    Inbound = 1,
+    /** 在库 */
+    InStore = 2,
+    /** 滞留 */
+    Stolid = 3,
+    /** 出库 */
+    Outbound = 4,
+    /** 在途 */
+    InTransit = 5,
+    /** 超时 */
+    Timeout = 6,
+}
+
+/** &quot;资产&quot;实体 */
+export class AssetEntity {
+    id: bigint = 0n
+    assetId = ''
+    department: bigint = 0n
+    type: bigint = 0n
+    tag?: bigint
+    tagId?: string
+    tagType?: bigint
+    station?: bigint
+    vehicle?: bigint
+    transfer?: bigint
+    name? = ''
+    comment?: string
+    // 计算:
+    lastRecord?: bigint // 计算时才更新，建议使用GetLast获取最新记录
+    state: AssetStates = AssetStates.NoRecord
+    onlineState: OnlineStates = OnlineStates.Offline
+    isAuto: boolean = true
+    isFall?: boolean
+    errorType?: ErrorTypes
+    bindingTime?: Date
+    calculationTime?: Date
+    dailyMove?: number
+    monthlyMove?: number
+    totalMove?: number
+    stayDuration?: number
+    offlineDuration?: number
+    travelDuration?: number
+}
+
+/** &quot;资产&quot;对象 */
+export class AssetDto extends AssetEntity {
+    company: bigint = 0n
+    companyName = ''
+    departmentName = ''
+    typeName = ''
+    stateName = ''
+    stationId?: string
+    rfid?: string
+    plate?: string
+    siteName?: string
+    battery?: number
+    fullAddr?: string
+    transferCode?: string
+}
+
+/** 资产位置 */
+export class AssetPosition {
+    id: bigint = 0n
+    assetId = ''
+    lastRecord?: bigint
+    longitude = 0
+    latitude = 0
+    reportTime?: Date
+    locationMode?: LocationModes
+}
+</code></pre>
+<h2>资产记录</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>AssetRecord/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>AssetRecord/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;AssetRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>AssetRecord/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetRecordEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>AssetRecord</td>
+  <td>Post</td>
+  <td>[FromBody] AssetRecordEntity entity</td>
+  <td>MyActionResult&lt;AssetRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>AssetRecord/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;AssetRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>AssetRecord</td>
+  <td>Put</td>
+  <td>[FromBody] AssetRecordEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>AssetRecord/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;AssetRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>AssetRecord/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>AssetRecord/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;AssetRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>完整数据</td>
+  <td>AssetRecord/Full</td>
+  <td>Get</td>
+  <td>long? id, string? assetId, string? rfid</td>
+  <td>MyActionResult&lt;AssetRecordDto&gt;</td>
+</tr>
+<tr>
+  <td>最新数据</td>
+  <td>AssetRecord/Last</td>
+  <td>Get</td>
+  <td>long asset</td>
+  <td>MyActionResult&lt;AssetRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>最新完整数据</td>
+  <td>AssetRecord/FullLast</td>
+  <td>Get</td>
+  <td>long asset</td>
+  <td>MyActionResult&lt;AssetRecordDto&gt;</td>
+</tr>
+<tr>
+  <td>完整集合</td>
+  <td>AssetRecord/FullList</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetRecordDto&gt;&gt;</td>
+</tr>
+<tr>
+  <td>路径</td>
+  <td>AssetRecord/Path</td>
+  <td>Post</td>
+  <td>路径查询参数</td>
+  <td>MyActionResult&lt;List&lt;AssetLngLat&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>路径查询参数</h3>
+<pre><code class="language-cs">[FromQuery] long asset,
+[FromQuery] DateTime? start,
+[FromQuery] DateTime? end,
+[FromQuery] LocationModes? locationMode,
+[FromBody] FilterDto? filter
+</code></pre>
+<pre><code class="language-typescript">/** 定位方式 */
+export enum LocationModes {
+    /** 基站 */
+    BaseStation = 0,
+    /** 4G */
+    _4G = 1,
+    /** GPS */
+    GPS = 2,
+    /** WiFi */
+    WiFi = 3,
+    /** 4G+蓝牙 */
+    _4G_Bluetooth = 4,
+    /** GPS+蓝牙 */
+    GPS_Bluetooth = 5,
+    /** WiFi+蓝牙 */
+    WiFi_Bluetooth = 6,
+    /** 4G校准 */
+    _4G_Calibrate = 7,
+    /** WiFi校准 */
+    WiFi_Calibrate = 8,
+    /** 4G+蓝牙校准 */
+    _4G_Bluetooth_Calibrate = 9,
+    /** WiFi+蓝牙校准 */
+    WiFi_Bluetooth_Calibrate = 10,
+    /** 信标辅助定位 */
+    Beacon_Assistance = 11,
+}
+
+/** 资产经纬度 */
+export class AssetLngLat {
+    longitude = 0
+    latitude = 0
+    site?: bigint
+    address?: string
+    reportTime: Date = new Date()
+    locationMode?: LocationModes
+}
+
+/** &quot;资产记录&quot;实体 */
+export class AssetRecordEntity {
+    asset: bigint = 0n
+    tag: bigint = 0n
+    state: AssetStates = AssetStates.NoRecord
+    // Tag:
+    onlineState: OnlineStates = OnlineStates.Offline
+    locationMode?: LocationModes
+    station?: bigint
+    site?: bigint
+    targetSite?: bigint
+    battery?: number
+    signal?: number
+    temperature?: number
+    longitude?: number
+    latitude?: number
+    comment?: string
+    reportTime?: Date
+}
+
+/** &quot;资产记录&quot;对象 */
+export class AssetRecordDto extends AssetRecordEntity {
+    tagId = ''
+    siteName?: string
+    addr?: string
+    addrDetail?: string
+    address?: string
+    targetSiteName?: string
+    targetAddr?: string
+    targetAddrDetail?: string
+    fullAddr = ''
+    fullTarget = ''
+}
+</code></pre>
+<h2>绑定记录</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>BindingRecord/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>BindingRecord/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;BindingRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>BindingRecord/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;BindingRecordEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>BindingRecord</td>
+  <td>Post</td>
+  <td>[FromBody] BindingRecordEntity entity</td>
+  <td>MyActionResult&lt;BindingRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>BindingRecord/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;BindingRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>BindingRecord</td>
+  <td>Put</td>
+  <td>[FromBody] BindingRecordEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>BindingRecord/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;BindingRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>BindingRecord/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>BindingRecord/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;BindingRecordEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>最新数据</td>
+  <td>BindingRecord/Last</td>
+  <td>Get</td>
+  <td>long asset</td>
+  <td>MyActionResult&lt;BindingRecordEntity&gt;</td>
+</tr>
+<tr>
+  <td>完整集合</td>
+  <td>BindingRecord/FullList</td>
+  <td>Get</td>
+  <td>long asset</td>
+  <td>MyActionResult&lt;List&lt;BindingRecordDto&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>Model</h3>
+<pre><code class="language-typescript">/** “绑定记录”实体 */
+export class BindingRecordEntity {
+    id: bigint = 0n
+    tag: bigint = 0n
+    asset: bigint = 0n
+    tagId = ''
+    assetId = ''
+    isBinding = true
+    time: Date = new Date()
+}
+</code></pre>
+<h2>车辆</h2>
+<table>
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Action</th>
+  <th>Method</th>
+  <th>Param</th>
+  <th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>数量</td>
+  <td>Vehicle/Count</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;int&gt;</td>
+</tr>
+<tr>
+  <td>单条</td>
+  <td>Vehicle/{id}</td>
+  <td>Get</td>
+  <td></td>
+  <td>MyActionResult&lt;VehicleEntity&gt;</td>
+</tr>
+<tr>
+  <td>集合</td>
+  <td>Vehicle/List</td>
+  <td>Post</td>
+  <td>集合查询参数</td>
+  <td>MyActionResult&lt;List&lt;VehicleEntity&gt;&gt;</td>
+</tr>
+<tr>
+  <td>增单条</td>
+  <td>Vehicle</td>
+  <td>Post</td>
+  <td>[FromBody] VehicleEntity entity</td>
+  <td>MyActionResult&lt;VehicleEntity&gt;</td>
+</tr>
+<tr>
+  <td>增多条</td>
+  <td>Vehicle/Range</td>
+  <td>Post</td>
+  <td>[FromBody] List&lt;VehicleEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改单条</td>
+  <td>Vehicle</td>
+  <td>Put</td>
+  <td>[FromBody] VehicleEntity entity</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>改多条</td>
+  <td>Vehicle/Range</td>
+  <td>Put</td>
+  <td>[FromBody] List&lt;VehicleEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删单条</td>
+  <td>Vehicle/{id}</td>
+  <td>Delete</td>
+  <td></td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>删多条</td>
+  <td>Vehicle/Range</td>
+  <td>Delete</td>
+  <td>[FromBody] List&lt;VehicleEntity&gt; entities</td>
+  <td>MyActionResult&lt;object&gt;</td>
+</tr>
+<tr>
+  <td>IdName集合</td>
+  <td>Vehicle/SelectIdPlate</td>
+  <td>Post</td>
+  <td>[FromBody] FilterDto? filter</td>
+  <td>MyActionResult&lt;List&lt;IdName&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3>Model</h3>
+<pre><code class="language-cs">/** “车辆”实体 */
+export class VehicleEntity {
+    id: bigint = 0n
+    company: bigint = 0n
+    plate = ''
+    logistics?: string
+    driver?: string
+    phone?: string
+}
+</code></pre>
+<h2>END</h2>

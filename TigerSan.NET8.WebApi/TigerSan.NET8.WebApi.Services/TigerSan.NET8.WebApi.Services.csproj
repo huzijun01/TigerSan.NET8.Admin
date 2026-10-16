@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TigerSan.NET8.WebApi.Interfaces\TigerSan.NET8.WebApi.Interfaces.csproj" />
+    <ProjectReference Include="..\TigerSan.NET8.WebApi.Share\TigerSan.NET8.WebApi.Share.csproj" />
+  </ItemGroup>
+
+</Project>

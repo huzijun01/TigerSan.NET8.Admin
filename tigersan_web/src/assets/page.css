@@ -1,0 +1,80 @@
+.table-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* 顶部: */
+  /* 底部: */
+}
+.table-page .top-panel {
+  overflow: auto;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+.table-page .top-panel > * {
+  flex-shrink: 0;
+}
+.table-page .bottom-panel {
+  flex-shrink: 0;
+  overflow: auto;
+}
+.filter-panel > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+.filter-panel .row-panel {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.filter-panel .row-panel > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.filter-panel .row-panel > :not(:last-child) {
+  margin-right: 10px;
+}
+.button-panel {
+  padding-left: 20px;
+}
+.button-panel > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+.button-panel .row-panel {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.button-panel .row-panel > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.button-panel .row-panel > :not(:last-child) {
+  margin-right: 10px;
+}
+.flex-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-left > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-right {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.flex-right > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.child-margin-bottom > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+.child-margin-right > :not(:last-child) {
+  margin-right: 10px;
+}

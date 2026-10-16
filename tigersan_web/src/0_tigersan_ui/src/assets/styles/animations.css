@@ -1,0 +1,41 @@
+@keyframes center-scaleY-animation {
+    0% {
+        transform-origin: center;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform-origin: center;
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes top-scaleY-animation {
+    0% {
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform-origin: top;
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bottom-scaleY-animation {
+    0% {
+        transform-origin: bottom;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform-origin: bottom;
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}

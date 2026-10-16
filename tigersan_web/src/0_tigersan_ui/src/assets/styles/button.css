@@ -1,0 +1,75 @@
+@import '../base/root.css';
+button {
+  /* 尺寸 */
+  border: 0px;
+  border-radius: 4px;
+  padding: 8px 15px;
+  /* 颜色 */
+  color: var(--theme-button-color);
+  background-color: var(--theme-brand);
+  /* 文本 */
+  font-weight: bold;
+  /* 其它 */
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(0.9);
+}
+button:active {
+  filter: brightness(1.1);
+}
+button:disabled {
+  color: var(--theme-button-color-disabled);
+  filter: brightness(0.8);
+  cursor: not-allowed;
+}
+.square-button {
+  width: 35px;
+  height: 35px;
+  padding: 0px;
+  font-size: 16px;
+  font-family: 'iconfont';
+}
+.circle-button {
+  /* 尺寸 */
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  /* 颜色 */
+  background: none;
+  box-shadow: none;
+  /* 样式 */
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /* 其它 */
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  font-size: 12px !important;
+  background: transparent;
+}
+.circle-button:hover {
+  background: var(--theme-mask-hover);
+}
+.circle-button:active {
+  background: var(--theme-mask-active);
+}
+.btn_clear {
+  /* 尺寸 */
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  /* 颜色 */
+  background: none;
+  box-shadow: none;
+  /* 样式 */
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /* 其它 */
+  cursor: pointer;
+}

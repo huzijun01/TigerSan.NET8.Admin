@@ -1,0 +1,100 @@
+.display-none {
+  display: none !important;
+}
+.full-view {
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-column > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-center > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-stretch {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+.flex-stretch > * {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.flex-between {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-between > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-around {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.flex-around > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-left > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.flex-right {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.flex-right > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.drawer {
+  overflow: hidden;
+  transition: var(--Global-Transition);
+}
+.drawer .size-panel {
+  overflow: auto;
+}
+.pop-mask {
+  /* 位置 */
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  /* 显示 */
+  display: flex;
+  /* 对齐 */
+  align-items: center;
+  justify-content: center;
+  /* 尺寸 */
+  width: 100vw;
+  height: 100vh;
+  /* 颜色 */
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.5px);
+  /* 置顶 */
+  z-index: 999;
+}
