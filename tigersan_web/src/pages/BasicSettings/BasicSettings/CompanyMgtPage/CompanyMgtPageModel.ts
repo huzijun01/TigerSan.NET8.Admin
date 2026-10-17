@@ -88,7 +88,7 @@ export class CompanyMgtPageModel {
         PropText: Texts.Parent,
         IsEquired: false,
         Target: this.selectParentCompany.Value,
-        _getValue: async (obj, propName) => this.selectParentCompany.Items.find(i => BigintHelper.IsEqualAndNotUndefined(i.id, obj.parent)),
+        _getValue: (obj, propName) => this.selectParentCompany.Items.find(i => BigintHelper.IsEqualAndNotUndefined(i.id, obj.parent)),
         _setValue: (obj, propName, value) => obj.parent = value ? value.id : undefined
     }
 
