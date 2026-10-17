@@ -103,22 +103,24 @@ namespace TigerSan.NET8.EFCore.Base
                 // 是否为“公司”控制器:
                 if (context.IsController<CompanyController>())
                 {
+                    // 是否为“GetList”行为:
+                    if (context.IsAction(nameof(ICompanyService.GetList)))
+                    {
+                        // 直接返回“可访问公司”集合:
+                        context.Result = new JsonResult(ApiResults<List<CompanyEntity>>.Success(null, accessibleCompanies));
+                        return;
+                    }
+
+                    // 修改“filter参数”:
                     filter.Filters = [new PropFilter(){
                                 PropName = nameof(CompanyEntity.Id),
                                 Values = accessibleCompanies.Select(c => c.Id as object).ToList()
                             }];
-
-                    if (context.IsAction(nameof(ICompanyService.GetList)))
-                    {
-                        context.Result = new JsonResult(ApiResults<List<CompanyEntity>>.Success(null, accessibleCompanies));
-                        return; // 直接返回“可访问公司”集合
-                    }
                 }
                 else
                 {
                     // 获取“控制器”中的“服务”：
-                    var propNameService = nameof(IIdControllerBase._service);
-                    var service = ObjectHelper.GetField(context.Controller, propNameService) as IDbSetConfig;
+                    var service = ObjectHelper.GetField(context.Controller, nameof(IIdControllerBase._service)) as IDbSetConfig;
                     if (service == null)
                     {
                         context.Result = new JsonResult(ApiResults<object>.IsNull(nameof(service)));

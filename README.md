@@ -164,11 +164,57 @@ Delete
 
 ### FilterDto:
 
+#### FilterDto:
+
+ParentFilter? Parent
+
+List\<PropFilter>? Filters
+
+#### PropFilter:
+
+PropName
+
+IsNull
+
+IsNullOrEmpty
+
+IsFuzzy
+
+Value
+
+Values
+
+#### ParentFilter:
+
+Id
+
+Ids
+
+ParentFilter? Parent
+
+#### DbSetConfig:
+
+##### **Props**:
+
+DbSetConfig? Parent
+
+EntityType
+
+DbSetName
+
+ParentIdPropName
+
+##### **Functions**:
+
+SetParent
+
 ### MyFileInfo:
 
 ### PasswordEdit:
 
 ### UserInfo:
+
+### IdValue:
 
 ## **Entities**:
 
@@ -176,67 +222,107 @@ Delete
 
 #### IdEntityBase:
 
+##### **Functions**:
+
+UpdateId
+
 #### IdName:
+
+An Entity used for the global dictionary.
 
 #### IdNameCompany:
 
-### Others:
+An Entity used for the company dictionary.
 
-#### AdminEntity:
+### Admin:
 
-#### AuthorityEntity:
-
-#### CompanyEntity:
-
-#### DepartmentEntity:
-
-#### PersonEntity:
-
-#### PersonFullEntity:
-
-#### RoleAuthorityEntity:
-
-#### RoleEntity:
+AdminEntity, AuthorityEntity, CompanyEntity, DepartmentEntity, PersonEntity, PersonFullEntity, RoleAuthorityEntity, RoleEntity
 
 ## **Extensions**:
 
 ### IdEntityBaseExtendion:
 
-#### UpdateId:
+#### Functions:
+
+UpdateId
 
 ### IQueryableExtendion:
 
-#### False:
+#### Functions:
 
-#### GetPage:
+False
 
-#### Sort:
+GetPage
 
-#### GetFilter:
+Sort
 
-#### GetOnlyFilter:
+GetFilter
 
-#### GetFilters:
+GetOnlyFilter
 
-#### GetParentFilter:
+GetFilters
 
-#### GetParentIds:
+GetParentFilter
 
-## **Filters**:
-
-### ApiAuthorizeFilter:
-
-### CompanyFilter:
-
-### LogFilterAttribute:
+GetParentIds
 
 ## **Filters**:
 
 ### ApiAuthorizeFilter:
 
+A IAsyncActionFilter used for verifying authorization.
+
 ### CompanyFilter:
 
+A IAsyncActionFilter used to automatically set the company filter for the Service.
+
 ### LogFilterAttribute:
+
+A IAsyncActionFilter used for printing request logs to the console.
+
+## **Helpers**:
+
+### CompanyHelper:
+
+#### Functions:
+
+GetSubCompanies
+
+Companies2TreeNodes
+
+### FilterHelper:
+
+#### Functions:
+
+GetParentFilter
+
+SetParentFilter
+
+SetIdPropFilter
+
+SetCompanyParentFilter
+
+### TokenGenerator:
+
+#### Fields:
+
+\_secretKey
+
+#### Functions:
+
+GetToken
+
+GetTokenInfo
+
+GetSecretKey
+
+### TokenHelper:
+
+#### Functions:
+
+InitToken
+
+GetTokenInfo
 
 ## **Interfaces**:
 
@@ -250,13 +336,17 @@ Delete
 
 #### IDbSetConfig:
 
-### Others:
+### Admin:
 
-IAdminService, IAuthorityService, ICompanyService, IDepartmentService, IFileService, IPersonService, IRoleService, IUserService
+IAdminService, IAuthorityService, ICompanyService, IDepartmentService, IPersonService, IRoleService, IUserService
 
-## **Interfaces**:
+### File:
 
-### Services:
+IFileService
+
+## **Services**:
+
+### Admin:
 
 #### Delegates:
 
@@ -270,9 +360,13 @@ DbIdDelegate, DbIdsDelegate
 
 #### IdServiceBase:
 
-### Others:
+### Admin:
 
-AdminService, AuthorityService, CompanyService, DepartmentService, FileService, PersonService, RoleService, UserService
+AdminService, AuthorityService, CompanyService, DepartmentService, PersonService, RoleService, UserService
+
+### File:
+
+FileService
 
 ## **Others**:
 
@@ -280,31 +374,31 @@ AdminService, AuthorityService, CompanyService, DepartmentService, FileService, 
 
 #### Fields:
 
-\_version:
+\_version
 
-\_connectionString:
+\_connectionString
 
-\_dbSetProps:
+\_dbSetProps
 
 #### Props:
 
-Admins:
+Admins
 
-Authorities:
+Authorities
 
-Companies:
+Companies
 
-Departments:
+Departments
 
-Persons:
+Persons
 
-Roles:
+Roles
 
 #### Functions:
 
-GetDbSetName:
+GetDbSetName
 
-GetDbSet:
+GetDbSet
 
 ### DbResults:
 
@@ -366,16 +460,16 @@ GetDbSet:
 
 ### GlobalBaseSettings:
 
-TokenValidityPeriod:
+TokenValidityPeriod
 
-CaptchaValidityPeriod:
+CaptchaValidityPeriod
 
-MaxFileSize:
+MaxFileSize
 
-DirFiles:
+DirFiles
 
-DirImagesName:
+DirImagesName
 
-DirImages:
+DirImages
 
 # END

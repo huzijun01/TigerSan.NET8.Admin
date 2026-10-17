@@ -7,7 +7,7 @@ namespace TigerSan.NET8.EFCore.Base
     public interface IIdControllerBase
     {
         /// <summary>服务</summary>
-        public static readonly string _service = "_service";
+        public static readonly string _service = nameof(_service);
         /// <summary>用户信息</summary>
         public UserInfo? UserInfo { get; set; }
         /// <summary>“可访问公司”集合</summary>

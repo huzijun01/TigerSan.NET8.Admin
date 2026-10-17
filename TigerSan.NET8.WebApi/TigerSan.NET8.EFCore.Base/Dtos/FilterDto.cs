@@ -4,9 +4,9 @@
     /// <summary>过滤器</summary>
     public class FilterDto
     {
-        /// <summary>父表</summary>
+        /// <summary>“父表”过滤器</summary>
         public ParentFilter? Parent { get; set; }
-        /// <summary>“过滤器”集合</summary>
+        /// <summary>“属性”过滤器集合</summary>
         public List<PropFilter>? Filters { get; set; }
     }
     #endregion
@@ -87,21 +87,6 @@
             var parent = new DbSetConfig(entityType, dbSetName, parentIdPropName);
             Parent = parent;
             return parent;
-        }
-    }
-    #endregion
-
-    #region “ID-值”对
-    /// <summary>“ID-值”对</summary>
-    public class IdValue<TField>
-    {
-        public long Id { get; set; }
-        public TField Value { get; set; }
-
-        public IdValue(TField value, long? id = null)
-        {
-            Value = value;
-            if (id != null) Id = id.Value;
         }
     }
     #endregion

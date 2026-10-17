@@ -1,8 +1,8 @@
 /** “过滤器”对象 */
 export class FilterDto {
-    /** 父表 */
+    /** “父表”过滤器 */
     parent?: ParentFilter
-    /** “过滤器”集合 */
+    /** “属性”过滤器集合 */
     filters?: PropFilter[]
 }
 
