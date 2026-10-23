@@ -198,8 +198,10 @@ namespace TigerSan.NET8.WebApi.Services.Models
                     if (asset != null)
                     {
                         asset.Tag = null;
+                        asset.TagId = null;
                         asset.TagType = null;
                         asset.BindingTime = null;
+                        entity.Asset = null;
 
                         // 添加“解绑记录”：
                         var resAdd = await _bindingRecordService.Add(new BindingRecordEntity(false, asset.Id, entity.Id), false);
@@ -233,6 +235,7 @@ namespace TigerSan.NET8.WebApi.Services.Models
                     asset.Tag = entity.Id;
                     asset.TagId = entity.TagId;
                     asset.TagType = entity.Type;
+                    entity.Asset = asset.Id;
                 }
 
                 // 绑定基站：

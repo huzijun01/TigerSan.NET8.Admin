@@ -129,6 +129,7 @@ namespace TigerSan.NET8.WebApi.Services.Models
                     {
                         tag.Asset = null;
                         tag.AssetId = null;
+                        entity.Tag = null;
                         entity.BindingTime = null;
 
                         // 添加“解绑记录”：
@@ -162,6 +163,7 @@ namespace TigerSan.NET8.WebApi.Services.Models
 
                     tag.Asset = entity.Id;
                     tag.AssetId = entity.AssetId;
+                    entity.Tag = tag.Id;
                 }
                 #endregion
 
