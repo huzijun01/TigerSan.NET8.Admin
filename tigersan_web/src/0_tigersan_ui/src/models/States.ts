@@ -11,11 +11,12 @@ export enum OnlineStates {
 
 export class OnlineState {
     static ToString(value?: OnlineStates) {
+        if (value === null || value === undefined) return ''
         return value === OnlineStates.Online ? Texts.Online.value : Texts.Offline.value
     }
 
     static GetString(obj: object, propName: string = 'onlineState'): string {
-        return ObjectHelper.DefaultNumberGetter(obj, propName) === OnlineStates.Online ? Texts.Online.value : Texts.Offline.value
+        return OnlineState.ToString(ObjectHelper.DefaultNumberGetter(obj, propName))
     }
 
     static IsOnline(obj: object, propName: string = 'onlineState'): boolean {
@@ -119,6 +120,7 @@ export class IsFall {
 
 export class IsAuto {
     static ToString(value?: boolean) {
+        if (value === undefined || value === null) return ''
         return value ? Texts.Auto.value : Texts.Manual.value
     }
 
@@ -185,6 +187,7 @@ export class IsInFence {
 
 export class IsEnd {
     static ToString(value?: boolean) {
+        if (value === undefined || value === null) return ''
         return value ? Texts.Done.value : Texts.Undone.value
     }
 
@@ -219,7 +222,7 @@ export class IsEnd {
 /** 是否移动 */
 export class IsMobile {
     static ToString(value?: boolean) {
-        if (value === undefined) return ''
+        if (value === undefined || value === null) return ''
         return value ? Texts.Mobile.value : Texts.Fixed.value
     }
 
