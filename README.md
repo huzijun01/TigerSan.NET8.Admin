@@ -10,7 +10,11 @@ A full-stack admin system built with Vue3 and .NET 8 WebApi, featuring 4-level p
 
 ### Personal Homepage:
 
-bilibili: https://space.bilibili.com/34323512
+bilibili: [https://space.bilibili.com/34323512](https://space.bilibili.com/34323512)
+
+### Document:
+
+[https://www.kdocs.cn/l/cvfStICLGhLJ](https://www.kdocs.cn/l/cvfStICLGhLJ)
 
 # TigerSan.NET8.EFCore.Base:
 
@@ -77,6 +81,8 @@ GetCaptcha
 ### Base:
 
 #### IdControllerBase:
+
+A Controller base class that contains database CRUD methods.
 
 ##### **Fields**:
 
@@ -247,6 +253,8 @@ AdminEntity, AuthorityEntity, CompanyEntity, DepartmentEntity, PersonEntity, Per
 UpdateId
 
 ### IQueryableExtendion:
+
+The IQueryable extension methods used for database queries.
 
 #### Functions:
 
