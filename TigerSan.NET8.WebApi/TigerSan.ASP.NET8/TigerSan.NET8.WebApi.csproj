@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TigerSan.NET8.WebApi.Interfaces\TigerSan.NET8.WebApi.Interfaces.csproj" />
     <ProjectReference Include="..\TigerSan.NET8.WebApi.Services\TigerSan.NET8.WebApi.Services.csproj" />
-    <ProjectReference Include="..\TigerSan.NET8.WebApi.Share\TigerSan.NET8.WebApi.Share.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
