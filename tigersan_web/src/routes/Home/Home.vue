@@ -28,10 +28,10 @@
         <div class="info-panel flex-right">
           <Select :model="CompanyMgtPageModel.selectCompanyGlobal" />
           <KeyValue :isAutoHidden="true" propName="公司" :propValue="userInfo.companyIdName.name" />
-          <IconButton v-if="!navData.IsAtHome.value && CompanyMgtPageModel.tree.IsActive.value" :icon="Icons.Building_2"
-            :text="Texts.Business.value" :click="navData.InitHome" />
-          <IconButton v-if="navData.IsAtHome.value" :icon="Icons.Setting_Linear" :text="Texts.BasicSettings.value"
-            :click="navData.InitBasicSettings" />
+          <IconButton v-if="!NavData.IsAtHome.value && CompanyMgtPageModel.tree.IsActive.value" :icon="Icons.Building_2"
+            :text="Texts.Business.value" :click="NavData.InitHome" />
+          <IconButton v-if="NavData.IsAtHome.value" :icon="Icons.Setting_Linear" :text="Texts.BasicSettings.value"
+            :click="NavData.InitBasicSettings" />
           <IconButton :icon="Icons.Question" :text="Texts.Help.value" />
           <IconButton :icon="Icons.Refresh" :text="Texts.Progress.value" />
           <IconButton :icon="Icons.User" :text="userInfo.nickname" :click="form.Edit" />
@@ -121,7 +121,7 @@ import { PopForm, FormRow, Password, FormItem, Texts, Icons, IconButton, NavBar,
 import { UserHelper } from '@/models'
 import { useUserInfo } from '@/stores'
 import { UserInfoForm } from './UserInfoForm'
-import { navModel, navData } from '@/navs/navModel'
+import { NavData, navModel } from '@/navs/navModel'
 import { loginFormModel } from '@/routes/Login/LoginFormModel'
 import { CompanyMgtPageModel } from '@/pages/BasicSettings/BasicSettings/CompanyMgtPage/CompanyMgtPageModel'
 

@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { TextBoxModel, PasswordModel, FormItemConfig, Verify, ApiResultCode, SubmitResult, FormResult, ObjectHelper, authorityHelper, router, FormConfig, FormModel, DialogState, DialogHelper, DialogMode, Colors, TokenHelper, loading, Texts, TextModel } from '@/0_tigersan_ui/tigerui'
 import { useUserInfo } from '@/stores'
 import { axiosHelper } from "@/helpers"
-import { navData } from '@/navs/navModel'
+import { NavData } from '@/navs/navModel'
 import { UserInfo, UserHelper } from '@/models'
 
 export class LoginFormModel {
@@ -209,7 +209,7 @@ export class LoginFormModel {
         TokenHelper.Save(userInfo.token)
 
         // 初始化“导航栏”:
-        navData.InitBasicSettings()
+        NavData.InitBasicSettings()
         // 跳转到“主页”:
         router.GoTo('Home')
     }
