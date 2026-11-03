@@ -182,8 +182,8 @@ export class SvgModel {
     }
 
     /** 设置“背景” */
-    readonly SetBg = (url: string) => {
-        this._bgBlob.Name.value = url
+    readonly SetBg = (url?: string) => {
+        this._bgBlob.Name.value = url ?? ''
         this._bgBlob.Load()
     }
 

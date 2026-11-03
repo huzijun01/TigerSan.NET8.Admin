@@ -154,7 +154,7 @@ export class BaseStationMgtPageModel {
     /** “图片”项目配置 */
     readonly configImage: FormItemConfig<BaseStationDto, string> = {
         _propName: 'image',
-        PropText: TextModel.Computed('Image', '图片'),
+        PropText: Texts.Image,
         IsEquired: false,
         Target: ref<string | undefined>(),
     }

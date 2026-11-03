@@ -1,8 +1,8 @@
 import PositionList from '@/pages/Home/AssetMapPage/PositionList/PositionList.vue'
-import { computed, shallowReactive, shallowRef } from "vue"
-import { ApiResult, ApiResultCode, Colors, EditorModes, Icons, loading, PointModel, SvgModel, TabViewModel, Texts } from "@/0_tigersan_ui/tigerui"
+import { computed, ref, shallowReactive, shallowRef } from "vue"
+import { ApiResult, ApiResultCode, Colors, EditorModes, FormConfig, FormItemConfig, FormModel, GetSubmitResult, Icons, loading, PointModel, SvgModel, TabViewModel, TextModel, Texts } from "@/0_tigersan_ui/tigerui"
 import { PositionListModel } from "@/pages/Home/AssetMapPage/PositionList/PositionListModel"
-import { BaseStationDto, baseStationHelper, imageModelHelper, PositionDto, PositionTypes, SiteEntity, tagHelper } from "@/models"
+import { BaseStationDto, baseStationHelper, imageModelHelper, PositionDto, PositionTypes, SiteEntity, siteHelper, tagHelper } from "@/models"
 
 export type XY = { x?: number, y?: number }
 
@@ -15,6 +15,8 @@ export class IndoorPositionPageModel {
     //#region 【Fields】
     /** 场地 */
     _site?: SiteEntity
+    /** 上传器 */
+    readonly upload = imageModelHelper.GetUploadModel()
     /** “SVG”模型 */
     readonly _svg = new SvgModel(imageModelHelper.Get)
     /** “标签”列表 */
@@ -34,6 +36,33 @@ export class IndoorPositionPageModel {
             _rootProps: { model: this.stationList },
         }
     ])
+
+    /** “图片”项目配置 */
+    readonly configImage: FormItemConfig<SiteEntity, string> = {
+        _propName: 'image',
+        PropText: Texts.Image,
+        IsEquired: false,
+        Target: ref<string | undefined>(),
+    }
+
+    /** “上传图片”表单配置 */
+    readonly configUploadImageForm: FormConfig<SiteEntity> = {
+        Title: Texts.UploadImage,
+        _getSource: () => this._site ?? new SiteEntity(),
+        _beforeInitAsync: async isEdit => {
+            if (isEdit) {
+            }
+        },
+        _onInitAsync: async isEdit => {
+            await this.upload.Load()
+        },
+        _itemConfigs: [
+            this.configImage,
+        ]
+    }
+
+    /** “上传图片”表单模型 */
+    readonly formUploadImage = new FormModel(this.configUploadImageForm)
     //#endregion 【Fields】
 
     //#region 【Props】
@@ -50,16 +79,6 @@ export class IndoorPositionPageModel {
         this._svg._isAutoClear = false
         this._svg.AddLayer({ points: this.Tags })
         this._svg.AddLayer({ points: this.Stations })
-        this.stationList._onClick = info => {
-            this.SelectedStation.value = info.Position
-
-            const station = info.Position.data
-            if (!station || !station.x || !station.y) {
-                this._svg.DeletePosition()
-            } else {
-                this._svg.SetPosition(station.x, station.y)
-            }
-        }
         this._svg._onSaveAsync = async () => {
             const p = this._svg.TempPoint.value
             const station = this.SelectedStation.value?.data
@@ -80,6 +99,26 @@ export class IndoorPositionPageModel {
 
             await this.Refresh()
         }
+
+        this.stationList._onClick = info => {
+            this.SelectedStation.value = info.Position
+
+            const station = info.Position.data
+            if (!station || !station.x || !station.y) {
+                this._svg.DeletePosition()
+            } else {
+                this._svg.SetPosition(station.x, station.y)
+            }
+        }
+
+        // 上传器:
+        this.upload._isAutoLoad = false
+        this.upload.IsAllowMulti.value = false
+        this.upload._getImages = async () => {
+            const image = this._site?.image
+            if (!image) return
+            return [{ name: image, url: imageModelHelper.BaseUrl + image }]
+        }
     }
     //#endregion 【Ctor】
 
@@ -89,14 +128,14 @@ export class IndoorPositionPageModel {
             loading.IsShow.value = true
 
             this.SelectedStation.value = undefined
-            this._svg.Clear()
-            this._svg.Cancel()
-            this._svg.SetBg('餐厅.jpeg')
             this.tagList.SetSelectedInfo(undefined)
             this.stationList.SetSelectedInfo(undefined)
             this.Tags.splice(0)
             this.Stations.splice(0)
 
+            this._svg.Clear()
+            this._svg.Cancel()
+            this._svg.SetBg(this._site?.image)
             await this.RefreshStations()
             await this.RefreshTags()
         } finally {
@@ -191,6 +230,35 @@ export class IndoorPositionPageModel {
     }
 
     readonly OnPointClick = (p: PointModel<PositionDto>) => {
+    }
+
+    readonly UploadImage = () => {
+        if (!this._site) {
+            console.warn('The _site is undefined!')
+            return
+        }
+
+        this.formUploadImage._onSubmitAsync = async source => {
+            const resUpload = await this.upload.Submit()
+            if (resUpload.code === ApiResultCode.Error) return GetSubmitResult(resUpload)
+
+            const imgs = this.upload.UsedImages.value
+            source.image = imgs ? imgs[0]?._config.name : undefined
+
+            const res = await siteHelper.Edit(source)
+            if (res.code === ApiResultCode.Error
+                && this.formUploadImage._getSource().image != source.image) {
+                const resDelete = await this.upload.Delete()
+                if (resDelete.code === ApiResultCode.Error) {
+                    ApiResult.ShowResult(res, undefined, false)
+                }
+            }
+
+            await this.Refresh()
+            return GetSubmitResult(res, Texts.EditedSuccessfully.value)
+        }
+
+        this.formUploadImage.Show(true)
     }
     //#endregion 【Functions】
 }

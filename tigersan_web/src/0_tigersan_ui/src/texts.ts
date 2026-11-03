@@ -102,6 +102,7 @@ export class Texts {
     static readonly Help = TextModel.Computed('Help', '帮助')
     // I:
     static readonly Is = TextModel.Computed('Is', '是否')
+    static readonly Image = TextModel.Computed('Image', '图片')
     static readonly Input = TextModel.Computed('Input', '输入')
     static readonly Import = TextModel.Computed('Import', '导入')
     static readonly IsEnd = TextModel.Computed('IsEnd', '是否完成')
@@ -248,6 +249,7 @@ export class Texts {
     static readonly Unknown = TextModel.Computed('Unknown', '未知')
     static readonly Unbound = TextModel.Computed('Unbound', '未绑定')
     static readonly Username = TextModel.Computed('Username', '用户名')
+    static readonly UploadImage = TextModel.Computed('UploadImage', '上传图片')
     static readonly UploadedSuccessfully = TextModel.Computed('Uploaded successfully', '上传成功')
     // V:
     static readonly Vehicle = TextModel.Computed('Vehicle', '车辆')

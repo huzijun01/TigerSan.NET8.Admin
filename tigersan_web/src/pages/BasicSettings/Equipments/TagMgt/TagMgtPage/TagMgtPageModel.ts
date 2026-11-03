@@ -124,7 +124,7 @@ export class TagMgtPageModel {
     /** “图片”项目配置 */
     readonly configImage: FormItemConfig<TagDto, string | undefined> = {
         _propName: 'image',
-        PropText: TextModel.Computed('Image', '图片'),
+        PropText: Texts.Image,
         IsEquired: false,
         Target: ref<string | undefined>(),
     }

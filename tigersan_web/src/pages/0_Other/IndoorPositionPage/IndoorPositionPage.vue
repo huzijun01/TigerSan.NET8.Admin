@@ -2,6 +2,7 @@
     <div class="indoor-position-panle">
         <div class="button-panel">
             <button class="bg-success" @click="model.Refresh">{{ Texts.Refresh.value }}</button>
+            <button @click="model.UploadImage">{{ Texts.UploadImage.value }}</button>
             <button class="bg-success" :disabled="!model.IsEditing.value" @click="model.Save">
                 {{ Texts.Save.value }}</button>
             <button class="bg-warning" :disabled="!model.AllowedEdit.value" @click="model.EditStation">
@@ -16,11 +17,20 @@
             <Svg :model="model._svg" />
         </div>
     </div>
+
+    <!-- 表单: -->
+    <PopForm :model="model.formUploadImage">
+        <FormRow>
+            <FormItem :model="model.configImage.ItemModel">
+                <Upload :model="model.upload" />
+            </FormItem>
+        </FormRow>
+    </PopForm>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import { TabView, TextModel, Texts, Svg } from '@/0_tigersan_ui/tigerui'
+import { TabView, TextModel, Texts, Svg, PopForm, FormRow, FormItem, Upload } from '@/0_tigersan_ui/tigerui'
 import { IndoorPositionPageModel } from './IndoorPositionPageModel'
 const EditStation = TextModel.Computed('EditStation', '修改基站')
 // const EditLine = TextModel.Computed('EditLine', '修改线')
