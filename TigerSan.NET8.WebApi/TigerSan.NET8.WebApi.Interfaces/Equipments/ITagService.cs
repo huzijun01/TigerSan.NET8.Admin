@@ -41,6 +41,8 @@ namespace TigerSan.NET8.WebApi.Interfaces.Models
         public Task<ApiResult<List<TagDto>>> GetFullList(List<long> ids);
         /// <summary>获取“完整数据”集合（根据“基站ID”）</summary>
         public Task<ApiResult<List<TagDto>>> GetFullListByStationId(string stationId);
+        /// <summary>获取“室内定位”集合</summary>
+        public Task<ApiResult<List<PositionDto>>> GetIndoorPositionList(long site);
 
         // 增：
         /// <summary>批量添加</summary>

@@ -51,6 +51,7 @@ export type TStringGetterAsync<TSource extends object> = (obj: TSource, propName
 export type TGetter<TSource extends object, TTarget> = (obj: TSource, propName: string) => TTarget | undefined
 export type TGetterAsync<TSource extends object, TTarget> = (obj: TSource, propName: string) => Promise<TTarget | undefined>
 export type TSetter<TSource extends object, TTarget> = (obj: TSource, propName: string, value: TTarget) => any
+export type BlobGetter = (name: string) => Promise<Blob | undefined | null>
 
 // change:
 export type TChange<T> = (value: T, oldValue?: T) => any

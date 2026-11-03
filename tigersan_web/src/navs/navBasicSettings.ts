@@ -9,7 +9,6 @@ import BatchMgtPage from '@/pages/BasicSettings/BasicSettings/BatchMgtPage/Batch
 // BaseStationMgt:
 import BaseStationMgtPage from '@/pages/BasicSettings/Equipments/BaseStationMgtPage/BaseStationMgtPage.vue'
 // TagMgt:
-import IndoorPositionPage from '@/pages/BasicSettings/Equipments/TagMgt/IndoorPositionPage/IndoorPositionPage.vue'
 import PersonMgtTagPage from '@/pages/BasicSettings/Equipments/TagMgt/PersonMgtTagPage/PersonMgtTagPage.vue'
 import AssetMgtTagPage from '@/pages/BasicSettings/Equipments/TagMgt/AssetMgtTagPage/AssetMgtTagPage.vue'
 import EnvSensorPage from '@/pages/BasicSettings/Equipments/TagMgt/EnvSensorPage/EnvSensorPage.vue'
@@ -39,13 +38,6 @@ export const navBasicSettings: NavFolderConfig = {
             IsOpen: true,
             _authority: Authorities.BasicSettingsFolder,
             Buttons: [
-                // {
-                //     Key: "室内定位",
-                //     Title: TextModel.Computed('Indoor Position', "室内定位"),
-                //     Icon: Icons.Person,
-                //     _component: IndoorPositionPage,
-                //     _authority: Authorities.PersonMgtTagPage,
-                // },
                 {
                     Key: "组织机构",
                     Title: TextModel.Computed('Company Mgt', "组织机构"),

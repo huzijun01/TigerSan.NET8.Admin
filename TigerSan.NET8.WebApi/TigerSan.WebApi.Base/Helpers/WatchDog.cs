@@ -19,6 +19,15 @@ namespace TigerSan.WebApi.Base
                 action();
             });
         }
+
+        public WatchDog(double interval, AsyncAction action)
+        {
+            _timer = new ActionTimer(interval, true, () =>
+            {
+                LogHelper.Instance.Warning("Watchdog timeout!");
+                action();
+            });
+        }
         #endregion 【Ctor】
 
         #region 【Functions】

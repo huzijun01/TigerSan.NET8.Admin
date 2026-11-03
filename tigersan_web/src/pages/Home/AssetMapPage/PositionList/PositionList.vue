@@ -3,7 +3,7 @@
         <div class="count-panel">
             <KeyValue :propName="Texts.Count.value" :propValue="model.Count" />
         </div>
-        <div class="list-panel">
+        <div class="list-panel" :style="model.listStyle">
             <PositionInfo v-for="a in model.PositionInfoes" :key="a._id" :model="a" />
         </div>
         <div class="pagination-panel">
@@ -38,7 +38,6 @@ const { model } = defineProps({
     .list-panel {
         flex-grow: 1;
         overflow: auto;
-        height: calc(100vh - 360px);
     }
 
     .pagination-panel {

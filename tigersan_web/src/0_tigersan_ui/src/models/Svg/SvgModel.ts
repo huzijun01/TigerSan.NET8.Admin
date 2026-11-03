@@ -1,6 +1,9 @@
 import { ref, shallowReactive, shallowRef, type StyleValue } from "vue"
-import { Icons, SizeBehavior } from "@/0_tigersan_ui/tigerui"
-import { CircleModel, CsvLayerModel, LineModel, PointModel, RectModel, SvgHelper, type CsvLayerOpt } from "./Shapes"
+import { Icons } from "../../base"
+import { LineModel, RectModel, CircleModel, PointModel, CsvLayerModel, SvgHelper, type CsvLayerOpt } from "./Shapes"
+import { SizeBehavior } from "../../helpers/Behaviors/SizeBehavior"
+import { BlobBehavior } from "../../helpers/Behaviors/BlobBehavior"
+import type { BlobGetter } from "../../types"
 
 /** 编辑器模式 */
 export enum EditorModes {
@@ -10,8 +13,8 @@ export enum EditorModes {
     Point,
 }
 
-/** “CSV”编辑器 */
-export class CsvModel {
+/** “SVG”编辑器 */
+export class SvgModel {
     //#region 【内部状态字段】
     /** 编辑模式 */
     private _mode = EditorModes.Line
@@ -23,15 +26,21 @@ export class CsvModel {
     private _isPressed = false
     /** 尺寸行为 */
     readonly _size = new SizeBehavior()
+    /** 背景文件 */
+    readonly _bgBlob = new BlobBehavior()
     /** 最小尺寸 */
     _minSize = 15
     /** 是否“自动清除” */
     _isAutoClear = true
     /** 保存后 */
     _onSave?: Function
+    /** 保存后 */
+    _onSaveAsync?: () => Promise<any>
     //#endregion
 
     //#region 【Props】
+    /** 背景URL */
+    readonly BgUrl = this._bgBlob.Url
     /** 是否处于编辑状态 */
     readonly IsEditing = ref(false)
     /** “背景”样式 */
@@ -50,6 +59,14 @@ export class CsvModel {
     readonly Layers = shallowReactive<CsvLayerModel<any, any, any, any>[]>([])
     //#endregion 【Props】
 
+    //#region 【Ctor】
+    constructor(getBlob?: BlobGetter) {
+        this._bgBlob._getBlob = getBlob
+    }
+    //#endregion 【Ctor】
+
+    //#region 【Functions】
+    //#region [private]
     //#region 【点】
     /** 点：鼠标按下直接在点击位置生成 */
     private readonly handlePointDown = (svgP: { x: number; y: number }) => {
@@ -149,8 +166,6 @@ export class CsvModel {
     }
     //#endregion 【圆】
 
-    //#region 【Functions】
-    //#region [private]
     /** 重置交互状态 */
     private readonly Init = () => {
         this._startX = 0
@@ -164,6 +179,12 @@ export class CsvModel {
         this.Init()
         this._mode = mode
         this.IsEditing.value = true
+    }
+
+    /** 设置“背景” */
+    readonly SetBg = (url: string) => {
+        this._bgBlob.Name.value = url
+        this._bgBlob.Load()
     }
 
     /** 清除 */
@@ -190,8 +211,13 @@ export class CsvModel {
         }
     }
 
+    /** 删除“坐标点” */
+    readonly DeletePosition = () => {
+        this.Position.value = undefined
+    }
+
     /** 保存图形并退出编辑 */
-    readonly Save = () => {
+    readonly Save = async () => {
         // 处理拖拽中途直接保存的边界情况
         if (this._isPressed) {
             this._isPressed = false
@@ -205,6 +231,7 @@ export class CsvModel {
         this.Init()
         this.IsEditing.value = false
         this._onSave?.()
+        await this._onSaveAsync?.()
         if (this._isAutoClear) this.Clear()
     }
 

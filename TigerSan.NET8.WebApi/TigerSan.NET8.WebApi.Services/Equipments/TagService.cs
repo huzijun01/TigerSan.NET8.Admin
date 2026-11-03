@@ -528,6 +528,33 @@ namespace TigerSan.NET8.WebApi.Services.Models
             }
         }
         #endregion
+
+        #region 获取“室内定位”集合
+        public async Task<ApiResult<List<PositionDto>>> GetIndoorPositionList(long site)
+        {
+            try
+            {
+                var queryable = _dbSet.AsNoTracking();
+                var stationIds = await _db.BaseStations.AsNoTracking().Where(i => i.Site == site).Select(i => i.Id).ToListAsync();
+
+                return MyResults<List<PositionDto>>.Success(null, await queryable
+                    .Where(i => i.Station != null && stationIds.Contains(i.Station.Value) && i.X > 0 && i.Y > 0)
+                    .Select(i => new PositionDto()
+                    {
+                        Id = i.Id,
+                        Info = i.TagId,
+                        ReportTime = i.ReportTime,
+                        X = i.X,
+                        Y = i.Y,
+                    })
+                    .ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return MyResults<List<PositionDto>>.Error(LogHelper.Instance.Error(e.GetMessage()));
+            }
+        }
+        #endregion
         #endregion [查]
 
         #region [增]

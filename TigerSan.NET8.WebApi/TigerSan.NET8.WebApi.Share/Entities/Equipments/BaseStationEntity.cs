@@ -37,6 +37,10 @@ namespace TigerSan.NET8.WebApi.Share.Entities
         [SnakeColumn]
         public double? Latitude { get; set; }
         [SnakeColumn]
+        public double? X { get; set; }
+        [SnakeColumn]
+        public double? Y { get; set; }
+        [SnakeColumn]
         public string? Image { get; set; }
         /// <summary>经纬度是否可用</summary>
         [JsonIgnore]

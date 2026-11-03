@@ -55,6 +55,13 @@ import TabView from "./components/PageView/TabView.vue"
 import KeyValue from "./components/Pagination/KeyValue.vue"
 import Pagination from "./components/Pagination/Pagination.vue"
 import PaginationButton from "./components/Pagination/PaginationButton.vue"
+// Svg:
+import Circle from "./components/Svg/Circle.vue"
+import Line from "./components/Svg/Line.vue"
+import Point from "./components/Svg/Point.vue"
+import Rect from "./components/Svg/Rect.vue"
+import Svg from "./components/Svg/Svg.vue"
+import SvgLayer from "./components/Svg/SvgLayer.vue"
 // Table:
 import RowData from "./components/Table/RowData.vue"
 import Table from "./components/Table/Table.vue"
@@ -124,6 +131,13 @@ export {
     KeyValue,
     Pagination,
     PaginationButton,
+    // Svg:
+    Circle,
+    Line,
+    Point,
+    Rect,
+    Svg,
+    SvgLayer,
     // Table:
     RowData,
     Table,

@@ -10,7 +10,7 @@ import Point from './Point.vue'
 import Line from './Line.vue'
 import Rect from './Rect.vue'
 import Circle from './Circle.vue'
-import { CsvLayerModel } from './Shapes.js';
+import { CsvLayerModel } from '../../models/Svg/Shapes.js';
 
 // 字段:
 const { model } = defineProps({

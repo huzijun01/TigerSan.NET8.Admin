@@ -23,6 +23,8 @@ namespace TigerSan.NET8.WebApi.Share.Entities
         public double Latitude { get; set; }
         [SnakeColumn]
         public string? FencePath { get; set; }
+        [SnakeColumn]
+        public double? Scale { get; set; } // 比例尺（米/像素）
         [NotMapped]
         public List<Point2>? FencePoints { get => MathHelper.GetPoint2s(FencePath); }
         [SnakeColumn]
@@ -33,5 +35,7 @@ namespace TigerSan.NET8.WebApi.Share.Entities
         public string? Comment { get; set; } = string.Empty;
         [NotMapped]
         public string FullAddr { get => $"{Addr} {AddrDetail}".Trim(); }
+        [SnakeColumn]
+        public string? Image { get; set; }
     }
 }

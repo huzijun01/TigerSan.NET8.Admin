@@ -13,7 +13,6 @@ namespace TigerSan.NET8.WebApi.Helpers
         private DateTime? _lastReportTime;
         private readonly WatchDog _watchDog;
         private PackageChannel _packageChannel;
-        private CancellationTokenSource? _cts;
         // public:
         public static SseInstance? _instance;
         public SseHelper _sseHelper = new SseHelper(new ConnectInfo(SettingHelper.AppSettings.MqttConnection));
@@ -45,27 +44,18 @@ namespace TigerSan.NET8.WebApi.Helpers
 
         #region 开始监听
         /// <summary>开始监听</summary>
-        public void Start()
+        public async Task Start()
         {
-            _sseHelper.StartAsync(OnReceiveAsync).ContinueWith(task =>
+            await _packageChannel.StartProcessingAsync();
+            await _sseHelper.StartAsync(OnReceiveAsync).ContinueWith(task =>
             {
                 if (!task.IsFaulted) return;
                 LogHelper.Instance.Error($"Error in SSE listener:");
                 Console.WriteLine(task.Exception?.GetBaseException().Message);
             });
-
-            _cts?.Cancel();
-            _cts = new CancellationTokenSource();
-            _packageChannel.StartProcessingAsync(_cts.Token).ContinueWith(async task =>
-            {
-                if (!task.IsFaulted) return;
-                await Stop();
-                var ex = task.Exception?.GetBaseException();
-                LogHelper.Instance.Error(ex?.GetMessage());
-            });
+            _watchDog.Start();
             _packageChannel.UpdateOnlineState();
             _packageChannel._onlineStateUpdater.Start();
-            _watchDog.Start();
         }
         #endregion
 
@@ -75,8 +65,7 @@ namespace TigerSan.NET8.WebApi.Helpers
         {
             _watchDog.Stop();
             await _sseHelper.StopAsync();
-            _cts?.Cancel();
-            _cts = null;
+            _packageChannel.Complete();
             _packageChannel._onlineStateUpdater.Stop();
         }
         #endregion

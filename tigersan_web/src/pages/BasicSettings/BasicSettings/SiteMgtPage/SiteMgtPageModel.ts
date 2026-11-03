@@ -1,10 +1,15 @@
 import { ref } from 'vue'
-import { Colors, DialogHelper, Verify, ObjectHelper, DialogMode, DialogState, FormModel, FormConfig, FormItemConfig, BigintHelper, ArrayHelper, PaginationModel, GetSubmitResult, IdName, ApiResult, loading, MapModel, Texts, SearchModel, TextModel } from '@/0_tigersan_ui/tigerui'
+import { Colors, DialogHelper, Verify, ObjectHelper, DialogMode, DialogState, FormModel, FormConfig, FormItemConfig, BigintHelper, ArrayHelper, PaginationModel, GetSubmitResult, IdName, ApiResult, loading, MapModel, Texts, SearchModel, TextModel, PopWindowModel } from '@/0_tigersan_ui/tigerui'
 import { siteMgtTable } from './SiteMgtTable'
 import { companyHelper, siteHelper, siteTypeHelper, SiteEntity } from '@/models'
+import { IndoorPositionPageModel } from '@/pages/0_Other/IndoorPositionPage/IndoorPositionPageModel'
 
 export class SiteMgtPageModel {
     //#region 【Fields】
+    /** “室内定位”弹窗 */
+    readonly ipPop = new PopWindowModel()
+    /** “室内定位”模型 */
+    readonly ipModel = new IndoorPositionPageModel()
     /** 地图 */
     readonly map = new MapModel<any, any>({ animateEnable: false })
     /** 围栏路径 */
@@ -351,6 +356,20 @@ export class SiteMgtPageModel {
         } finally {
             loading.IsShow.value = false
         }
+    }
+
+    readonly IndoorPosition = () => {
+        const model = siteMgtTable.SelectedRowDatas.value[0]
+        if (!model) {
+            console.warn('The model is undefined!')
+            return
+        }
+
+        this.ipPop.Show()
+
+        this.ipPop.Title.value = Texts.IndoorPosition.value + `（${model.name}）`
+        this.ipModel._site = model
+        this.ipModel.Refresh()
     }
     //#endregion 【Functions】
 }

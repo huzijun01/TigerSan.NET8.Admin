@@ -12,6 +12,8 @@
                 </div>
                 <div class="button-panel">
                     <div class="row-panel">
+                        <button :disabled="!IsOnlySelected" @click="model.IndoorPosition">
+                            {{ Texts.IndoorPosition.value }}</button>
                         <button class="bg-success" @click="model.Refresh">{{ Texts.Refresh.value }}</button>
                         <button v-if="!Authorities.SiteMgt.IsReadonly.value" @click="model.Add">
                             {{ Texts.Add.value }}</button>
@@ -99,17 +101,29 @@
             <Map :model="model.map" style="margin-left: 15px;" />
         </template>
     </PopForm>
+
+    <!-- 弹窗 -->
+    <PopWindow :model="model.ipPop">
+        <IndoorPositionPage :model="model.ipModel" />
+    </PopWindow>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import IndoorPositionPage from '@/pages/0_Other/IndoorPositionPage/IndoorPositionPage.vue'
+import { onMounted, type PropType } from 'vue'
 import { siteMgtTable } from './SiteMgtTable'
 import { Authorities } from '@/navs/Authorities'
 import { SiteMgtPageModel } from './SiteMgtPageModel'
-import { Select, Search, Table, PageCard, Pagination, PopForm, FormRow, FormItem, Texts, Map } from '@/0_tigersan_ui/tigerui'
+import { Select, Search, Table, PageCard, Pagination, PopWindow, PopForm, FormRow, FormItem, Texts, Map } from '@/0_tigersan_ui/tigerui'
 
 // 【字段】:
-const model = new SiteMgtPageModel()
+const { model } = defineProps({
+    model: {
+        type: Object as PropType<SiteMgtPageModel>,
+        default: () => new SiteMgtPageModel()
+    },
+})
+
 const { IsOnlySelected } = siteMgtTable
 
 // 【过程】:

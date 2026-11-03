@@ -13,6 +13,12 @@ export class ArrayHelper {
         }
     }
 
+    /** 删除多个元素 */
+    static DeleteRange<T>(arr: T[], items: T[]) {
+        const itemsToRemove = new Set(items)
+        return arr.filter(item => !itemsToRemove.has(item))
+    }
+
     /** 获取“首个元素” */
     static GetFirst<T>(arr: T[]): T | undefined {
         if (arr.length < 1) return undefined

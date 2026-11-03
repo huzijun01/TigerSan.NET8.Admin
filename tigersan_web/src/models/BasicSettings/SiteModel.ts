@@ -10,11 +10,13 @@ export class SiteEntity extends IdName {
     addrDetail = ''
     longitude = 0
     latitude = 0
+    scale?: number // 比例尺（米/像素）
     fencePath?: string
     fencePoints?: Point2[]
     manager?: string
     phone?: string
     comment?: string
+    image?: string
 }
 
 class SiteHelper extends IdNameHelper<SiteEntity> {

@@ -462,16 +462,16 @@ namespace TigerSan.NET8.WebApi.Services.Models
                     return MyResults<List<PositionDto>>.Error(resSort.Message);
                 }
 
-                var stations = await queryable
+                var ids = await queryable
                     .GetPage(pageSize, pageNumber)
                     .Select(i => i.Id)
                     .ToListAsync();
 
                 var positions = new List<PositionDto>();
 
-                foreach (var station in stations)
+                foreach (var id in ids)
                 {
-                    var resPosition = await GetPosition(station);
+                    var resPosition = await GetPosition(id);
                     var position = resPosition.Data;
                     if (position == null) continue;
                     positions.Add(position);

@@ -1,10 +1,11 @@
 import { ref } from "vue"
-import { imageModelHelper } from "@/models"
-import { loading } from "@/0_tigersan_ui/tigerui"
+import type { BlobGetter } from "../../types"
+import { loading } from "../../models/Dialog/LoadingModel"
 
 export class BlobBehavior {
     //#region 【Fields】
     _blob?: Blob
+    _getBlob?: BlobGetter
     //#endregion 【Fields】
 
     //#region 【Props】
@@ -15,7 +16,8 @@ export class BlobBehavior {
     //#endregion 【Props】
 
     //#region 【Ctor】
-    constructor() {
+    constructor(getBlob?: BlobGetter) {
+        this._getBlob = getBlob
     }
     //#endregion 【Ctor】
 
@@ -25,7 +27,7 @@ export class BlobBehavior {
             loading.IsShow.value = true
 
             // 1. 获取新的 Blob 数据
-            const newBlob = await imageModelHelper.Get(this.Name.value)
+            const newBlob = await this._getBlob?.(this.Name.value)
 
             if (newBlob) {
                 // 2. 【关键步骤】释放旧的 URL

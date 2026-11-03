@@ -76,6 +76,10 @@ namespace TigerSan.NET8.WebApi.Share.Entities
         [SnakeColumn]
         public double? Latitude { get; set; }
         [SnakeColumn]
+        public double? X { get; set; }
+        [SnakeColumn]
+        public double? Y { get; set; }
+        [SnakeColumn]
         public string? Comment { get; set; }
         [SnakeColumn]
         public DateTime? ReportTime { get; set; }

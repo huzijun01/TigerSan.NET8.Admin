@@ -21,6 +21,8 @@ export class BaseStationEntity extends IdName {
     locationMode?: LocationModes
     longitude?: number
     latitude?: number
+    x?: number
+    y?: number
     image?: string
 }
 

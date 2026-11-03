@@ -54,6 +54,10 @@ export * from './models/PageView/TabViewModel'
 export * from './models/Pagination/PaginationModel'
 export * from './models/Pagination/PaginationButtonModel'
 
+/* Svg: */
+export * from './models/Svg/Shapes'
+export * from './models/Svg/SvgModel'
+
 /* Table: */
 export * from './models/Table/TableModel'
 

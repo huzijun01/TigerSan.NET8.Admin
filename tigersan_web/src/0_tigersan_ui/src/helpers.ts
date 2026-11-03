@@ -20,6 +20,7 @@ export * from "./helpers/TimerHelper"
 export * from "./helpers/TokenHelper"
 export * from "./helpers/Verify"
 // Behaviors:
+export * from "./helpers/Behaviors/BlobBehavior"
 export * from "./helpers/Behaviors/CheckboxBehavior"
 export * from "./helpers/Behaviors/ClickOutsideBehavior"
 export * from "./helpers/Behaviors/ContentSizeBehavior"

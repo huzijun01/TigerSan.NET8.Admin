@@ -1,6 +1,7 @@
 <template>
     <div class="svg-panel">
-        <div class="bg" ref="refRoot" :style="model.BgStyle.value">
+        <div class="bg" :style="model.BgStyle.value">
+            <img ref="refRoot" :src="model.BgUrl.value" />
             <slot></slot>
         </div>
         <svg :style="model._size.SizeStyle.value" @mousedown="model.OnMouseDown" @mouseup="model.OnMouseUp"
@@ -22,15 +23,15 @@ import Point from './Point.vue'
 import Line from './Line.vue'
 import Rect from './Rect.vue'
 import Circle from './Circle.vue'
-import CsvLayer from './CsvLayer.vue'
-import { onMounted, onUnmounted } from 'vue'
-import { CsvModel } from './CsvModel'
+import CsvLayer from './SvgLayer.vue'
+import { onMounted, onBeforeUnmount } from 'vue'
+import { SvgModel } from '../../models'
 
 // 字段:
 const { model } = defineProps({
     model: {
-        type: CsvModel,
-        default: new CsvModel()
+        type: SvgModel,
+        default: new SvgModel()
     }
 })
 
@@ -39,10 +40,12 @@ const { refRoot } = model._size
 // 过程:
 onMounted(() => {
     model._size.Observe()
+    model._bgBlob.Load()
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
     model._size.Unobserver()
+    model._bgBlob.Dispose()
 })
 </script>
 

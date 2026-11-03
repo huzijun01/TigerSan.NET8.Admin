@@ -72,6 +72,14 @@ namespace TigerSan.NET8.WebApi.Controllers
             return await _service.GetFullListByStationId(stationId);
         }
 
+        [HttpGet]
+        [Route("IndoorPositionList/{site}")]
+        /// <summary>获取“室内定位”集合</summary>
+        public async Task<ApiResult<List<PositionDto>>> GetIndoorPositionList(long site)
+        {
+            return await _service.GetIndoorPositionList(site);
+        }
+
         /// <summary>下载“CSV”</summary>
         [HttpPost("DownloadCsv")]
         public async Task<IActionResult> DownloadCsv(

@@ -1,6 +1,6 @@
 import { computed, ref, shallowReactive, type StyleValue, type ShallowReactive } from "vue"
 import { nanoid } from "nanoid"
-import { Colors } from "@/0_tigersan_ui/tigerui"
+import { Colors } from "../../base"
 
 export type DominantBaseline = "alphabetic" | "auto" | "central" | "hanging" | "ideographic" | "mathematical" | "middle" | "text-bottom" | "text-top";
 

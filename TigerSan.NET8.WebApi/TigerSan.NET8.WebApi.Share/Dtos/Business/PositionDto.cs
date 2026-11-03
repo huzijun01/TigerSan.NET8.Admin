@@ -11,6 +11,8 @@ namespace TigerSan.NET8.WebApi.Share.Dtos
         public LocationModes? LocationMode { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
     }
 
     /// <summary>定位记录</summary>

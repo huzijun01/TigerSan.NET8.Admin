@@ -2,6 +2,7 @@ import { FilterDto, Methods, OnlineStates, StringHelper } from "@/0_tigersan_ui/
 import { EqpTypes } from "../base/EqpTypes"
 import { LocationModes } from "../base/AssetStates"
 import { axiosHelper, IdEntityBase, IdHelper } from "@/helpers"
+import type { PositionDto } from "@/models"
 
 /** “标签”实体 */
 export class TagEntity extends IdEntityBase {
@@ -43,6 +44,10 @@ export class TagEntity extends IdEntityBase {
     longitude?: number
     /** 维度 */
     latitude?: number
+    /** 室内X坐标 */
+    x?: number
+    /** 室内Y坐标 */
+    y?: number
     /** 备注 */
     comment?: string
     /** 上报时间 */
@@ -143,6 +148,9 @@ class TagHelper extends IdHelper<TagDto> {
     /** 批量添加 */
     readonly GetFullListByStationId = async (stationId: string) =>
         await axiosHelper.Get<TagDto[]>(`${this._action}/FullListByStationId/${stationId}`)
+
+    /** 获取“室内定位”集合 */
+    readonly GetIndoorPositionList = async (site: bigint) => await axiosHelper.Get<PositionDto[]>(`${this._action}/IndoorPositionList/${site}`)
 
     /** 下载“CSV” */
     readonly DownloadCsv = async (fileName: string, param: {

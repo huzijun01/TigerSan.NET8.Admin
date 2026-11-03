@@ -114,6 +114,7 @@ export class Texts {
     static readonly Information = TextModel.Computed('Information', '信息')
     static readonly InstallMode = TextModel.Computed('InstallMode', '安装方式')
     static readonly IsReadonly = TextModel.Computed('IsReadonly: ', '是否只读：')
+    static readonly IndoorPosition = TextModel.Computed('Indoor Position', "室内定位")
     static readonly InTransitTimeout = TextModel.Computed('InTransitTimeout', '在途超时')
     static readonly IncorrectFormat = TextModel.Computed('Incorrect format!', '格式不正确')
     static readonly IncorrectCaptcha = TextModel.Computed('Incorrect captcha!', '验证码不正确')

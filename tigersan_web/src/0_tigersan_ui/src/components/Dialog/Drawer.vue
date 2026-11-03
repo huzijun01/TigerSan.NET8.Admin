@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 import { Icons } from '../../base'
 import { DrawerModel } from '../../models'
 
@@ -36,7 +36,7 @@ onMounted(() => {
     model._behavior.Start()
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
     model._behavior.Stop()
 })
 </script>

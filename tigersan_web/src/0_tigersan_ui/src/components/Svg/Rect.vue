@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import { RectModel } from './Shapes'
+import { RectModel } from '../../models/Svg/Shapes'
 
 // 字段:
 const { model } = defineProps({

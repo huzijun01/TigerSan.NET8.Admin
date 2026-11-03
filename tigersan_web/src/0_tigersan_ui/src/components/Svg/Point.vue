@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PointModel } from './Shapes'
+import { PointModel } from '../../models/Svg/Shapes'
 
 // 字段:
 const { model } = defineProps({

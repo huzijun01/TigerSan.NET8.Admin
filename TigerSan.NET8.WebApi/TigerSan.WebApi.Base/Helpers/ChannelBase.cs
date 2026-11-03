@@ -43,9 +43,21 @@ namespace TigerSan.WebApi.Base
         private ProcessingState _processingState = ProcessingState.NotStarted;
         /// <summary>生产是否已结束</summary>
         private bool _writerCompleted;
+        /// <summary>当前生命周期的内部取消令牌</summary>
+        private CancellationTokenSource? _lifecycleCts;
         #endregion [private]
 
-        #region [引用]
+        /// <summary>批量处理数量</summary>
+        public int _batchSize = 1;
+        /// <summary>消费者数量</summary>
+        public int _consumerCount = 5;
+        /// <summary>同步批量处理委托</summary>
+        public Action<List<TData>>? _process;
+        /// <summary>异步批量处理委托</summary>
+        public Func<List<TData>, Task>? _processAsync;
+        #endregion 【Fields】
+
+        #region 【Props】
         /// <summary>消费者是否正在运行且允许生产</summary>
         public bool IsProcessing
         {
@@ -69,17 +81,7 @@ namespace TigerSan.WebApi.Base
                 }
             }
         }
-        #endregion [引用]
-
-        /// <summary>批量处理数量</summary>
-        public int _batchSize = 1;
-        /// <summary>消费者数量</summary>
-        public int _consumerCount = 5;
-        /// <summary>同步批量处理委托</summary>
-        public Action<List<TData>>? _process;
-        /// <summary>异步批量处理委托</summary>
-        public Func<List<TData>, Task>? _processAsync;
-        #endregion 【Fields】
+        #endregion 【Props】
 
         #region 【Ctor】
         public ChannelBase(int capacity = DefaultCapacity)
@@ -97,6 +99,7 @@ namespace TigerSan.WebApi.Base
 
         #region 【Functions】
         #region [Private]
+        #region 创建一个新的管道实例
         /// <summary>创建一个新的管道实例</summary>
         private static Channel<TData> CreateChannel(int capacity)
         {
@@ -108,6 +111,7 @@ namespace TigerSan.WebApi.Base
                 AllowSynchronousContinuations = false
             });
         }
+        #endregion
 
         #region 等待所有消费者进入启动流程
         /// <summary>等待所有消费者进入启动流程</summary>
@@ -133,7 +137,10 @@ namespace TigerSan.WebApi.Base
 
         #region 等待全部消费者结束，并完成管道生命周期清理
         /// <summary>等待全部消费者结束，并完成管道生命周期清理</summary>
-        private async Task ObserveConsumersStoppedAsync(Channel<TData> channel, Task allConsumersTask)
+        private async Task ObserveConsumersStoppedAsync(
+            Channel<TData> channel,
+            Task allConsumersTask,
+            CancellationTokenSource lifecycleCts)
         {
             try
             {
@@ -165,8 +172,11 @@ namespace TigerSan.WebApi.Base
 
                         // 允许下一次 StartProcessingAsync 创建新的生命周期。
                         _startTask = null;
+                        _lifecycleCts = null;
                     }
                 }
+
+                lifecycleCts.Dispose();
 
                 if (discardedCount > 0)
                 {
@@ -211,6 +221,9 @@ namespace TigerSan.WebApi.Base
                         continue;
                     }
 
+                    // Complete 后不再启动新的批次处理。
+                    ct.ThrowIfCancellationRequested();
+
                     // 每批使用独立列表，避免回调保存列表后，
                     // 又被消费者 Clear() 清空或覆盖。
                     var batch = buffer;
@@ -219,7 +232,8 @@ namespace TigerSan.WebApi.Base
                     await ProcessBatchInternalAsync(
                         batch,
                         process,
-                        processAsync).ConfigureAwait(false);
+                        processAsync,
+                        ct).ConfigureAwait(false);
                 }
             }
             catch (OperationCanceledException) when (ct.IsCancellationRequested)
@@ -243,7 +257,8 @@ namespace TigerSan.WebApi.Base
         private async Task ProcessBatchInternalAsync(
             List<TData> batch,
             Action<List<TData>>? process,
-            Func<List<TData>, Task>? processAsync)
+            Func<List<TData>, Task>? processAsync,
+            CancellationToken ct)
         {
             List<TData>? asyncBatch = process != null && processAsync != null
                 ? new List<TData>(batch)
@@ -259,6 +274,12 @@ namespace TigerSan.WebApi.Base
                 {
                     LogHelper.Instance.Warning($"Synchronous batch processing failed: {e.GetMessage()}");
                 }
+            }
+
+            // 同步处理期间若调用 Complete，则跳过当前批次的异步处理。
+            if (ct.IsCancellationRequested)
+            {
+                return;
             }
 
             if (processAsync != null && asyncBatch != null)
@@ -278,7 +299,7 @@ namespace TigerSan.WebApi.Base
 
         #region 启动多个消费者
         /// <summary>启动多个消费者</summary>
-        public Task StartProcessingAsync(CancellationToken ct = default)
+        public Task StartProcessingAsync()
         {
             lock (_stateLock)
             {
@@ -332,6 +353,8 @@ namespace TigerSan.WebApi.Base
                 }
 
                 Channel<TData> channel = _channel;
+                var lifecycleCts = new CancellationTokenSource();
+                _lifecycleCts = lifecycleCts;
                 _processingState = ProcessingState.Starting;
 
                 var startSignals = new TaskCompletionSource<bool>[consumerCount];
@@ -348,7 +371,7 @@ namespace TigerSan.WebApi.Base
                         batchSize,
                         process,
                         processAsync,
-                        ct,
+                        lifecycleCts.Token,
                         started));
                 }
 
@@ -359,7 +382,7 @@ namespace TigerSan.WebApi.Base
                 _startTask = startTask;
 
                 // 后台观察消费者退出，并在完成清理后允许重启。
-                _consumersCompletion = ObserveConsumersStoppedAsync(channel, allConsumersTask);
+                _consumersCompletion = ObserveConsumersStoppedAsync(channel, allConsumersTask, lifecycleCts);
 
                 // 只等待启动信号，不等待实际消费完成。
                 return startTask;
@@ -369,7 +392,7 @@ namespace TigerSan.WebApi.Base
 
         #region 标记生产结束
         /// <summary>
-        /// 标记生产结束（已写入的数据仍会由消费者继续处理）
+        /// 标记生产结束并立即停止后续批次处理
         /// </summary>
         public void Complete()
         {
@@ -384,6 +407,9 @@ namespace TigerSan.WebApi.Base
                 {
                     _writerCompleted = true;
                     completed = _channel.Writer.TryComplete();
+
+                    // 立即取消消费者等待，阻止后续批次处理。
+                    _lifecycleCts?.Cancel();
 
                     // 尚未启动消费者时，直接结束当前生命周期；后续启动会创建新管道。
                     if (_processingState == ProcessingState.NotStarted)
@@ -407,33 +433,29 @@ namespace TigerSan.WebApi.Base
         #region 发布数据
         /// <summary>发布数据</summary>
         /// <returns>是否成功发布</returns>
-        public async ValueTask<bool> PublishAsync(TData data, CancellationToken ct = default)
+        public async ValueTask<bool> PublishAsync(TData data)
         {
-            Channel<TData> channel;
-            bool canPublish;
-
-            lock (_stateLock)
-            {
-                // 捕获当前生命周期的管道，避免 await 期间重启后写入新管道。
-                channel = _channel;
-                canPublish = _processingState == ProcessingState.Running && !_writerCompleted;
-            }
-
-            if (!canPublish)
-            {
-                LogHelper.Instance.Warning("Cannot publish data because consumers are not running or the channel is closed.");
-                return false;
-            }
-
             try
             {
-                await channel.Writer.WriteAsync(data, ct).ConfigureAwait(false);
+                // 消费者未启动时，自动启动当前生命周期。
+                await StartProcessingAsync().ConfigureAwait(false);
+
+                Channel<TData> channel;
+
+                lock (_stateLock)
+                {
+                    // 捕获当前生命周期的管道，避免 await 期间重启后写入新管道。
+                    if (_processingState != ProcessingState.Running || _writerCompleted)
+                    {
+                        LogHelper.Instance.Warning("Cannot publish data because consumers are not running or the channel is closed.");
+                        return false;
+                    }
+
+                    channel = _channel;
+                }
+
+                await channel.Writer.WriteAsync(data).ConfigureAwait(false);
                 return true;
-            }
-            catch (OperationCanceledException) when (ct.IsCancellationRequested)
-            {
-                LogHelper.Instance.Warning("Publishing was canceled.");
-                return false;
             }
             catch (ChannelClosedException)
             {

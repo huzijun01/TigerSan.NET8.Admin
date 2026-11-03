@@ -19,17 +19,20 @@ export enum PositionTypes {
 }
 
 /** 位置信息 */
-export class PositionDto extends IdEntityBase {
+export class PositionDto<T = unknown> extends IdEntityBase {
     info = ''
-    longitude = 0
-    latitude = 0
+    longitude?: number
+    latitude?: number
+    x?: number
+    y?: number
     reportTime?: Date
     locationMode?: LocationModes
     // 附加：
     type?: PositionTypes
+    data?: T
 
     /** 获取“图标” */
-    static GetIcon(data: LnglatData<PositionDto, PositionInfoModel>) {
+    static GetIcon<T>(data: LnglatData<PositionDto<T>, PositionInfoModel>) {
         return data.data?.type === PositionTypes.Station ? stationIcon : tagIcon
     }
 }
@@ -47,18 +50,18 @@ export class LocationRecord {
 }
 
 /** “位置信息”模型 */
-export class PositionInfoModel {
+export class PositionInfoModel<T = unknown> {
     //#region 【Fields】
     readonly _id = nanoid()
     /** 点击时 */
-    _onClick?: (info: PositionInfoModel) => any
+    _onClick?: (info: PositionInfoModel<T>) => any
     //#endregion 【Fields】
 
     //#region 【Props】
     /** 是否选中 */
     readonly IsSelected = ref(false)
-    /** 资产位置 */
-    readonly Position: Reactive<PositionDto>
+    /** 位置 */
+    readonly Position: Reactive<PositionDto<T>>
     /** 图标 */
     readonly Icon = ref(Icons.Tag_Linear_2)
     /** 背景 */
@@ -83,8 +86,8 @@ export class PositionInfoModel {
     //#endregion 【Props】
 
     //#region 【Ctor】
-    constructor(position: PositionDto) {
-        this.Position = reactive<PositionDto>(position)
+    constructor(position: PositionDto<T>) {
+        this.Position = reactive<PositionDto<T>>(position)
         if (position.type === PositionTypes.Station) {
             this.Icon.value = Icons.Router_Linear
         }
