@@ -23,11 +23,13 @@ export class BlobBehavior {
 
     //#region 【Functions】
     readonly Load = async () => {
+        if (!this._getBlob) return
+
         try {
             loading.IsShow.value = true
 
             // 1. 获取新的 Blob 数据
-            const newBlob = await this._getBlob?.(this.Name.value)
+            const newBlob = await this._getBlob(this.Name.value)
 
             if (newBlob) {
                 // 2. 【关键步骤】释放旧的 URL

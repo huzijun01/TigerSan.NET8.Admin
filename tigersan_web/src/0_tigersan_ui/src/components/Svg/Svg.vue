@@ -1,7 +1,7 @@
 <template>
     <div class="svg-panel">
-        <div class="bg" :style="model.BgStyle.value">
-            <img ref="refRoot" :src="model.BgUrl.value" />
+        <div class="bg" ref="refRoot" :style="model.BgStyle.value">
+            <img :src="model.BgUrl.value" :style="model.ImageStyle.value" />
             <slot></slot>
         </div>
         <svg :style="model._size.SizeStyle.value" @mousedown="model.OnMouseDown" @mouseup="model.OnMouseUp"

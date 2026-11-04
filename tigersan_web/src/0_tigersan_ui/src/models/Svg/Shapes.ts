@@ -4,13 +4,13 @@ import { Colors } from "../../base"
 
 export type DominantBaseline = "alphabetic" | "auto" | "central" | "hanging" | "ideographic" | "mathematical" | "middle" | "text-bottom" | "text-top";
 
-export class ShapeBase<TData, TModel> {
+export class ShapeBase<TModel, TData = undefined> {
     readonly _id = nanoid()
     _data?: TData
     _onClick?: (model: TModel) => any
 }
 
-export class PointModel<TData> extends ShapeBase<TData, PointModel<TData>> {
+export class PointModel<TData = undefined> extends ShapeBase<PointModel<TData>, TData> {
     readonly X = ref(0)
     readonly Y = ref(0)
     readonly Icon = ref('●')
@@ -52,7 +52,7 @@ export class PointModel<TData> extends ShapeBase<TData, PointModel<TData>> {
     }
 }
 
-export class LineModel<TData> extends ShapeBase<TData, LineModel<TData>> {
+export class LineModel<TData = undefined> extends ShapeBase<LineModel<TData>, TData> {
     readonly X1 = ref(0)
     readonly Y1 = ref(0)
     readonly X2 = ref(0)
@@ -77,7 +77,7 @@ export class LineModel<TData> extends ShapeBase<TData, LineModel<TData>> {
     }
 }
 
-export class RectModel<TData> extends ShapeBase<TData, RectModel<TData>> {
+export class RectModel<TData = undefined> extends ShapeBase<RectModel<TData>, TData> {
     readonly X = ref(0)
     readonly Y = ref(0)
     readonly W = ref(0)
@@ -103,7 +103,7 @@ export class RectModel<TData> extends ShapeBase<TData, RectModel<TData>> {
     }
 }
 
-export class CircleModel<TData> extends ShapeBase<TData, CircleModel<TData>> {
+export class CircleModel<TData = undefined> extends ShapeBase<CircleModel<TData>, TData> {
     readonly X = ref(0)
     readonly Y = ref(0)
     readonly R = ref(0)

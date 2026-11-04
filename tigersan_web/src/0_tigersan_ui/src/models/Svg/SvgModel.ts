@@ -45,6 +45,8 @@ export class SvgModel {
     readonly IsEditing = ref(false)
     /** “背景”样式 */
     readonly BgStyle = shallowRef<StyleValue>()
+    /** “图片”样式 */
+    readonly ImageStyle = shallowRef<StyleValue>()
     /** 临时“线” */
     readonly TempLine = shallowRef<LineModel<any> | undefined>()
     /** 临时“矩形” */
