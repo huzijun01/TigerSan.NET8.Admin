@@ -164,8 +164,9 @@ export class IndoorPositionPageModel {
 
             const p = new PointModel<PositionDto<BaseStationDto>>(i.x, i.y)
             p._data = dto
-            p.Fill.value = Colors.Warning
-            p.Text.value = Icons.Router_Planar_2
+            p.Text.value = i.name
+            p.IconFill.value = p.TextFill.value = Colors.Warning
+            p.Icon.value = Icons.Router_Planar_2
             p._onClick = model => {
                 this.SelectedStation.value = model._data
                 this.tabList.SetSelectedPage(1)
@@ -197,8 +198,9 @@ export class IndoorPositionPageModel {
 
             const p = new PointModel<PositionDto>(i.x, i.y)
             p._data = i
-            p.Fill.value = Colors.Brand
-            p.Text.value = Icons.Tag_Planar_2
+            p.Text.value = i.info
+            // p.IconFill.value = p.TextFill.value = Colors.Brand
+            p.Icon.value = Icons.Tag_Planar_2
             p._onClick = model => {
                 this.tabList.SetSelectedPage(0)
                 if (model._data) this.tagList.GoToPage(model._data)

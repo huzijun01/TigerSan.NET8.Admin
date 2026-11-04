@@ -13,15 +13,27 @@ export class ShapeBase<TData, TModel> {
 export class PointModel<TData> extends ShapeBase<TData, PointModel<TData>> {
     readonly X = ref(0)
     readonly Y = ref(0)
-    readonly Text = ref('●')
-    readonly Fill = ref(Colors.Brand)
-    readonly Class = ref<string>()
-    readonly FontSize = ref(16)
+    readonly Icon = ref('●')
+    readonly Text = ref('')
+    readonly Class = ref('')
+    readonly IconSize = ref(16)
+    readonly TextSize = ref(12)
+    readonly IconFill = ref(Colors.Brand)
+    readonly TextFill = ref(Colors.Brand)
     readonly DominantBaseline = ref<DominantBaseline>('middle')
+
     readonly Style = computed((): StyleValue => {
         return {
-            fontSize: this.FontSize.value + 'px',
+            fontSize: this.IconSize.value + 'px',
             dominantBaseline: this.DominantBaseline.value,
+        }
+    })
+
+    readonly labelY = computed(() => Number(this.Y.value) + this.IconSize.value + 3)
+
+    readonly labelStyle = computed((): StyleValue => {
+        return {
+            fontSize: this.TextSize.value + 'px',
         }
     })
 

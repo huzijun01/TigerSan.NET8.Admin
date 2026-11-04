@@ -200,10 +200,10 @@ export class SvgModel {
     readonly SetPosition = (x: number, y: number) => {
         if (!this.Position.value) {
             this.Position.value = new PointModel<any>(x, y)
-            this.Position.value.Text.value = Icons.Coordinate_2
+            this.Position.value.Icon.value = Icons.Coordinate_2
             this.Position.value.Class.value = 'position'
-            this.Position.value.Fill.value = 'red'
-            this.Position.value.FontSize.value = 20
+            this.Position.value.IconFill.value = 'red'
+            this.Position.value.IconSize.value = 20
             this.Position.value.DominantBaseline.value = 'text-bottom'
         } else {
             this.Position.value.X.value = x

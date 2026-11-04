@@ -1,6 +1,10 @@
 <template>
     <text class="iconfont" :class="model.Class.value" :style="model.Style.value" :x="model.X.value" :y="model.Y.value"
-        :fill="model.Fill.value" @click="model.OnClick">
+        :fill="model.IconFill.value" @click="model.OnClick">
+        {{ model.Icon.value }}
+    </text>
+    <text v-if="model.Text.value" :x="model.X.value" :y="model.labelY.value" :fill="model.TextFill.value"
+        :style="model.labelStyle.value" @click="model.OnClick">
         {{ model.Text.value }}
     </text>
 </template>
@@ -32,5 +36,11 @@ text {
     &.position {
         pointer-events: none;
     }
+}
+
+.icon-label {
+    text-anchor: middle;
+    dominant-baseline: mathematical;
+    user-select: none;
 }
 </style>
