@@ -59,14 +59,14 @@ export const navHome: NavFolderConfig = {
                     _component: TransferPage,
                     _authority: Authorities.AssetTransferPage,
                 },
-                {
-                    Key: "资产预警",
-                    Title: TextModel.Computed('Asset Alarm', "资产预警"),
-                    Icon: Icons.Bell,
-                    IsSelected: false,
-                    _component: undefined,
-                    _authority: Authorities.AssetAlarmPage,
-                },
+                // {
+                //     Key: "资产预警",
+                //     Title: TextModel.Computed('Asset Alarm', "资产预警"),
+                //     Icon: Icons.Bell,
+                //     IsSelected: false,
+                //     _component: undefined,
+                //     _authority: Authorities.AssetAlarmPage,
+                // },
                 {
                     Key: "资产维护",
                     Title: TextModel.Computed('Asset Maintain', "资产维护"),

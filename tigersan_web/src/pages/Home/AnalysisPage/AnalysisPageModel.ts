@@ -11,6 +11,9 @@ export class AnalysisPageModel {
 
     //#region 【Ctor】
     constructor() {
+        this.pagination.PageSize.value = 100
+        this.pagination.IsShowPageSize.value = false
+        this.pagination.IsShowPageTextBox.value = false
         this.pagination.IsShowSelectedRowCount.value = true
         this.pagination._onChange = this.Refresh
     }
