@@ -77,8 +77,8 @@ export class IndoorPositionPageModel {
     //#region 【Ctor】
     constructor() {
         this._svg._isAutoClear = false
-        this._svg.AddLayer({ points: this.Tags })
-        this._svg.AddLayer({ points: this.Stations })
+        this._svg.SetLayers([{ Points: this.Tags }])
+        this._svg.AddLayer({ Points: this.Stations })
         this._svg._onSaveAsync = async () => {
             const p = this._svg.TempPoint.value
             const station = this.SelectedStation.value?.data
@@ -162,7 +162,7 @@ export class IndoorPositionPageModel {
             dto.reportTime = i.reportTime
             dto.data = i
 
-            const p = new PointModel<PositionDto<BaseStationDto>>(i.x, i.y)
+            const p = new PointModel<PositionDto<BaseStationDto>>({ X: i.x, Y: i.y })
             p._data = dto
             p.Text.value = i.name
             p.IconFill.value = p.TextFill.value = Colors.Warning
@@ -196,7 +196,7 @@ export class IndoorPositionPageModel {
         positions.forEach(i => {
             i.type = PositionTypes.Tag
 
-            const p = new PointModel<PositionDto>(i.x, i.y)
+            const p = new PointModel<PositionDto>({ X: i.x, Y: i.y })
             p._data = i
             p.Text.value = i.info
             // p.IconFill.value = p.TextFill.value = Colors.Brand

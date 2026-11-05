@@ -39,6 +39,7 @@ export class PositionListModel<T = unknown> {
         this.pagination.IsShowCount.value = false
         this.pagination.IsShowPageSize.value = false
         this.pagination.IsShowPageTextBox.value = false
+        this.pagination._onChange = this.InitInfoes
         this.watchCount = watch(this.Count, count => this.pagination.Count.value = count)
     }
     //#endregion 【Ctor】

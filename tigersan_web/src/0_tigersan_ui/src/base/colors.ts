@@ -82,7 +82,7 @@ export class Colors {
     static MaskPressed = "var(--color-mask-pressed)"
     static MaskDisabled = "var(--color-mask-disabled)"
     static ForegroundDisabled = "var(--color-foreground-disabled)"
-    static BoxShadow = "var(--color-box-shadow)"
+    static BoxShadow = "var(--theme-box-shadow)"
 
     /* [标准色] */
     static Blue = '#5470C6' // 蓝

@@ -6,6 +6,7 @@ import AssetReportPage from '@/pages/Home/AssetReportPage/AssetReportPage.vue'
 import TransferPage from '@/pages/Home/TransferPage/TransferPage.vue'
 import VehiclePage from '@/pages/Home/VehiclePage/VehiclePage.vue'
 import InventoryRecordPage from '@/pages/Home/InventoryRecordPage/InventoryRecordPage.vue'
+import WorkFlowPage from '@/pages/Home/WorkFlowPage/WorkFlowPage.vue'
 
 export const navHome: NavFolderConfig = {
     Folders: [
@@ -119,7 +120,7 @@ export const navHome: NavFolderConfig = {
                     Title: TextModel.Computed('Work Flow', "业务流程"),
                     Icon: Icons.Flowchart,
                     IsSelected: false,
-                    _component: undefined,
+                    _component: WorkFlowPage,
                     _authority: Authorities.WorkFlowPage,
                 },
             ]

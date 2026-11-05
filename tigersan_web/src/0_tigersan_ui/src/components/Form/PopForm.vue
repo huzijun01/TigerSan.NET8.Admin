@@ -74,6 +74,7 @@ table {
     max-width: 95vw;
     max-height: 95vh;
     border-radius: 10px;
+    box-shadow: var(--theme-box-shadow);
     background-color: var(--theme-card-background);
 
     .title-panel {

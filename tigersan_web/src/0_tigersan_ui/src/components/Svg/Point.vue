@@ -27,7 +27,7 @@ const { model } = defineProps({
 text {
     cursor: pointer;
     text-anchor: middle;
-    box-shadow: var(--color-box-shadow) 0px 0px 3px;
+    text-shadow: var(--theme-text-shadow);
 
     &:hover {
         fill: var(--color-danger);

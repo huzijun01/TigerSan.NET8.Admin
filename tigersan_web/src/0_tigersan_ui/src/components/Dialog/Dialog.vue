@@ -72,7 +72,7 @@ function Close(id: string, state: DialogState) {
         border-radius: 5px;
         /* 边框 */
         border: 1px solid;
-        box-shadow: var(--box-shadow);
+        box-shadow: var(--theme-box-shadow);
         border-color: var(--theme-brand);
         /* 颜色 */
         background: var(--theme-panel-background);

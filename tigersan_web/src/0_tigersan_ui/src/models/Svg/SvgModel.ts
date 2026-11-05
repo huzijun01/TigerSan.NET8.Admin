@@ -1,9 +1,9 @@
 import { ref, shallowReactive, shallowRef, type StyleValue } from "vue"
 import { Icons } from "../../base"
-import { LineModel, RectModel, CircleModel, PointModel, CsvLayerModel, SvgHelper, type CsvLayerOpt } from "./Shapes"
+import type { BlobGetter } from "../../types"
 import { SizeBehavior } from "../../helpers/Behaviors/SizeBehavior"
 import { BlobBehavior } from "../../helpers/Behaviors/BlobBehavior"
-import type { BlobGetter } from "../../types"
+import { LineModel, RectModel, CircleModel, PointModel, CsvLayerModel, SvgHelper, type CsvLayerOpt } from "./Shapes"
 
 /** 编辑器模式 */
 export enum EditorModes {
@@ -41,6 +41,8 @@ export class SvgModel {
     //#region 【Props】
     /** 背景URL */
     readonly BgUrl = this._bgBlob.Url
+    /** 是否显示网格 */
+    readonly IsShowGrid = ref(false)
     /** 是否处于编辑状态 */
     readonly IsEditing = ref(false)
     /** “背景”样式 */
@@ -58,7 +60,7 @@ export class SvgModel {
     /** 坐标点 */
     readonly Position = shallowRef<PointModel<any> | undefined>()
     /** “图层”集合 */
-    readonly Layers = shallowReactive<CsvLayerModel<any, any, any, any>[]>([])
+    readonly Layers = shallowReactive<CsvLayerModel[]>([])
     //#endregion 【Props】
 
     //#region 【Ctor】
@@ -72,7 +74,7 @@ export class SvgModel {
     //#region 【点】
     /** 点：鼠标按下直接在点击位置生成 */
     private readonly handlePointDown = (svgP: { x: number; y: number }) => {
-        this.TempPoint.value = new PointModel(svgP.x, svgP.y)
+        this.TempPoint.value = new PointModel({ X: svgP.x, Y: svgP.y })
     }
 
     /** 点：鼠标移动实时更新坐标，支持拖拽调整位置 */
@@ -92,7 +94,7 @@ export class SvgModel {
     //#region 【线】
     /** 线：鼠标按下初始化 */
     private readonly handleLineDown = (svgP: { x: number; y: number }) => {
-        this.TempLine.value = new LineModel(svgP.x, svgP.y, svgP.x, svgP.y)
+        this.TempLine.value = new LineModel({ X1: svgP.x, Y1: svgP.y, X2: svgP.x, Y2: svgP.y })
     }
 
     /** 线：鼠标移动更新终点 */
@@ -117,7 +119,7 @@ export class SvgModel {
     //#region 【矩形】
     /** 矩形：鼠标按下初始化 */
     private readonly handleRectDown = (svgP: { x: number; y: number }) => {
-        this.TempRect.value = new RectModel(svgP.x, svgP.y, 0, 0)
+        this.TempRect.value = new RectModel({ X: svgP.x, Y: svgP.y })
     }
 
     /** 矩形：鼠标移动更新尺寸（支持任意方向拖拽） */
@@ -147,7 +149,7 @@ export class SvgModel {
     //#region 【圆】
     /** 圆：鼠标按下初始化（按下点为圆心） */
     private readonly handleCircleDown = (svgP: { x: number; y: number }) => {
-        this.TempCircle.value = new CircleModel(svgP.x, svgP.y, 0)
+        this.TempCircle.value = new CircleModel({ X: svgP.x, Y: svgP.y })
     }
 
     /** 圆：鼠标移动更新半径（拖拽距离为半径） */
@@ -176,6 +178,12 @@ export class SvgModel {
     }
     //#endregion [private]
 
+    /** 设置“图层”集合 */
+    readonly SetLayers = (layers: CsvLayerOpt[]) => {
+        this.Layers.splice(0)
+        layers.forEach(i => this.Layers.push(new CsvLayerModel(i)))
+    }
+
     /** 进入指定图形的编辑模式 */
     readonly Edit = (mode = EditorModes.Line) => {
         this.Init()
@@ -201,7 +209,7 @@ export class SvgModel {
     /** 设置“坐标点” */
     readonly SetPosition = (x: number, y: number) => {
         if (!this.Position.value) {
-            this.Position.value = new PointModel<any>(x, y)
+            this.Position.value = new PointModel<any>({ X: x, Y: y })
             this.Position.value.Icon.value = Icons.Coordinate_2
             this.Position.value.Class.value = 'position'
             this.Position.value.IconFill.value = 'red'
@@ -290,8 +298,8 @@ export class SvgModel {
     }
 
     /** 添加“图层” */
-    readonly AddLayer = (opts: CsvLayerOpt<any, any, any, any>) => {
-        this.Layers.push(new CsvLayerModel(opts))
+    readonly AddLayer = (opt: CsvLayerOpt) => {
+        this.Layers.push(new CsvLayerModel(opt))
     }
     //#endregion 【Functions】
 }

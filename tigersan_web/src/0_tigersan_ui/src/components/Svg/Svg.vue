@@ -6,6 +6,18 @@
         </div>
         <svg :style="model._size.SizeStyle.value" @mousedown="model.OnMouseDown" @mouseup="model.OnMouseUp"
             @mousemove="model.OnMouseMove">
+            <defs>
+                <pattern id="flow_canvas_grid_item" width="61" height="61" patternUnits="userSpaceOnUse">
+                    <path id="flow_canvas_grid_path1" stroke-width="1" fill="none"
+                        d="M0 15L60 15M15 0L15 60M0 30L60 30M30 0L30 60M0 45L60 45M45 0L45 60"
+                        stroke="var(--theme-grid-color-primary)" />
+                    <path id="flow_canvas_grid_path2" stroke-width="1" fill="none" d="M0 60L60 60M60 0L60 60"
+                        stroke="var(--theme-grid-color-secondary)" />
+                </pattern>
+            </defs>
+            <!-- 网格: -->
+            <rect id="flow_canvas_grids_box" v-if="model.IsShowGrid.value" width="100%" height="100%"
+                fill="url(#flow_canvas_grid_item)" />
             <!-- 图层: -->
             <CsvLayer v-for="l in model.Layers" :key="l._id" :model="l" />
             <!-- 临时: -->
