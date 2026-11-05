@@ -126,11 +126,14 @@ namespace TigerSan.NET8.WebApi.Services.Models
 
                 var list = new List<AssetStateRecordDto>();
 
+                var companyEntities = await _db.Companies.Where(i => companies.Contains(i.Id)).ToListAsync();
+
                 // 添加“数据”:
                 foreach (var entity in entities)
                 {
                     var dto = new AssetStateRecordDto();
                     dto.ShallowCopy(entity);
+                    dto.CompanyName = companyEntities.FirstOrDefault(i => i.Id == entity.Company)?.Name ?? "";
 
                     var find = list.FirstOrDefault(i => i.Time == entity.Time);
                     if (find == null)

@@ -46,7 +46,7 @@ class AssetStateRecordHelper extends IdHelper<AssetStateRecordEntity> {
         super('AssetStateRecord')
     }
 
-    /** 筛选“总数” */
+    /** 获取“总数” */
     readonly GetCount = async (param: AssetStateRecordFilter) => {
         if (!param.company && ArrayHelper.IsEmpty(param.companies)) return 0
         return await axiosHelper.GetCount(this._action, {
@@ -54,7 +54,7 @@ class AssetStateRecordHelper extends IdHelper<AssetStateRecordEntity> {
         })
     }
 
-    /** 筛选“数据”集合 */
+    /** 获取“完整数据”集合 */
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number,
@@ -72,7 +72,7 @@ class AssetStateRecordHelper extends IdHelper<AssetStateRecordEntity> {
         })
     }
 
-    /** 筛选“数据”集合（多公司求和） */
+    /** 获取“完整数据”集合（多公司求和） */
     readonly GetSumFullList = async (companies: bigint[]) => {
         return await axiosHelper.Post<AssetStateRecordDto[]>(`${this._action}/SumFullList`, undefined, companies)
     }

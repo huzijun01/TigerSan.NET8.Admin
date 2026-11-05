@@ -1,4 +1,4 @@
-import { CsvLayerModel, Icons, PointModel, SvgModel } from "@/0_tigersan_ui/tigerui";
+import { Icons, SvgModel } from "@/0_tigersan_ui/tigerui";
 
 export class WorkFlowPageModel {
     readonly svgAssetState = new SvgModel()

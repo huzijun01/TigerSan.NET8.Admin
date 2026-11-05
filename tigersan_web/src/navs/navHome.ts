@@ -7,6 +7,7 @@ import TransferPage from '@/pages/Home/TransferPage/TransferPage.vue'
 import VehiclePage from '@/pages/Home/VehiclePage/VehiclePage.vue'
 import InventoryRecordPage from '@/pages/Home/InventoryRecordPage/InventoryRecordPage.vue'
 import WorkFlowPage from '@/pages/Home/WorkFlowPage/WorkFlowPage.vue'
+import AnalysisPage from '@/pages/Home/AnalysisPage/AnalysisPage.vue'
 
 export const navHome: NavFolderConfig = {
     Folders: [
@@ -104,7 +105,7 @@ export const navHome: NavFolderConfig = {
                     Title: TextModel.Computed('Analysis', "统计分析"),
                     Icon: Icons.Chart_Line,
                     IsSelected: false,
-                    _component: undefined,
+                    _component: AnalysisPage,
                     _authority: Authorities.AnalysisPage,
                 },
                 {
