@@ -15,6 +15,14 @@ namespace TigerSan.NET8.EFCore.Base
         #region 【Functions】
         #region [查]
         [HttpPost]
+        [Route("Count1")]
+        /// <summary>获取“总数”</summary>
+        public async Task<ApiResult<int>> GetCount(string? name = null, [FromBody] FilterDto? filter = null)
+        {
+            return await _service.GetCount(name, filter);
+        }
+
+        [HttpPost]
         [Route("FullList")]
         /// <summary>获取“完整数据”集合</summary>
         public async Task<ApiResult<List<PersonFullEntity>>> GetFullList(

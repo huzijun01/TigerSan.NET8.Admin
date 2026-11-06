@@ -1,4 +1,4 @@
-import { IdName } from "@/0_tigersan_ui/tigerui"
+import { FilterDto, IdName } from "@/0_tigersan_ui/tigerui"
 import { IdEntityBase, IdHelper, axiosHelper } from "@/helpers"
 
 /** "人员"实体 */
@@ -15,6 +15,26 @@ export class PersonEntity extends IdEntityBase {
     mail?: string
 }
 
+export class PersonFilter {
+    company?: bigint
+    department?: bigint
+    role?: bigint
+
+    static GetFilter(param: PersonFilter): FilterDto {
+        return {
+            parent: {
+                id: param.role,
+                parent: {
+                    id: param.department,
+                    parent: {
+                        id: param.company,
+                    }
+                }
+            }
+        }
+    }
+}
+
 class PersonHelper extends IdHelper<PersonEntity> {
     constructor() {
         super('Person')
@@ -22,53 +42,28 @@ class PersonHelper extends IdHelper<PersonEntity> {
 
     /** 筛选“总数” */
     readonly GetCount = async (param: {
-        company?: bigint,
-        department?: bigint,
-        role?: bigint,
-        name?: string,
-    }) => await axiosHelper.GetCount(this._action, {
+        name?: string
+    } & PersonFilter) => await axiosHelper.GetCount(this._action, {
+        strCount: 'Count1',
         params: [
             { key: 'name', value: param.name }
         ],
-        filter: {
-            parent: {
-                id: param.role,
-                parent: {
-                    id: param.department,
-                    parent: {
-                        id: param.company,
-                    }
-                }
-            }
-        }
+        filter: PersonFilter.GetFilter(param)
     })
 
     /** 筛选“数据”集合 */
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number,
-        company?: bigint,
-        department?: bigint,
-        role?: bigint,
         name?: string,
-    }) => await axiosHelper.GetList<PersonEntity>(this._action, {
+    } & PersonFilter) => await axiosHelper.GetList<PersonEntity>(this._action, {
         pageSize: param.pageSize,
         pageNumber: param.pageNumber,
         strList: 'FullList',
         params: [
             { key: 'name', value: param.name }
         ],
-        filter: {
-            parent: {
-                id: param.role,
-                parent: {
-                    id: param.department,
-                    parent: {
-                        id: param.company,
-                    }
-                }
-            }
-        }
+        filter: PersonFilter.GetFilter(param)
     })
 
     /** 获取“所属公司”集合 */

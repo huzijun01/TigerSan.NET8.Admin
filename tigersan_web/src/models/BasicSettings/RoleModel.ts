@@ -1,4 +1,4 @@
-import { IdName, AuthorityModel, SelectModel, Texts } from "@/0_tigersan_ui/tigerui"
+import { IdName, AuthorityModel, SelectModel, Texts, FilterDto } from "@/0_tigersan_ui/tigerui"
 import { IdNameHelper, axiosHelper } from "@/helpers"
 
 /** "角色"实体 */
@@ -6,6 +6,22 @@ export class RoleAuthorityEntity extends IdName {
     company: bigint = 0n
     department: bigint = 0n
     authorities: AuthorityModel[] = []
+}
+
+export class RoleFilter {
+    company?: bigint
+    department?: bigint
+
+    static GetFilter(param: RoleFilter): FilterDto {
+        return {
+            parent: {
+                id: param.department,
+                parent: {
+                    id: param.company,
+                }
+            }
+        }
+    }
 }
 
 class RoleHelper extends IdNameHelper<RoleAuthorityEntity> {
@@ -20,38 +36,19 @@ class RoleHelper extends IdNameHelper<RoleAuthorityEntity> {
 
     // 查:
     /** 筛选“总数” */
-    readonly GetCount = async (param: {
-        company?: bigint,
-        department?: bigint
-    }) => await axiosHelper.GetCount(this._action, {
-        filter: {
-            parent: {
-                id: param.department,
-                parent: {
-                    id: param.company,
-                }
-            }
-        }
+    readonly GetCount = async (param: RoleFilter) => await axiosHelper.GetCount(this._action, {
+        filter: RoleFilter.GetFilter(param)
     })
 
     /** 筛选“数据”集合 */
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number,
-        company?: bigint,
-        department?: bigint,
-    }) => await axiosHelper.GetList<RoleAuthorityEntity>(this._action, {
+    } & RoleFilter) => await axiosHelper.GetList<RoleAuthorityEntity>(this._action, {
         pageSize: param.pageSize,
         pageNumber: param.pageNumber,
         strList: 'FullList',
-        filter: {
-            parent: {
-                id: param.department,
-                parent: {
-                    id: param.company,
-                }
-            }
-        }
+        filter: RoleFilter.GetFilter(param)
     })
 
     /** 获取“ID名称对”集合 */

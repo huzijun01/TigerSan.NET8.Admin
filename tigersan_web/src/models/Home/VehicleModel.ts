@@ -1,4 +1,4 @@
-import { IdName, SelectModel, Texts } from "@/0_tigersan_ui/tigerui"
+import { FilterDto, IdName, SelectModel, Texts } from "@/0_tigersan_ui/tigerui"
 import { axiosHelper, IdHelper, IdEntityBase } from "@/helpers"
 
 /** “车辆”实体 */
@@ -8,6 +8,20 @@ export class VehicleEntity extends IdEntityBase {
     logistics?: string
     driver?: string
     phone?: string
+}
+
+export class VehicleFilter {
+    company?: bigint
+    plate?: string
+
+    static GetFilter(param: VehicleFilter): FilterDto {
+        return {
+            filters: [
+                { propName: 'Company', value: param.company },
+                { propName: 'Plate', value: param.plate === '' ? undefined : param.plate },
+            ]
+        }
+    }
 }
 
 export class VehicleHelper extends IdHelper<VehicleEntity> {
@@ -27,32 +41,18 @@ export class VehicleHelper extends IdHelper<VehicleEntity> {
 
     /** 筛选“总数” */
     readonly GetCount = async (param: {
-        company?: bigint,
-        plate?: string,
     }) => await axiosHelper.GetCount(this._action, {
-        filter: {
-            filters: [
-                { propName: 'Company', value: param.company },
-                { propName: 'Plate', value: param.plate === '' ? undefined : param.plate },
-            ]
-        }
+        filter: VehicleFilter.GetFilter(param)
     })
 
     /** 筛选“数据”集合 */
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number,
-        company?: bigint,
-        plate?: string,
-    }) => await axiosHelper.GetList<VehicleEntity>(this._action, {
+    } & VehicleFilter) => await axiosHelper.GetList<VehicleEntity>(this._action, {
         pageSize: param.pageSize,
         pageNumber: param.pageNumber,
-        filter: {
-            filters: [
-                { propName: 'Company', value: param.company },
-                { propName: 'Plate', value: param.plate === '' ? undefined : param.plate },
-            ]
-        }
+        filter: VehicleFilter.GetFilter(param)
     })
 
     /** 根据“公司”获取“ID名称对”集合 */

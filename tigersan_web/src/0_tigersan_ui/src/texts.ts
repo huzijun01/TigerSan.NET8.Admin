@@ -10,6 +10,7 @@ export class Texts {
     static readonly Addr = TextModel.Computed('Addr', '地址')
     static readonly Asset = TextModel.Computed('Asset', '资产')
     static readonly Allot = TextModel.Computed('Allot', '调拨')
+    static readonly Approve = TextModel.Computed('Approve', '审核')
     static readonly Address = TextModel.Computed('Address', '地址')
     static readonly AssetId = TextModel.Computed('AssetId', '资产ID')
     static readonly AllotMode = TextModel.Computed('AllotMode', '调拨方式')
@@ -37,6 +38,7 @@ export class Texts {
     static readonly BasicSettings = TextModel.Computed('BasicSettings', '基础设置')
     // C:
     static readonly Colon = TextModel.Computed(': ', '：')
+    static readonly Cost = TextModel.Computed('Cost', '费用')
     static readonly Code = TextModel.Computed('Code', '编号')
     static readonly Clear = TextModel.Computed('Clear', '清空')
     static readonly Count = TextModel.Computed('Count', '总数')
@@ -46,6 +48,7 @@ export class Texts {
     static readonly Company = TextModel.Computed('Company', '公司')
     static readonly Confirm = TextModel.Computed('Confirm ', '确认')
     static readonly Captcha = TextModel.Computed('Captcha', '验证码')
+    static readonly Complete = TextModel.Computed('Complete', '完成')
     static readonly CreateDir = TextModel.Computed('CreateDir', '新建文件夹')
     static readonly CreateTime = TextModel.Computed('CreateTime', '创建时间')
     static readonly CalculateTime = TextModel.Computed('CalculateTime', '计算时间')
@@ -200,6 +203,8 @@ export class Texts {
     static readonly Rename = TextModel.Computed('Rename', '重命名')
     static readonly Refresh = TextModel.Computed('Refresh', '刷新')
     static readonly ReportTime = TextModel.Computed('ReportTime', '上报时间')
+    static readonly RepairState = TextModel.Computed('RepairState', '维修状态')
+    static readonly RepairApprove = TextModel.Computed('RepairApprove', '维修审核')
     // S:
     static readonly Save = TextModel.Computed('Save', '保存')
     static readonly Size = TextModel.Computed('Size', '大小')

@@ -220,3 +220,45 @@ export class LocationMode {
         return select
     }
 }
+
+export enum RepairStates {
+    /** 提交 */
+    Submit = 0,
+    /** 审核 */
+    Approve = 1,
+    /** 维修 */
+    Repair = 2,
+    /** 维修审核 */
+    RepairApprove = 3,
+    /** 完成 */
+    Complete = 4,
+}
+
+export class RepairState {
+    static GetName(state: RepairStates): string {
+        switch (state) {
+            case RepairStates.Submit:
+                return Texts.Submit.value
+            case RepairStates.Approve:
+                return Texts.Approve.value
+            case RepairStates.Repair:
+                return Texts.Repair.value
+            case RepairStates.RepairApprove:
+                return Texts.RepairApprove.value
+            case RepairStates.Complete:
+                return Texts.Complete.value
+            default:
+                return Texts.Unknown.value
+        }
+    }
+
+    /** 获取“筛选框模型” */
+    static GetSelectModel(): SelectModel<RepairStates> {
+        const select = new SelectModel<RepairStates>()
+        select.Width.value = 120
+        select.Placeholder.value = Texts.Record
+        select.Items.push(...[0, 1, 2, 3, 4])
+        select._converter = this.GetName
+        return select
+    }
+}

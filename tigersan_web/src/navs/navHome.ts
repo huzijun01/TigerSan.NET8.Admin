@@ -8,6 +8,7 @@ import VehiclePage from '@/pages/Home/VehiclePage/VehiclePage.vue'
 import InventoryRecordPage from '@/pages/Home/InventoryRecordPage/InventoryRecordPage.vue'
 import WorkFlowPage from '@/pages/Home/WorkFlowPage/WorkFlowPage.vue'
 import AnalysisPage from '@/pages/Home/AnalysisPage/AnalysisPage.vue'
+import RepairPage from '@/pages/Home/RepairPage/RepairPage.vue'
 
 export const navHome: NavFolderConfig = {
     Folders: [
@@ -72,7 +73,7 @@ export const navHome: NavFolderConfig = {
                     Title: TextModel.Computed('Asset Maintain', "资产维护"),
                     Icon: Icons.Tools,
                     IsSelected: false,
-                    _component: undefined,
+                    _component: RepairPage,
                     _authority: Authorities.AssetMaintainPage,
                 },
             ]
@@ -84,14 +85,14 @@ export const navHome: NavFolderConfig = {
             IsOpen: true,
             _authority: Authorities.OtherFolder,
             Buttons: [
-                {
-                    Key: "过户管理",
-                    Title: TextModel.Computed('Ownership Mgt', "过户管理"),
-                    Icon: Icons.Transfer,
-                    IsSelected: false,
-                    _component: undefined,
-                    _authority: Authorities.OwnershipTransferPage,
-                },
+                // {
+                //     Key: "过户管理",
+                //     Title: TextModel.Computed('Ownership Mgt', "过户管理"),
+                //     Icon: Icons.Transfer,
+                //     IsSelected: false,
+                //     _component: undefined,
+                //     _authority: Authorities.OwnershipTransferPage,
+                // },
                 {
                     Key: "车辆列表",
                     Title: TextModel.Computed('Vehicles List', "车辆列表"),

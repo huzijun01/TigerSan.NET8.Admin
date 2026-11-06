@@ -18,11 +18,12 @@ export class AxiosHelper extends AxiosBase {
     readonly GetCount = async (
         action: string,
         param: {
+            strCount?: string,
             params?: KeyValueModel[],
             filter?: FilterDto
         }): Promise<number> => {
         try {
-            const actionResult = await this.Post(`${action}/Count`, param.params, param.filter)
+            const actionResult = await this.Post(`${action}/${param.strCount ?? 'Count'}`, param.params, param.filter)
 
             if (!ApiResult.IsSuccess(actionResult)) {
                 ApiResult.ShowResult(actionResult)

@@ -1,9 +1,9 @@
-import { OnlineStates } from "@/0_tigersan_ui/tigerui"
+import { FilterDto, OnlineStates } from "@/0_tigersan_ui/tigerui"
 import { LocationRecord } from "./PositionInfoModel"
 import { IdEntityBase, IdHelper, axiosHelper } from "@/helpers"
 import { AssetStates, LocationModes } from "../base/AssetStates"
 
-/** "资产记录"实体 */
+/** “资产记录”实体 */
 export class AssetRecordEntity extends IdEntityBase {
     asset: bigint = 0n
     tag: bigint = 0n
@@ -23,7 +23,7 @@ export class AssetRecordEntity extends IdEntityBase {
     comment?: string
 }
 
-/** "资产记录"对象 */
+/** “资产记录”对象 */
 export class AssetRecordDto extends AssetRecordEntity {
     tagId = ''
     stationId?: string
@@ -39,72 +39,57 @@ export class AssetRecordDto extends AssetRecordEntity {
     fullTarget = ''
 }
 
+/** “资产记录”过滤器 */
+export class AssetRecordFilter {
+    asset?: bigint
+    company?: bigint
+    department?: bigint
+    state?: number
+    states?: Array<number | undefined>
+    onlineState?: OnlineStates
+    locationMode?: LocationModes
+
+    static GetFilter(param: AssetRecordFilter): FilterDto {
+        return {
+            parent: {
+                id: param.asset,
+                parent: {
+                    id: param.department,
+                    parent: {
+                        id: param.company,
+                    }
+                }
+            },
+            filters: [
+                { propName: 'State', value: param.state, values: param.states },
+                { propName: 'OnlineState', value: param.onlineState },
+                { propName: 'LocationMode', value: param.locationMode },
+            ],
+        }
+    }
+}
+
 class AssetRecordHelper extends IdHelper<AssetRecordDto> {
     constructor() {
         super('AssetRecord')
     }
 
     /** 筛选“总数” */
-    readonly GetCount = async (param: {
-        asset?: bigint,
-        company?: bigint,
-        department?: bigint,
-        state?: number,
-        states?: Array<number | undefined>,
-        onlineState?: OnlineStates,
-        locationMode?: LocationModes,
-    }) => await axiosHelper.GetCount(this._action, {
-        filter: {
-            parent: {
-                id: param.asset,
-                parent: {
-                    id: param.department,
-                    parent: {
-                        id: param.company,
-                    }
-                }
-            },
-            filters: [
-                { propName: 'State', value: param.state, values: param.states },
-                { propName: 'OnlineState', value: param.onlineState },
-                { propName: 'LocationMode', value: param.locationMode },
-            ],
-        }
+    readonly GetCount = async (param: AssetRecordFilter) => await axiosHelper.GetCount(this._action, {
+        filter: AssetRecordFilter.GetFilter(param)
     })
 
     /** 筛选“数据”集合 */
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number,
-        asset?: bigint,
-        company?: bigint,
-        department?: bigint,
-        state?: number,
-        states?: Array<number | undefined>,
-        onlineState?: OnlineStates,
-        locationMode?: LocationModes,
-    }) => await axiosHelper.GetList<AssetRecordDto>(this._action, {
+    } & AssetRecordFilter) => await axiosHelper.GetList<AssetRecordDto>(this._action, {
         strList: 'FullList',
         pageSize: param.pageSize,
         pageNumber: param.pageNumber,
         sort: 'ReportTime',
         ascending: false,
-        filter: {
-            parent: {
-                id: param.asset,
-                parent: {
-                    id: param.department,
-                    parent: {
-                        id: param.company,
-                    }
-                }
-            },
-            filters: [
-                { propName: 'State', value: param.state, values: param.states },
-                { propName: 'OnlineState', value: param.onlineState },
-                { propName: 'LocationMode', value: param.locationMode },
-            ],
-        }
+        filter: AssetRecordFilter.GetFilter(param)
     })
 
     /** 获取“坐标”总数 */

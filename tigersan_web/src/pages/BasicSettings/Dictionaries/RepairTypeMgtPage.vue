@@ -1,0 +1,12 @@
+<template>
+    <DictionaryPage :model="model"></DictionaryPage>
+</template>
+
+<script lang="ts" setup>
+import DictionaryPage from '../DictionaryPage.vue'
+import { DictionaryModel, repairTypeHelper } from '@/models'
+
+const model = new DictionaryModel('资产类型', repairTypeHelper, true)
+</script>
+
+<style lang="less" scoped></style>

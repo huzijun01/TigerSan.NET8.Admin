@@ -1,4 +1,4 @@
-import { ArrayHelper } from "@/0_tigersan_ui/tigerui"
+import { ArrayHelper, FilterDto } from "@/0_tigersan_ui/tigerui"
 import { IdEntityBase, IdHelper, axiosHelper } from "@/helpers"
 
 /** "盘点记录"模型 */
@@ -15,10 +15,25 @@ export class InventoryRecordModel extends IdEntityBase {
 }
 
 /** "盘点记录"过滤器 */
-export type InventoryRecordFilter = {
-    site?: bigint,
-    company?: bigint,
-    companies?: bigint[],
+export class InventoryRecordFilter {
+    site?: bigint
+    company?: bigint
+    companies?: bigint[]
+
+    static GetFilter(param: InventoryRecordFilter): FilterDto {
+        return {
+            parent: {
+                id: undefined,
+                parent: {
+                    id: param.company,
+                    ids: param.companies,
+                },
+            },
+            filters: [
+                { propName: 'Site', value: param.site },
+            ],
+        }
+    }
 }
 
 class InventoryRecordHelper extends IdHelper<InventoryRecordModel> {
@@ -30,18 +45,7 @@ class InventoryRecordHelper extends IdHelper<InventoryRecordModel> {
     readonly GetCount = async (param: InventoryRecordFilter) => {
         if (!param.company && ArrayHelper.IsEmpty(param.companies)) return 0
         return await axiosHelper.GetCount(this._action, {
-            filter: {
-                parent: {
-                    id: undefined,
-                    parent: {
-                        id: param.company,
-                        ids: param.companies,
-                    },
-                },
-                filters: [
-                    { propName: 'Site', value: param.site },
-                ],
-            }
+            filter: InventoryRecordFilter.GetFilter(param)
         })
     }
 
@@ -59,18 +63,7 @@ class InventoryRecordHelper extends IdHelper<InventoryRecordModel> {
             pageNumber: param.pageNumber,
             sort: param.sort,
             ascending: param.ascending,
-            filter: {
-                parent: {
-                    id: undefined,
-                    parent: {
-                        id: param.company,
-                        ids: param.companies,
-                    },
-                },
-                filters: [
-                    { propName: 'Site', value: param.site },
-                ],
-            }
+            filter: InventoryRecordFilter.GetFilter(param)
         })
     }
 }

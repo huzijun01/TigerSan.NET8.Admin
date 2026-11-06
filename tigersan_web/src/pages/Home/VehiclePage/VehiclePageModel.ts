@@ -162,7 +162,7 @@ export class VehiclePageModel {
 
     /** 增 */
     readonly Add = async () => {
-        this.form.Title.value = `${Texts.Add.value} ${Texts.Vehicle.value}`
+        this.form.Title.value = `${Texts.Add.value}${Texts.Vehicle.value}`
 
         this.form._getSource = this.AddGetSource
 

@@ -68,6 +68,34 @@ namespace TigerSan.NET8.EFCore.Base
         }
         #endregion
 
+        #region 获取“总数”
+        public async Task<ApiResult<int>> GetCount(string? name = null, FilterDto? filter = null)
+        {
+            try
+            {
+                var queryable = _dbSet.AsNoTracking();
+
+                var res = await GetFilter(queryable, filter);
+                queryable = res.Data;
+                if (queryable == null)
+                {
+                    return ApiResults<int>.Error(res.Message);
+                }
+
+                if (name != null && name.Trim() != "")
+                {
+                    queryable = queryable.Where(i => i.Username.Contains(name) || i.Nickname.Contains(name));
+                }
+
+                return ApiResults<int>.Success(null, await queryable.CountAsync());
+            }
+            catch (Exception e)
+            {
+                return ApiResults<int>.Error(LogHelper.Instance.Error(e.GetMessage()));
+            }
+        }
+        #endregion
+
         #region 获取“完整数据”集合
         /// <summary>获取“完整数据”集合</summary>
         public async Task<ApiResult<List<PersonFullEntity>>> GetFullList(

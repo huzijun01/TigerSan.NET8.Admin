@@ -1,7 +1,7 @@
-import { IdName, Point2, SelectModel, StringHelper, Texts } from "@/0_tigersan_ui/tigerui"
+import { FilterDto, IdName, Point2, SelectModel, StringHelper, Texts } from "@/0_tigersan_ui/tigerui"
 import { axiosHelper, IdNameHelper } from "@/helpers"
 
-/** "场地"实体 */
+/** “场地”实体 */
 export class SiteEntity extends IdName {
     company: bigint = 0n
     type: bigint = 0n
@@ -19,6 +19,24 @@ export class SiteEntity extends IdName {
     image?: string
 }
 
+/** “场地”过滤器 */
+export class SiteFilter {
+    company?: bigint
+    companies?: bigint[]
+    type?: bigint
+    code?: string
+
+    static GetFilter(param: SiteFilter): FilterDto {
+        return {
+            filters: [
+                { propName: 'Company', value: param.company, values: param.companies },
+                { propName: 'Type', value: param.type },
+                { propName: 'Code', value: StringHelper.IsNotEmpty(param.code) ? param.code : undefined },
+            ]
+        }
+    }
+}
+
 class SiteHelper extends IdNameHelper<SiteEntity> {
     constructor() {
         super('Site')
@@ -31,20 +49,9 @@ class SiteHelper extends IdNameHelper<SiteEntity> {
     }
 
     /** 筛选“总数” */
-    readonly GetCount = async (param: {
-        company?: bigint,
-        companies?: bigint[],
-        type?: bigint
-        code?: string,
-    }) => {
+    readonly GetCount = async (param: SiteFilter) => {
         return await axiosHelper.GetCount(this._action, {
-            filter: {
-                filters: [
-                    { propName: 'Company', value: param.company, values: param.companies },
-                    { propName: 'Type', value: param.type },
-                    { propName: 'Code', value: StringHelper.IsNotEmpty(param.code) ? param.code : undefined },
-                ],
-            }
+            filter: SiteFilter.GetFilter(param)
         })
     }
 
@@ -52,22 +59,12 @@ class SiteHelper extends IdNameHelper<SiteEntity> {
     readonly GetList = async (param: {
         pageSize?: number,
         pageNumber?: number
-        company?: bigint,
-        companies?: bigint[],
-        type?: bigint,
-        code?: string,
-    }) => {
+    } & SiteFilter) => {
         const pageSize = StringHelper.IsNotEmpty(param.code) ? 1 : param.pageSize
         return await axiosHelper.GetList<SiteEntity>(this._action, {
             pageSize: pageSize,
             pageNumber: param.pageNumber,
-            filter: {
-                filters: [
-                    { propName: 'Company', value: param.company, values: param.companies },
-                    { propName: 'Type', value: param.type },
-                    { propName: 'Code', value: StringHelper.IsNotEmpty(param.code) ? param.code : undefined },
-                ],
-            }
+            filter: SiteFilter.GetFilter(param)
         })
     }
 

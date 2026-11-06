@@ -3,7 +3,7 @@ import { PositionDto } from "./PositionInfoModel"
 import { AssetStates, ErrorTypes } from "../base/AssetStates"
 import { IdEntityBase, IdHelper, axiosHelper } from "@/helpers"
 
-/** "资产数量"对象 */
+/** “资产数量”对象 */
 export class AssetCountDto {
     /** T ≤ 12h */
     countLessThan12h = 0
@@ -17,7 +17,7 @@ export class AssetCountDto {
     countGreaterThan48h = 0
 }
 
-/** "资产"实体 */
+/** “资产”实体 */
 export class AssetEntity extends IdEntityBase {
     assetId = ''
     department: bigint = 0n
@@ -51,7 +51,7 @@ export class AssetEntity extends IdEntityBase {
     offlineDuration?: number
 }
 
-/** "资产"对象 */
+/** “资产”对象 */
 export class AssetDto extends AssetEntity {
     company: bigint = 0n
     companyName = ''

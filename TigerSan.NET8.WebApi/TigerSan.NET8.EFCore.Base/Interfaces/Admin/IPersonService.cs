@@ -5,6 +5,7 @@ namespace TigerSan.NET8.EFCore.Base
     public interface IPersonService : IIdServiceBase<PersonEntity>
     {
         public Task<ApiResult<PersonFullEntity>> GetLoginFull(string search, bool clearPassword = true);
+        public Task<ApiResult<int>> GetCount(string? name = null, FilterDto? filter = null);
         public Task<ApiResult<List<PersonFullEntity>>> GetFullList(
             string? name = null,
             int? pageSize = null,
